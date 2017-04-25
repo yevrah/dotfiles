@@ -26,6 +26,11 @@ call vundle#end()
 filetype plugin indent on
 
 
+" ================ Buffer Shortcuts =================
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>"
+
+
 " ================ Tab shortcots ====================
 "
 map <silent> tt :tabnew<cr>   " Create Tab
