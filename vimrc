@@ -58,6 +58,11 @@ map <silent> ,9 :tabn 9<cr>
 nnoremap <silent> vv <C-w>v " Split vert.
 nnoremap <silent> ss <C-w>s " Split hori.
 
+nnoremap <C-J> <C-W><C-J> " Instead of ctrl-w then j, it’s just ctrl-j:
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 
 " ================ Tabularize Shortcuts =============
 "
@@ -133,19 +138,16 @@ let g:airline#extensions#tabline#left_alt_sep = '⮁'     "
 let g:airline_powerline_fonts = 1
 
 
-" ================ NERDTree Config ==================
+" ================ NERDTree and Tagbar ==============
 "
-nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
 
+nnoremap <silent> <leader>t :TagbarToggle<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 " ================ Search ===========================
 "
 nnoremap // :nohlsearch<CR>
-
-
-" ================ Taglist ==========================
-"
-nnoremap <silent> <leader>t :TagbarToggle<CR>
 
 
 " ========== Persistant Undo Between Sessions =======
@@ -155,14 +157,38 @@ set undofile
 
 " ========== Set No Swap Fle ========================
 "
-set noswapfile
+" set noswapfile
 set undodir=~/.vim/backups
+
 
 " ================ Nerd Fonts =======================
 "
 set encoding=utf8
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 
+
 " ================ Improved Javascript ==============
 "
 let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
+
+
+" ================ emenu - experimental =============
+"
+
+" YOU CAN MANUALLY TRIGGER MENU COMPLETION BY INVOKING TAB COMPLETION ON THE
+" :EMENU COMMAND, BY DOING :EMENU<SPACE><TAB>
+
+" Enable smart command line completion on <Tab> (enable listing all possible
+" choices, and navigating the results with <Up>, <Down>, <Left>, <Right>, and
+" <Enter>)
+set wildmenu
+
+" Make repeated presses cycle between all matching choices
+set wildmode=full
+
+" Load the default menus (this would happen automatically in gvim, but not in
+" terminal vim)
+" TODO: Replace with custom menu
+source $VIMRUNTIME/menu.vim
+
+
