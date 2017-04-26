@@ -3,6 +3,10 @@ filetype off                  " required
 
 " ================ Vundle Section ===================
 "
+"
+" 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
+" 2. Install Nerfonts from https://github.com/ryanoasis/nerd-fonts
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -21,6 +25,7 @@ Plugin 'vim-scripts/taglist.vim'          " Taglist
 Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
 Plugin 'mhinz/vim-startify'               " Dev icons
+Plugin 'othree/javascript-libraries-syntax.vim' " Javascript Syntax Helpers
 
 call vundle#end()
 filetype plugin indent on
@@ -153,8 +158,11 @@ set undofile
 set noswapfile
 set undodir=~/.vim/backups
 
-" ================ Nerd Fonds =======================
+" ================ Nerd Fonts =======================
 "
 set encoding=utf8
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
 
+" ================ Improved Javascript ==============
+"
+let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
