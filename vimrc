@@ -1,12 +1,13 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" ================ Vundle Section ===================
+
+" ================ Vundle Section =================== {{{
 "
 "
 " 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 " 2. Install Nerfonts from https://github.com/ryanoasis/nerd-fonts
-
+"
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -26,10 +27,11 @@ Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
 Plugin 'mhinz/vim-startify'               " Dev icons
 Plugin 'othree/javascript-libraries-syntax.vim' " Javascript Syntax Helpers
+"Plugin 'ervandew/supertab'                " Supertab plugin
 
 call vundle#end()
 filetype plugin indent on
-
+"}}}
 
 " ================ Buffer Shortcuts =================
 nnoremap <Tab> :bnext<CR>
@@ -96,7 +98,7 @@ set background=dark
 colorscheme solarized
 
 
-" ================ Solarized Plugin =================
+" ================ Ultisnips Plugin =================
 "
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
