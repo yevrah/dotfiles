@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-
+                               
 " ================ Vundle Section =================== {{{
 "
 "
@@ -25,7 +25,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/taglist.vim'          " Taglist
 Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
-Plugin 'mhinz/vim-startify'               " Dev icons
+Plugin 'mhinz/vim-startify'               " New Start Screen
 Plugin 'othree/javascript-libraries-syntax.vim' " Javascript Syntax Helpers
 "Plugin 'ervandew/supertab'                " Supertab plugin
 
@@ -33,12 +33,14 @@ call vundle#end()
 filetype plugin indent on
 "}}}
 
-" ================ Buffer Shortcuts =================
+
+" ================ Buffer Shortcuts ================="{{{
+"
 nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>"
+nnoremap <S-Tab> :bprevious<CR>""}}}
 
 
-" ================ Tab shortcots ====================
+" ================ Tab shortcots ===================="{{{
 "
 map <silent> tt :tabnew<cr>   " Create Tab
 map <silent> -- :tabp<cr>     " Previous tab
@@ -52,10 +54,10 @@ map <silent> ,5 :tabn 5<cr>
 map <silent> ,6 :tabn 6<cr>
 map <silent> ,7 :tabn 7<cr>
 map <silent> ,8 :tabn 8<cr>
-map <silent> ,9 :tabn 9<cr>
+map <silent> ,9 :tabn 9<cr>"}}}
 
 
-" ================ Split window shortcuts ===========
+" ================ Split window shortcuts ==========="{{{
 "
 nnoremap <silent> vv <C-w>v " Split vert.
 nnoremap <silent> ss <C-w>s " Split hori.
@@ -64,15 +66,17 @@ nnoremap <C-J> <C-W><C-J> " Instead of ctrl-w then j, it’s just ctrl-j:
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+"}}}
 
 
-" ================ Tabularize Shortcuts =============
+" ================ Tabularize Shortcuts ============="{{{
 "
 nmap \| :Tabularize /
 vmap \| :Tabularize /
+"}}}
 
 
-" ================ Indentation ======================
+" ================ Indentation ======================"{{{
 "
 set autoindent
 set smartindent
@@ -81,32 +85,43 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set expandtab
+"}}}
 
 
-" ================ Folds ============================
+" ================ Folds ============================"{{{
 "
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldmethod=marker
+"}}}
 
 
-" ================ Solarized Plugin =================
+" ================ Solarized Plugin ================="{{{
 "
 syntax enable
 set background=dark
 colorscheme solarized
+"}}}
 
 
-" ================ Ultisnips Plugin =================
+" ================ Ultisnips Plugin ================="{{{
 "
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<Tab>"
+let g:UltiSnipsJumpForwardTrigger="<Tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit='vertical' " If you want :UltiSnipsEdit to split your window.
 
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips", "bundle/vim-snippets/UltiSnips-Mine"]
+" let g:UltiSnipsSnippetsDir="/Users/harvey/.yadr/vim/bundle/vim-snippets/UltiSnips-Mine"
 
-" ================ Set Sane Defaults ================
+
+"}}}
+
+
+" ================ Set Sane Defaults ================"{{{
 "
 let mapleader=","
 set number      " Numbers on left
@@ -114,15 +129,22 @@ set relativenumber
 set ignorecase  " Ignore case
 set smartcase 
 set laststatus=2
+"}}}
 
 
-
-" ================ Smarter Commenting ===============
+" ================ Smarter Commenting ==============="{{{
 "
-map <leader>c <c-_><c-_>
+map <leader>c <c-_><c-_>"}}}
 
 
-" ================ Ariline Config ===================
+" ================ Startify Config =================="{{{
+"
+let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
+
+"}}}
+
+
+" ================ Ariline Config ==================="{{{
 "
 let g:airline_theme='solarized'
 let g:airline_left_sep = '⮀'
@@ -137,44 +159,45 @@ let g:airline#extensions#tabline#enabled = 1            "
 let g:airline#extensions#tabline#left_sep = '⮀'         " Smarter tab lines
 let g:airline#extensions#tabline#left_alt_sep = '⮁'     "
 
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1"}}}
 
 
-" ================ NERDTree and Tagbar ==============
+" ================ NERDTree and Tagbar =============="{{{
 "
 nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>"}}}
 
-" ================ Search ===========================
+
+" ================ Search ==========================="{{{
 "
-nnoremap // :nohlsearch<CR>
+nnoremap // :nohlsearch<CR>"}}}
 
 
-" ========== Persistant Undo Between Sessions =======
+" ================ Persistant Undo =================="{{{
 "
-set undofile
+set undofile"}}}
 
 
-" ========== Set No Swap Fle ========================
+" ================ Set No Swap Fle =================="{{{
 "
 " set noswapfile
-set undodir=~/.vim/backups
+set undodir=~/.vim/backups"}}}
 
 
-" ================ Nerd Fonts =======================
+" ================ Nerd Fonts ======================="{{{
 "
 set encoding=utf8
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11
+set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11"}}}
 
 
-" ================ Improved Javascript ==============
+" ================ Improved Javascript =============="{{{
 "
-let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
+let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'"}}}
 
 
-" ================ emenu - experimental =============
+" ================ emenu - experimental ============="{{{
 "
 
 " YOU CAN MANUALLY TRIGGER MENU COMPLETION BY INVOKING TAB COMPLETION ON THE
@@ -191,6 +214,6 @@ set wildmode=full
 " Load the default menus (this would happen automatically in gvim, but not in
 " terminal vim)
 " TODO: Replace with custom menu
-source $VIMRUNTIME/menu.vim
+source $VIMRUNTIME/menu.vim"}}}
 
 
