@@ -129,6 +129,7 @@ set relativenumber
 set ignorecase  " Ignore case
 set smartcase 
 set laststatus=2
+set autowriteall  " Save buffers when lose focus
 "}}}
 
 
@@ -184,17 +185,11 @@ nnoremap // :nohlsearch<CR>
 " ================ Persistant Undo =================="{{{
 "
 set undofile
-"}}}
-
-
-" ================ Set No Swap Fle =================="{{{
-"
-" set noswapfile
 set undodir=~/.vim/backups
 "}}}
 
 
-" ================ Nerd Fonts ======================="{{{
+" ================ Font Settings ===================="{{{
 "
 set encoding=utf8
 " set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\:h12
