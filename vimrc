@@ -37,7 +37,8 @@ filetype plugin indent on
 " ================ Buffer Shortcuts ================="{{{
 "
 nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>""}}}
+nnoremap <S-Tab> :bprevious<CR>
+"}}}
 
 
 " ================ Tab shortcots ===================="{{{
@@ -54,7 +55,8 @@ map <silent> ,5 :tabn 5<cr>
 map <silent> ,6 :tabn 6<cr>
 map <silent> ,7 :tabn 7<cr>
 map <silent> ,8 :tabn 8<cr>
-map <silent> ,9 :tabn 9<cr>"}}}
+map <silent> ,9 :tabn 9<cr>
+"}}}
 
 
 " ================ Split window shortcuts ==========="{{{
@@ -116,8 +118,6 @@ let g:UltiSnipsEditSplit='vertical' " If you want :UltiSnipsEdit to split your w
 let g:UltiSnipsEditSplit="vertical"
 " let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips", "bundle/vim-snippets/UltiSnips-Mine"]
 " let g:UltiSnipsSnippetsDir="/Users/harvey/.yadr/vim/bundle/vim-snippets/UltiSnips-Mine"
-
-
 "}}}
 
 
@@ -134,7 +134,8 @@ set laststatus=2
 
 " ================ Smarter Commenting ==============="{{{
 "
-map <leader>c <c-_><c-_>"}}}
+map <leader>c <c-_><c-_>
+"}}}
 
 
 " ================ Startify Config =================="{{{
@@ -147,54 +148,63 @@ let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
 " ================ Ariline Config ==================="{{{
 "
 let g:airline_theme='solarized'
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_branch_prefix = '⭠ '
-let g:airline_readonly_symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
-
+" let g:airline_left_sep = '⮀'
+" let g:airline_left_alt_sep = '⮁'
+" let g:airline_right_sep = '⮂'
+" let g:airline_right_alt_sep = '⮃'
+" let g:airline_branch_prefix = '⭠ '
+" let g:airline_readonly_symbol = '⭤'
+" let g:airline_linecolumn_prefix = '⭡'
+"
 let g:airline#extensions#tabline#enabled = 1            " 
-let g:airline#extensions#tabline#left_sep = '⮀'         " Smarter tab lines
-let g:airline#extensions#tabline#left_alt_sep = '⮁'     "
+" let g:airline#extensions#tabline#left_sep = '⮀'         " Smarter tab lines
+" let g:airline#extensions#tabline#left_alt_sep = '⮁'     "
 
-let g:airline_powerline_fonts = 1"}}}
+let g:airline_powerline_fonts = 1
+"}}}
 
 
 " ================ NERDTree and Tagbar =============="{{{
 "
 nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
+autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer
+autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>"}}}
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+"}}}
 
 
 " ================ Search ==========================="{{{
 "
-nnoremap // :nohlsearch<CR>"}}}
+nnoremap // :nohlsearch<CR>
+"}}}
 
 
 " ================ Persistant Undo =================="{{{
 "
-set undofile"}}}
+set undofile
+"}}}
 
 
 " ================ Set No Swap Fle =================="{{{
 "
 " set noswapfile
-set undodir=~/.vim/backups"}}}
+set undodir=~/.vim/backups
+"}}}
 
 
 " ================ Nerd Fonts ======================="{{{
 "
 set encoding=utf8
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\ 11"}}}
+" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\:h12
+"}}}
 
 
 " ================ Improved Javascript =============="{{{
 "
-let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'"}}}
+let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
+"}}}
 
 
 " ================ emenu - experimental ============="{{{
@@ -214,6 +224,6 @@ set wildmode=full
 " Load the default menus (this would happen automatically in gvim, but not in
 " terminal vim)
 " TODO: Replace with custom menu
-source $VIMRUNTIME/menu.vim"}}}
-
+source $VIMRUNTIME/menu.vim
+"}}}
 
