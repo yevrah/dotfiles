@@ -124,6 +124,7 @@ let g:UltiSnipsEditSplit="vertical"
 " ================ Set Sane Defaults ================"{{{
 "
 let mapleader=","
+let &colorcolumn=join(range(81,999),",")
 set number      " Numbers on left
 set relativenumber
 set ignorecase  " Ignore case
