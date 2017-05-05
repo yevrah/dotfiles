@@ -83,19 +83,10 @@ vmap \| :Tabularize /
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
 set expandtab
-"}}}
 
-
-" ================ Folds ============================"{{{
-"
-set foldmethod=indent   "fold based on indent
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-set foldmethod=marker
+set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 "}}}
 
 
@@ -203,6 +194,16 @@ let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
 "}}}
 
 
+" ================ Folds ============================"{{{
+"
+set foldmethod=indent   "fold based on indent
+set foldnestmax=3       "deepest fold is 3 levels
+set nofoldenable        "dont fold by default
+set foldmethod=marker
+hi Folded term=bold cterm=NONE ctermfg=lightblue "ctermbg=NONE
+"}}}
+
+
 " ================ emenu - experimental ============="{{{
 "
 
@@ -222,4 +223,5 @@ set wildmode=full
 " TODO: Replace with custom menu
 source $VIMRUNTIME/menu.vim
 "}}}
+
 
