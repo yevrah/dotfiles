@@ -2,7 +2,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
                                
-" ================ Vundle Section =================== {{{
+" ================ Vundle Section =================== {{{1
 "
 "
 " 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
@@ -31,35 +31,38 @@ Plugin 'othree/javascript-libraries-syntax.vim' " Javascript Syntax Helpers
 
 call vundle#end()
 filetype plugin indent on
-"}}}
 
-
-" ================ Buffer Shortcuts ================="{{{
+" ================ Buffer Shortcuts ================="{{{1
 "
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-"}}}
 
 
-" ================ Tab shortcots ===================="{{{
+" ================ Spelling Options ================="{{{1
 "
-map <silent> tt :tabnew<cr>   " Create Tab
-map <silent> -- :tabp<cr>     " Previous tab
-map <silent> == :tabn<cr>     " Next Tab
-
-map <silent> ,1 :tabn 1<cr> " Use numbers to pick the tab you want (like iTerm)
-map <silent> ,2 :tabn 2<cr>
-map <silent> ,3 :tabn 3<cr>
-map <silent> ,4 :tabn 4<cr>
-map <silent> ,5 :tabn 5<cr>
-map <silent> ,6 :tabn 6<cr>
-map <silent> ,7 :tabn 7<cr>
-map <silent> ,8 :tabn 8<cr>
-map <silent> ,9 :tabn 9<cr>
-"}}}
+set complete+=kspell " auto complete with C-X C-K
+set spelllang=en_us
+set spell
 
 
-" ================ Split window shortcuts ==========="{{{
+" ================ Tab shortcots ===================="{{{1
+"
+nnoremap <silent> tt :tabnew<cr>   " Create Tab
+nnoremap <silent> -- :tabp<cr>     " Previous tab
+nnoremap <silent> == :tabn<cr>     " Next Tab
+
+nnoremap <silent> <leader>1 :tabn 1<cr> " Use numbers to pick the tab you want (like iTerm)
+nnoremap <silent> <leader>2 :tabn 2<cr>
+nnoremap <silent> <leader>3 :tabn 3<cr>
+nnoremap <silent> <leader>4 :tabn 4<cr>
+nnoremap <silent> <leader>5 :tabn 5<cr>
+nnoremap <silent> <leader>6 :tabn 6<cr>
+nnoremap <silent> <leader>7 :tabn 7<cr>
+nnoremap <silent> <leader>8 :tabn 8<cr>
+nnoremap <silent> <leader>9 :tabn 9<cr>
+
+
+" ================ Split window shortcuts ==========="{{{1
 "
 nnoremap <silent> vv <C-w>v " Split vert.
 nnoremap <silent> ss <C-w>s " Split hori.
@@ -68,17 +71,15 @@ nnoremap <C-J> <C-W><C-J> " Instead of ctrl-w then j, it’s just ctrl-j:
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-"}}}
 
 
-" ================ Tabularize Shortcuts ============="{{{
+" ================ Tabularize Shortcuts ============="{{{1
 "
 nmap \| :Tabularize /
 vmap \| :Tabularize /
-"}}}
 
 
-" ================ Indentation ======================"{{{
+" ================ Indentation ======================"{{{1
 "
 set autoindent
 set smartindent
@@ -87,18 +88,16 @@ set expandtab
 
 set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-"}}}
 
 
-" ================ Solarized Plugin ================="{{{
+" ================ Solarized Plugin ================="{{{1
 "
 syntax enable
 set background=dark
 colorscheme solarized
-"}}}
 
 
-" ================ Ultisnips Plugin ================="{{{
+" ================ Ultisnips Plugin ================="{{{1
 "
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
@@ -109,10 +108,9 @@ let g:UltiSnipsEditSplit='vertical' " If you want :UltiSnipsEdit to split your w
 let g:UltiSnipsEditSplit="vertical"
 " let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips", "bundle/vim-snippets/UltiSnips-Mine"]
 " let g:UltiSnipsSnippetsDir="/Users/harvey/.yadr/vim/bundle/vim-snippets/UltiSnips-Mine"
-"}}}
 
 
-" ================ Set Sane Defaults ================"{{{
+" ================ Set Sane Defaults ================"{{{1
 "
 let mapleader=","
 let &colorcolumn=join(range(81,999),",")
@@ -122,23 +120,20 @@ set ignorecase  " Ignore case
 set smartcase 
 set laststatus=2
 set autowriteall  " Save buffers when lose focus
-"}}}
 
 
-" ================ Smarter Commenting ==============="{{{
+" ================ Smarter Commenting ==============="{{{1
 "
 map <leader>c <c-_><c-_>
-"}}}
 
 
-" ================ Startify Config =================="{{{
+" ================ Startify Config =================="{{{1
 "
 let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
 
-"}}}
 
 
-" ================ Ariline Config ==================="{{{
+" ================ Ariline Config ==================="{{{1
 "
 let g:airline_theme='solarized'
 " let g:airline_left_sep = '⮀'
@@ -154,10 +149,9 @@ let g:airline#extensions#tabline#enabled = 1            "
 " let g:airline#extensions#tabline#left_alt_sep = '⮁'     "
 
 let g:airline_powerline_fonts = 1
-"}}}
 
 
-" ================ NERDTree and Tagbar =============="{{{
+" ================ NERDTree and Tagbar =============="{{{1
 "
 nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
 autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer
@@ -165,46 +159,40 @@ autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-"}}}
 
 
-" ================ Search ==========================="{{{
+" ================ Search ==========================="{{{1
 "
 nnoremap // :nohlsearch<CR>
-"}}}
 
 
-" ================ Persistant Undo =================="{{{
+" ================ Persistant Undo =================="{{{1
 "
 set undofile
 set undodir=~/.vim/backups
-"}}}
 
 
-" ================ Font Settings ===================="{{{
+" ================ Font Settings ===================="{{{1
 "
 set encoding=utf8
 " set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\:h12
-"}}}
 
 
-" ================ Improved Javascript =============="{{{
+" ================ Improved Javascript =============="{{{1
 "
 let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
-"}}}
 
 
-" ================ Folds ============================"{{{
+" ================ Folds ============================"{{{1
 "
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue "ctermbg=NONE
-"}}}
 
 
-" ================ emenu - experimental ============="{{{
+" ================ emenu - experimental ============="{{{1
 "
 
 " YOU CAN MANUALLY TRIGGER MENU COMPLETION BY INVOKING TAB COMPLETION ON THE
@@ -222,6 +210,5 @@ set wildmode=full
 " terminal vim)
 " TODO: Replace with custom menu
 source $VIMRUNTIME/menu.vim
-"}}}
 
 
