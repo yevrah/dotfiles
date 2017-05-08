@@ -1,0 +1,396 @@
+snippet mlog "Insert a micro logger"
+our @log = (); sub _ { push( @log, join(",", @_  ) ); return join("\n", @log) . "\n"; }
+endsnippet	
+
+snippet strftime "Date and time using POSIX strftime"
+strftime( "%Y-%d-%m %H:%M:%S", localtime )
+endsnippet
+
+snippet hello_cgi "Standard perl headers for cgi"
+#!/usr/bin/env perl
+
+# Sane defaults
+require 5.004;
+use strict;
+use warnings;
+use diagnostics;
+use feature qw/say/;
+use CGI::Carp qw(fatalsToBrowser);
+
+# Stadard libaries
+use CGI;
+use DBI;
+use Data::Dumper;
+
+# Setup local library path
+use File::Basename;
+use lib dirname( __FILE__ );
+
+# Code starts here
+my $cgi = CGI->new();
+print $cgi->header();
+
+say "Hello from: ", __FILE__;
+
+1;
+endsnippet
+
+snippet hello_lk "Hello Loankit Example" b
+#!/usr/bin/env perl
+use strict;
+use feature qw/say/;
+use Data::Dumper;
+use DBI;
+
+sub get_address {
+  my $address_id = shift;
+  my $dbh        = shift;
+
+  my $sth = $dbh->prepare("
+    select  AddressStandard , BuildingName      , FloorNo   ,
+            UnitNo          , StreetNo          , Street    ,
+            StreetType      , City              , State     ,
+            Postcode        , Country           , POBoxType ,
+            POBox           , NonStdAddressLine
+    from   needs_address
+    where seq = ?
+  ");
+
+  $sth->bind_param(1, $address_id);
+  $sth->execute();
+
+  return $sth->fetchrow_hashref();
+}
+
+
+# Test DB routines
+my $dbh = DBI->connect("DBI:mysql:freeol:127.0.0.1", "nobody", "noddy4U");
+
+my $address = &get_address( 827003, $dbh );
+say "get_address::  " . Dumper( $address  );
+
+# vim: set ts=2 sw=2 tw=0 et :
+endsnippet
+
+snippet hello "Standard perl headers"
+#!/usr/bin/env perl
+
+# Sane defaults
+require 5.004;
+use strict 'vars';
+use warnings;
+use diagnostics;
+use feature qw/say/;
+
+# Stadard libaries
+use DBI;
+use Data::Dumper;
+
+# Setup local library path
+use File::Basename;
+use lib dirname( __FILE__ );
+
+# Code starts here
+print "\033[2J";   # clear the screen
+print "\033[0;0H"; # jump to 0,0
+
+say "Hello from: ", __FILE__;
+
+1;
+endsnippet
+
+snippet class "Custom class object" b
+#!/usr/bin/env perl
+require 5.004;
+use strict;
+use warnings;
+use diagnostics;
+
+package ${1:App::Core};
+use CGI;
+use CGI::Carp qw(fatalsToBrowser);
+use DBI;
+use Data::Dumper;
+use feature qw/say/;
+
+# Setup local library path
+use File::Basename;
+use lib dirname( __FILE__ );
+
+sub new {
+  my ($class) = @_;
+
+  # Constructor
+  my $self             = {};
+  $self->{name}        = '$1';
+
+  # Process Main Initialiser
+  &main();
+
+  # Return Object
+  return bless $self, $class;
+}
+
+# Basic Setters
+sub set_app_name  {  my $self = shift; $self->{name} = shift; }
+
+# Basic Getters
+sub get_name      {  my $self = shift; return $self->{name}; }
+
+sub main {
+  my $self = shift;
+  $0
+}
+
+sub DESTROY {#{{{
+  my $self = shift; 
+}#}}}
+
+1;
+endsnippet
+
+snippet cls "Clear the screen" b
+print "\033[2J";   # clear the screen
+print "\033[0;0H"; # jump to 0,0
+endsnippet
+
+snippet db_dbh "Database, generate database hander" b
+my $dbh = DBI->connect(
+						'DBI:mysql:${1:databasename};host=${2:db.example.com}',
+						'${3:username}',
+						'${4:password}',
+						{ RaiseError => 1 }
+					);
+endsnippet
+
+snippet db_get "Database, get single row" b
+# Database helper: db_get_$1 {{{ #
+#    Get from $3 by $2
+sub db_get_${1:row} {
+	my $${2:id} = shift;
+	my $dbh = shift;
+
+	my $sth = $dbh->prepare("
+			select *
+			from   ${3:tbl_name}
+			where  $2 = ?
+	");
+
+	$sth->bind_param(1, $$2);
+	$sth->execute();
+	return $sth->fetchrow_hashref();
+}
+# }}} #
+endsnippet
+
+snippet db_gets "Database, get multiple rows" b
+# Database helper: db_get_$1 {{{ #
+#    Get from $3 by $2
+sub db_get_${1:row} {
+	my $${2:id} = shift;
+	my $dbh = shift;
+	my @list = ();
+
+	my $sth = $dbh->prepare("
+			select *
+			from   ${3:tbl_name}
+			where  $2 = ?
+	");
+
+	$sth->bind_param(1, $$2);
+	$sth->execute();
+	while (my $result = $sth->fetchrow_hashref()) {
+		push(@list, $result);
+	}
+
+	return \@list;
+}
+# }}} #
+endsnippet
+
+snippet db_do "Database, no return value" b
+# Database helper: db_get_$1 {{{ #
+#    Update $3 by $2
+sub db_do_${1:row} {
+	my $${2:id} = shift;
+	my $${3:value} = shift;
+	my $dbh = shift;
+
+	$dbh->do("
+			update  ${4:tbl_name}
+			set value = ?
+			where  $2 = ?
+	", undef, $$3, $$2);
+}
+# }}} #
+endsnippet
+
+snippet debug_variables "Print all main scope variables" b
+my $cgi = CGI->new;
+print $cgi->header();
+{
+    no strict 'refs';
+    print Dumper \%main::;
+}
+exit 1;
+endsnippet
+
+# Loankit snippets
+
+snippet lk_db_get_scalar "Get single value" b
+# Get single value from db
+#   Value Being Retrieved      : ${1:value}
+#   Identifier In Where Clause : ${2:value}
+#   From db table              : ${3:tablename}
+sub db_get_existing_$1 {#{{{
+  my %args = @_;
+  my $$2_id = $args{$2_id};
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  my $sth = $dbh->prepare(" select $1 from $3 where $2_id = ?$0  ");
+  $sth->bind_param(1, $$2_id );
+  $sth->execute();
+
+  my $result = $sth->fetchrow_hashref();
+  Hk_globals::db_safe_close($dbh);
+
+  return $result->{$1} || -1;
+}#}}}
+endsnippet
+
+snippet lk_db_insert "Insert into loankit" b
+# Table to insert to: ${1:contacts}
+sub db_insert_new_$1 {#{{{
+  my %args = @_;
+  my $$1_id = $args{$1_id} || die "$1 identifier required for insert";
+  my $name = $args{name} || die "Name required for insert";
+  my $other = $args{other}|| die "Other required for insert";
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  my  $sth = $dbh->prepare("
+     insert into $1 (
+              $1_id                 ,    # 1
+							name									,    # 2
+							other									     # 2
+            ) 
+            values ( ?, ?)$0
+  ");
+
+  $sth->bind_param(1, $$1_id );
+  $sth->bind_param(2, $name );
+  $sth->execute();
+  Hk_globals::db_safe_close($dbh);
+}#}}}
+endsnippet
+
+snippet lk_db_update "Update for loankit" b
+# Update Table : ${1:contacts}
+sub db_update_$1 {#{{{
+  my %args = @_;
+  my $$1_id    = $args{$1_id}    || die "$1 identifier required";
+  my $name         = $args{name};
+  my $other        = $args{other};
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  # Insert into needs_employment
+  my  $sth = $dbh->prepare("
+     update $1 set
+              name                   = ?,    # 1
+              other                  = ?     # 2
+    where $1_id = ?$0
+  ");
+
+  $sth->bind_param(1, $name );
+  $sth->bind_param(2, $other );
+  $sth->bind_param(3, $$1_id );
+  $sth->execute();
+	Hk_globals::db_safe_close($dbh);
+}#}}}
+endsnippet
+
+snippet lk_db_delete "Delete item" b
+# Delete from table: ${1:contacts}
+sub db_delete_$1 {#{{{
+  my %args = @_;
+  my $i$1_id = $args{$1_id} || die "$1 identifier expected";
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  $dbh->do(" delete from $1 where $1_id = ?$0", undef, $$1_id);
+	Hk_globals::db_safe_close($dbh);
+}#}}}
+endsnippet
+
+snippet lk_db_gets "Get array of existing items" b
+# Table name: ${1:contact}
+sub db_get_$1 {#{{{
+  my %args = @_;
+  my $$1_id = $args{$1_id} || die "$1 identifier expected";
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  # This stores the return value
+  my @result = ();
+
+  my $sth = $dbh->prepare("
+    select  name  as  name,
+		        other as other
+      from $1
+      where $1_id = ?$0
+  ");
+  $sth->bind_param(1, $$1_id );
+  $sth->execute();
+
+  while( my $curr_result = $sth->fetchrow_hashref() ) { push( @result, $curr_result ); }
+	Hk_globals::db_safe_close($dbh);
+
+  return \@result;
+}#}}}
+endsnippet
+
+snippet lk_db_get "Get single hash of exising item" b
+# Table name: ${1:contact}
+sub db_get_$1 {#{{{
+  my %args = @_;
+  my $$1_id = $args{$1_id} || die "$1 identifier expected";
+
+  my ($hostdb) = Hk_globals->start('hostdb');
+  my $dbh = DBI->connect("DBI:mysql:freeol:$hostdb", "nobody", "noddy4U");
+
+  my $sth = $dbh->prepare("
+    select  name  as  name,
+		        other as other
+      from $1
+      where $1_id = ?$0
+  ");
+  $sth->bind_param(1, $$1_id );
+  $sth->execute();
+  
+	my $result = $sth->fetchrow_hashref() 
+  Hk_globals::db_safe_close($dbh);
+
+  return $result;
+}#}}}
+endsnippet
+
+snippet lk_sub "Sub template with named params" b
+sub ${1:name} {#{{{
+  my %args = @_;
+  my $$1_id = $args{$1_id} || die "$1 identifier expected";
+
+  my $result;
+
+  ${0:# Do stuff}
+
+  return $result;
+}#}}}
+endsnippet
+

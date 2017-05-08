@@ -1,0 +1,284 @@
+extends html
+
+
+snippet lk_flash "Flash message"
+          <div style="display: none; background-color: #F1FFC1; padding:5px; padding-left:10px; margin-bottom: 10px;" id="flash_msg">
+          <font color=red><B>Warning: $msg</B></font>
+          </div>
+          <script type="text/javascript" charset="utf-8">
+          \$(document).ready( function () {
+              if( "$msg".length > 0 ) {
+                \$("#flash_msg").fadeIn(300).fadeOut(300).fadeIn(300).fadeOut(300).fadeIn(300);
+              }
+          });
+          </script>
+endsnippet
+
+
+snippet lk_show_hide "Show and hide section"
+            <a href="#" onclick="\$('#tnc').slideToggle();" style="text-decoration:underline;">Terms and Conditions</a>
+            <div id="tnc" style="display: none;  border: 2px solid grey; background-color: #FFFFFF; width: 704px; padding: 3px;">
+              <h3>Veda Credit Reference Check Terms and Conditions </h3>
+              The data shown on reports generated via this Veda Credit Check functionality is sourced from Veda Advantage and is bound by the following terms and conditions: <P>
+              1. You agree to comply with the Privacy Act and all other laws that apply to the information that we provide to you (and to maintain documentation to demonstrate your compliance).<BR>
+              2. For each Credit Reference Check that you conduct you will store/upload a signed copy of the Clients Consent (this facility comes with an upload function)  <BR> 
+
+              <a href="#" onclick="\$('#tnc').slideUp();">Close this screen</a>
+            </div>
+endsnippet
+
+
+
+snippet lk_table "Loankit table"
+        <!-- For Longer Tables:  <br clear="all"> -->
+            <table id="contactlist" class="summary_table allow_wrap nobodyshade" border="0" style="width:900px;margin-top:2px">
+                <thead>
+                  <tr>
+                    <th style="padding-top:12px;" width="15px" align="left"><div style="float:left"><input id="select_all" type="checkbox"></div><div style="margin-top:5px;float:left"></div> </th>
+                    <th style="padding-top:12px;" width="20px">Del</th>
+                    <th style="padding-top:12px;" width="50px" class="header">Lender</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr bgcolor="#ffffff">
+                  <td><input name="contactseq_15962" id="check_15962" type="checkbox"> </td>
+                  <td><a class="deletecontact" del_link="/mods/main.do?uid=5977&amp;lk=2.0&amp;session=1262.27757823144&amp;agentid=5977&amp;refid=5977&amp;lk=2.0&amp;prog=crm&amp;choice=3&amp;appid=443130&amp;filter_name=&amp;filter_title=&amp;filter_owner=&amp;filter_profession=&amp;filter_state=&amp;filter_bank=&amp;contactlist_action_list=Show List&amp;delete_contact=15962" _onclick="var ret=confirm('This will delete this contact.\n Do you wish to continue?');  event.returnValue=ret; return ret;" _href="/mods/main.do?uid=5977&amp;lk=2.0&amp;session=1262.27757823144&amp;agentid=5977&amp;refid=5977&amp;lk=2.0&amp;prog=crm&amp;choice=3&amp;appid=443130&amp;filter_name=&amp;filter_title=&amp;filter_owner=&amp;filter_profession=&amp;filter_state=&amp;filter_bank=&amp;contactlist_action_list=Show List&amp;delete_contact=15962"><img src="/images/2.0/delete12.gif"></a></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <script type="text/javascript" charset="utf-8">
+              $(document).ready(function() { 
+                  $("#contactlist").tablesorter({
+                  headers: { 
+                        // assign the secound column (we start counting zero) 
+                        0: { 
+                            // disable it by setting the property sorter to false 
+                            sorter: false 
+                        }, 
+                        // assign the third column (we start counting zero) 
+                        1: { 
+                            // disable it by setting the property sorter to false 
+                            sorter: false 
+                        } 
+                    } 
+                  }); 
+
+
+                  $('.deletecontact').click(function() {
+                      mylink = $(this).attr('del_link');
+
+                      jConfirm('This will Delete this contact.</br>Do you wish to continue?', 'Confirm Deletion', function (r) {
+                          if (r) { document.location.href=mylink; }
+                      });
+                  });
+              } ); 
+            </script>
+endsnippet
+
+snippet lk_confirm "Confirm popup"
+            jConfirm('This will Delete this contact.</br>Do you wish to continue?', 'Confirm Deletion', function (r) {
+                if (r) { document.location.href=mylink; }
+            });
+endsnippet
+
+snippet lk_calander "Loankit calander"
+
+        <div class="row">
+          <span class="label">Date</span>
+          <input name="dtDate" _class="dtpicker hasDatepicker" type="text" value="05/05/2014" id="adddate" class="hasDatepicker">
+          <input type="hidden" name="todo_dd" value="05">
+          <input type="hidden" name="todo_mm" value="05">
+          <input type="hidden" name="todo_yyyy" value="2014">
+        </div>
+
+        <script>
+          $(document).ready(function () {
+              $( "#adddate" ).datepicker({
+                    dateFormat: 'dd/mm/yy',
+                      onSelect: function() { $(this).change(); }
+                });
+
+              $( "#adddate" ).change( function() {
+                var dt = $.datepicker.parseDate( "dd/mm/yy", $( this ).val() );
+                var dd = $.datepicker.formatDate( "dd", dt );
+                var mm = $.datepicker.formatDate( "mm", dt );
+                var yy = $.datepicker.formatDate( "yy", dt );
+
+                $("input[name='todo_dd']").val( dd );
+                $("input[name='todo_mm']").val( mm );
+                $("input[name='todo_yyyy']").val( yy );
+              });
+          });
+        </script>
+
+endsnippet
+
+snippet lk_tabs "Loankit tabs"
+
+      <div id="section-tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-collapsible">
+          <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+              <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-related-parties" aria-labelledby="ui-id-6" aria-selected="false"><a href="#tab-related-parties" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-6">Related Parties</a></li>
+              <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-attachments" aria-labelledby="ui-id-7" aria-selected="false"><a href="#tab-attachments" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-7">Attachments</a></li>
+              <li class="ui-state-default ui-corner-top" role="tab" tabindex="0" aria-controls="tab-all" aria-labelledby="ui-id-9" aria-selected="false"><a href="#tab-all" class="btn-view-all ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-9">View All</a></li>
+          </ul>
+
+          <div id="tab-attachments" class="clearfix ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-7" role="tabpanel" aria-expanded="false" aria-hidden="true" style="display: none;">
+              <header>
+                  <h2 style="margin-left:10px;">Attachments</h2>
+              </header>
+              <div style="padding:10px;"></div>
+          </div>
+          <div id="tab-compliance" style="padding-bottom: 1px; display: none;" aria-labelledby="ui-id-8" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" aria-expanded="false" aria-hidden="true"></div>
+      </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('div#section-tabs').tabs({
+                collapsible:true
+            });
+
+            $('#section-tabs > ul > li > a.ui-tabs-anchor').on('click', function() {
+                var targetPanel = $(this).attr('href');
+                hideAllTabs();
+                showTab(targetPanel);
+
+            });
+
+            $('a.btn-view-all').on('click', function () {
+                openAllTabs();
+            });
+
+        });
+
+        function showTab(tabId) {
+            $('div' + tabId).css('display', 'block');
+            $('div' + tabId).attr('aria-expanded', true);
+            $('div' + tabId).attr('aria-hidden', false);
+        }
+
+        function openAllTabs() {
+            $("div[id^='tab-']").css('display', 'block');
+            $("div[id^='tab-']").attr('aria-expanded', true);
+            $("div[id^='tab-']").attr('aria-hidden', false);
+        }
+
+        function hideAllTabs() {
+            $("div[id^='tab-']").css('display', 'none');
+            $("div[id^='tab-']").attr('aria-expanded', false);
+            $("div[id^='tab-']").attr('aria-hidden', true);
+        }
+    </script>
+
+endsnippet
+
+snippet lk_form "Loankit form"
+
+      <section id="form-info">
+        <header>
+          <h2>Compare Splits</h2>
+        </header>
+        <div>
+          <div class="col1">
+            <div class="row">
+              <span class="step-title">Step 1: Find Products</span>
+            </div>
+            <div class="row">
+              <span class="label">Loan Term (years)</span>
+              <input type="text" size="7" name="term_calc" id="term_calc" class="NumericText" style="width:22px">
+            </div>
+            <div class="row">
+              <span class="label">Initial Term</span>
+              <select id="initial_rate_period" name="initial_rate_period">
+                <option value="">Initial Term
+                </option><option value="6">6 Mths
+                </option><option value="12">1 Yr
+                </option><option value="24">2 Yrs
+              </option></select>
+            </div>
+            <div class="row">
+              <span class="label">Split 1</span>
+              <input id="splitAmount_1" name="splitAmount_1" type="text" class="MoneyText" value="">
+            </div>
+          </div>
+          <div class="col2">
+            <div class="row">
+              <span class="col-title">Included Lenders:</span>
+            </div>
+            <div class="row">
+              <span class="label">Add</span>
+              <input type="radio" name="NoteOrToDo" value="FileNote"> File Note&nbsp;&nbsp;&nbsp;
+              <input type="radio" name="NoteOrToDo" value="ToDoItem"> To Do Item
+            </div>
+            <div class="row">
+              <span class="label">Hold CTRL &amp; click<br>for multiple lenders</span>
+              <div style="display:inline-block;">
+                <span style="font-weight:bold;">Include lenders:</span><br>
+                <select name="bank_list" id="bank_list" multiple="" style="height:80px">
+                  <option value="" selected="">All</option>
+                  <option value="AAA">AAA Commercial
+                  </option><option value="ADE">Adelaide Bank
+                  </option><option value="ADC">Adelaide Bank Commercial
+                  </option><option value="AFM">AFM
+                  </option><option value="ALI">ALI Group
+                  </option><option value="ALZ">Allianz - NAB </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section id="command-bar">
+          <input type="submit" value="Find Products" name="updateasset" id="updateasset">
+        </section>
+      </section>
+
+endsnippet
+
+
+snippet lk_edit_del_add "Edit, del, add widget"
+
+              <div class="saved-info">
+                    <div class="tool-bar-padding">
+
+                        <br>
+                        <span class="client-list-title">Employment Details:</span>
+                        <br clear="all"><br>
+                        <table border="1" cellpadding="1" cellspacing="1" style="border:1px solid black;width:100%">
+                            <thead>
+                                <tr>
+
+                                    <th width="18%">Employer Name</th>
+                                    <th width="20%">Occupation</th>
+                                    <th width="15%">Current/Previous</th>
+                                    <th width="15%">Employment Type</th>
+                                    <th width="16%">Employment Status</th>
+                                    <th width="8%">Edit</th>
+                                    <th width="8%">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td>ABC Pty Ptd</td>
+                                    <td>Accountant</td>
+                                    <td>Current</td>
+                                    <td>PAYE</td>
+                                    <td>Fulltime</td>
+                                    <td>
+                                        <a title="Edit" href=""><img src="assets/images/editor12.gif">&nbsp;Edit</a>
+                                    </td>
+                                    <td>
+                                        <a title="Delete" href="javascript:void(0)" onclick="DeleteEmployment('21')"><img src="assets/images/delete12.gif">&nbsp;Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <a href="#" class="client-list-add">Add</a>
+                    </div>
+
+                </div>
+
+endsnippet

@@ -1,0 +1,207 @@
+# Markdown snippets
+
+
+
+
+# This section is useful for meetings
+global !p
+def print_roles(snip, users):
+    out = ""
+    for user in users.split(','):
+        out += "- {0}: Lead \n".format(user.strip())
+
+    snip.rv = out
+
+def print_actions(snip, users):
+    out = ""
+    for user in users.split(','):
+        out += "\n### {0}\n- Today: ...\n".format(user.strip())
+
+    snip.rv = out
+
+endglobal
+
+snippet quiz "Quiz Game Requirements" b
+# Summary
+
+$1
+
+# Quiz Type
+
+Single Page Quiz: This quiz is presented as a single page question
+
+Multiple Page Quiz: This quiz is presented as a multiple page quiz
+
+# Acceptance Tests :: Game Play
+
++ac$2
+
+# Acceptance Tests :: Validation and Scoring
+
++ac$3
+
+# Similar Games
+
+# Suggested Data Structure
+
+# Sample Data
+
+# Related Tickets
+
+# Mockups
+
+# References
+
+# Javiers Notes
+
+endsnippet
+
+snippet bug "Bug Report" n
+
+# Issue Details
+
+- Operating System
+- Version
+- Country
+- User accounts
+
+$0
+
+# How to Reproduce
+
+**INSERT DETAILED STEPS ON HOW TO REPRODUCE**
+$1
+
+# Expected Behaviour
+
+$2
+
+![screenshot](/upload/6a48cc39-0017-de82-8a07-c7dde3b69e56/show/original)
+
+# Follow Up
+
+**INSERT CUSTOMER DETAILS, FRESHDESK CASE NO., ETC**
+
+# Technical Notes and Attachments
+
+$3
+
+endsnippet
+
+snippet story "User Story" b
+# User Story
+
+**Written from the point of view of a person using your website or application**
+
+As an ${1:actor} 
+I want ${2:goal} 
+so that ${3:achievement or benefit}
+
+# Acceptance Tests
+
+**Acceptance criteria define the boundaries of a user story, and are used to confirm when a story is completed and working as intended.**
+
+** Whats the purpose of Acceptance Tests **
+
+- Define the boundaries for a user story/feature
+- Help the product owner answer what she needs in order for this feature to provide value (typically these are the minimum functional requirements)
+- Help the team gain a shared understanding of the story/feature
+- Help developers know when to stop adding  more functionality to a story
+
+** What are good acceptance criteria? **
+
+- State an intent not a solution (e.g. “The user can choose an account” rather than “The user can select the account from a drop-down”)
+- Are independent of implementation (ideally the phrasing would be the same regardless whether this feature/story would be implemented on e.g. web, mobile or a voice activated system)
+- Are relatively high level (not every detail needs to be in writing)
+
+### Acceptance Tests :: $4
+
++ac$5
+
+# Related Tickets
+
+# Javiers Notes
+
+# Mockups
+
+# References
+
+endsnippet
+
+snippet +ac "Add Acceptance Criteria" b
+- I can ${1:not|see|choose}
++ac$2
+endsnippet
+
+snippet meeting "Meeting Header" b
+$2
+============================================
+
+- Attending : Javier Woodhouse, $1
+- Date      : `date`
+- Topic     : ${2:Project meeting}
+
+Roles
+--------------------------------------------
+
+- Javier Woodhouse: Technical lead
+`!p print_roles(snip, t[1])`
+
+Agenda
+--------------------------------------------
+
+- Introductions
+- ${3:...}
+- Summary
+
+Notes
+--------------------------------------------
+$0
+
+Actions
+--------------------------------------------
+
+### Javier
+- Today: Post meeting summary write up
+`!p print_actions(snip, t[1])`
+
+Final Summary
+------------------
+
+endsnippet
+
+
+
+snippet hello "Github README Temple" b
+## Synopsis
+
+At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
+
+## Code Example
+
+Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+
+## Motivation
+
+A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+
+## Installation
+
+Provide code examples and explanations of how to get the project.
+
+## API Reference
+
+Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+
+## Tests
+
+Describe and show how to run the tests with code examples.
+
+## Contributors
+
+Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+
+## License
+
+A short snippet describing the license (MIT, Apache, etc.)
+endsnippet

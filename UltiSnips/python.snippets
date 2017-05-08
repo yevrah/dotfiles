@@ -1,0 +1,244 @@
+
+snippet hello "Basic hello world" b
+#!/usr/bin/env python3
+# encoding: utf-8
+
+def main():
+    print("Hello from %s" % __file__)
+
+if __name__ == '__main__':
+    main()
+endsnippet
+
+snippet mdc "Mistune render snipet" b
+    def $1(self, $2):
+        self.tokens.append({
+            # Standard Elements
+            'type': 'block',
+            'format': 'code',
+            'text':code,
+
+            # Customer Elements
+	    $2})
+        return super(TokenMixin, self).$1($2)
+
+endsnippet
+
+snippet class_wip "Auto gen class from docstring" b
+
+class $1($2):
+	 """
+	 Customer base class
+	 ref: https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
+
+	 Base Properties
+	 ---------------
+	 name     : ${1:customer}
+	 inherits : ${2:object}
+
+	 Attributes
+   ------------
+	 name : string
+			Name of the current user
+	 stats : string
+
+	 Children
+	 --------
+		
+	Parents
+	-------
+
+
+
+	 """
+endsnippet
+
+
+# SQL Alchemy filters, t hanks to:
+# http://manuelmax.tumblr.com/post/289720781/common-filter-operators-sqlalchemy
+
+snippet sqla_hello "SQL Alchemy Hello World" b
+import time
+import sqlite3
+ 
+ 
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, DateTime, create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+ 
+Base = declarative_base()
+session = scoped_session(sessionmaker())
+ 
+ 
+class User(Base):
+    __tablename__ = "user"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255))
+ 
+    deleted = Column(Integer, nullable=False, default=0)
+    modified = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+    created = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+ 
+def init_db(dbname='mysql://www:www@localhost/test'):
+    engine = create_engine(dbname, echo=False)
+    session.remove()
+    session.configure(bind=engine, autoflush=False, expire_on_commit=False)
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine)
+    return engine
+ 
+ 
+def test_sqlalchemy_orm(number_of_records=100000):
+    init_db()
+    start = time.time()
+    for i in range(number_of_records):
+        user = User()
+        user.name = 'NAME ' + str(i)
+        session.add(user)
+    session.commit()
+    end = time.time()
+    print "SQLAlchemy ORM: Insert {0} records in {1} seconds".format(
+        str(number_of_records), str(end - start)
+    )
+ 
+ 
+def test_sqlalchemy_core(number_of_records=100000):
+    engine = init_db()
+    start = time.time()
+    engine.execute(
+        User.__table__.insert(),
+        [{"name": "NAME " + str(i)} for i in range(number_of_records)]
+    )
+    end = time.time()
+    print "SQLAlchemy Core: Insert {0} records in {1} seconds".format(
+        str(number_of_records), str(end - start)
+    )
+ 
+def test_get(top=10):
+    query = session.query(User)
+    query.limit(top)
+
+    for user in query:
+        print "Hello from %s" % user.name
+
+
+ 
+if __name__ == "__main__":
+    test_sqlalchemy_core(10)
+    test_sqlalchemy_orm(10)
+    test_get();
+endsnippet
+
+snippet sqla_class "Basic sqla class" b
+class ${1:customer}(Base):
+    __tablename__ = '$1s'
+
+    $1_id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False, server_default=text("''"))
+    description = Column(String(128), nullable=False, server_default=text("''"))
+
+    deleted = Column(Integer, nullable=False, server_default=text("'0'"))
+    modified = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"))
+    created = Column(DateTime, nullable=False, server_default=text("CURRENT_TIMESTAMP"))
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<$1 %r>' % self.name
+endsnippet
+
+snippet sqla_parent_child "Hello world example for SQL Alchemy" b
+class ${1:customer}(Base):
+    __tablename__ = '$1s'
+
+    $1_id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    status = Column(String(32), primary_key=True)
+    description = Column(String(128), nullable=False)
+
+    deleted = Column(Integer, nullable=False, default=0)
+    modified = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+    created = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+
+    # Children with back reference
+    $2 = relationship("$2s", backref="$1")
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<$1 %r>' % self.name
+
+class ${2:user}(Base):
+    __tablename__ = '$2s'
+
+    $2_id = Column(Integer, primary_key=True)
+    $1_id = Column(Integer, ForeignKey('$1.$1_id'))
+    name = Column(String(255), nullable=False, server_default=text("''"))
+
+    deleted = Column(Integer, nullable=False, default=0)
+    modified = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+    created = Column(DateTime, nullable=False, default=datetime.now(), onupdate=datetime.now())
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return '<$2 %r>' % self.name
+endsnippet
+
+snippet sqla_ref_child "Child back reference"
+    # Children with back reference
+    ${1:child} = relationship("$1", backref="${2:parent}")
+endsnippet
+
+snippet sqla_ref_parent "Parent reference, make sure to backref as well" b
+    ${1:parent}_id = Column(Integer, ForeignKey('$1.$1_id'))
+endsnippet
+
+snippet sqla_eq "Filter: Equals"
+query.filter(${1:User.name} == '$2')
+endsnippet
+
+snippet sqla_neq "Filter: Equals"
+query.filter(${1:User.name} != '$2')
+endsnippet
+
+snippet sqla_like "Filter: Like" 
+query.filter(${1:User.name}.like('%${2:search}%'))
+endsnippet
+
+snippet sqla_in "Filter: In"
+query.filter(${1:User.name}.in_(${2:['ed', 'wendy', 'jack']}))
+endsnippet
+
+snippet sqla_nin "Filter: In"
+query.filter(${1:User.name}.in_(${2:['ed', 'wendy', 'jack']}))
+endsnippet
+
+snippet sqla_null "Filter: Is null" 
+filter(${1:User.name} == None)
+endsnippet
+
+snippet sqla_nnull "Filter: Is not null" 
+filter(${1:User.name} != None)
+endsnippet
+
+snippet sqla_and "Filter: And"
+from sqlalchemy import and_
+filter(and_(${1:User.name} == '${2:ed}', ${3:User.fullname} == '${4:Ed Jones}'))
+endsnippet
+
+snippet sqla_or "Filter: Or"
+from sqlalchemy import or_
+filter(or_(${1:User.name} == '${2:ed}', ${3:User.name} == '${4:wendy}'))
+endsnippet
+
+snippet sqla_match "Filter: Match"
+query.filter(${1:User.name}.match('${2:wendy}'))
+endsnippet
+
+snippet sqla_limit "Get top x"
+query.limit($1)
+endsnippet

@@ -1,7 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-                               
+
 " ================ Vundle Section =================== {{{1
 "
 "
@@ -60,6 +60,7 @@ Plugin 'Valloric/YouCompleteMe'
 call vundle#end() 
 filetype plugin indent on
 
+
 " ################ START VIM SETTINGS ############### {{{1
 "  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __ 
 " | | || || \_/ |  / _|| __||_ _||_ _|| || \| |/ _|/ _|
@@ -110,7 +111,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 
-
 " ================ Indentation ======================"{{{1
 "
 set autoindent
@@ -120,7 +120,6 @@ set expandtab
 
 set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
-
 
 
 " ================ Set Sane Defaults ================"{{{1
@@ -133,7 +132,7 @@ set ignorecase  " Ignore case
 set smartcase 
 set laststatus=2
 set autowriteall  " Save buffers when lose focus
-
+set backspace=2 " Make backspace work on Mac 
 
 
 " ================ Search ==========================="{{{1
@@ -242,12 +241,14 @@ colorscheme solarized
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-let g:UltiSnipsEditSplit='vertical' " If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit='vertical'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-" let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips", "bundle/vim-snippets/UltiSnips-Mine"]
-" let g:UltiSnipsSnippetsDir="/Users/harvey/.yadr/vim/bundle/vim-snippets/UltiSnips-Mine"
+let g:UltiSnipsSnippetDirectories=[
+        \ "bundle/vim-snippets/UltiSnips", 
+        \ "/Users/harvey/dotfiles/UltiSnips" ]
+let g:UltiSnipsSnippetsDir="/Users/harvey/dotfiles/UltiSnips"
 
 " ================ Tabularize Shortcuts ============="{{{1
 "
@@ -289,10 +290,10 @@ nnoremap <silent> ,dp :diffput<CR>
 "
 
 let g:syntastic_enable_signs=1 " Mark syntax errors with :signs
-let g:syntastic_auto_jump=0 " Automatically jump to the error when saving the file
+let g:syntastic_auto_jump=0 " Auto jump to the error when saving the file
 let g:syntastic_auto_loc_list=1 " Show the error list automatically
-let g:syntastic_quiet_messages = {'level': 'warnings'} " Don't care about warnings
-let g:syntastic_enable_perl_checker = 0 " Perl checker
+let g:syntastic_quiet_messages={'level': 'warnings'} " Don't care about warnings
+let g:syntastic_enable_perl_checker=0 " Perl checker
 
 
 " ================ YouCompleteMe ===================="{{{1
@@ -324,7 +325,6 @@ catch /E539: Illegal character/
 endtry
 
 
-
 " ================ dbext ============================"{{{1
 "
 
@@ -344,7 +344,6 @@ endtry
 " Microsoft SQL Server
 " let g:dbext_default_profile_microsoft_production =
 " 'type=SQLSRV:user=sa:passwd=whatever:host=localhost'
-
 
 let g:dbext_default_profile_lk = 'type=MYSQL:user=www:passwd=www:dbname=freeol'
 let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB'
