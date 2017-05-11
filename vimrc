@@ -135,6 +135,7 @@ set laststatus=2
 set autowriteall  " Save buffers when lose focus
 set backspace=2 " Make backspace work on Mac 
 
+autocmd BufNewFile,BufRead *.tt setfiletype tt2html
 
 " ================ Search ==========================="{{{1
 "
@@ -251,6 +252,11 @@ let g:UltiSnipsSnippetDirectories=[
         \ "bundle/vim-snippets/UltiSnips", 
         \ "/Users/harvey/dotfiles/UltiSnips" ]
 let g:UltiSnipsSnippetsDir="/Users/harvey/dotfiles/UltiSnips"
+
+" Listing of snippets
+inoremap  <C-e>  <C-R>=UltiSnips#ListSnippets()<cr>
+nnoremap  <C-e>  :call UltiSnips#ListSnippets()<cr>
+
 
 " ================ Tabularize Shortcuts ============="{{{1
 "
