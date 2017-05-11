@@ -239,6 +239,7 @@ colorscheme solarized
 
 " ================ Ultisnips Plugin ================="{{{1
 "
+
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
@@ -250,6 +251,11 @@ let g:UltiSnipsSnippetDirectories=[
         \ "bundle/vim-snippets/UltiSnips", 
         \ "/Users/harvey/dotfiles/UltiSnips" ]
 let g:UltiSnipsSnippetsDir="/Users/harvey/dotfiles/UltiSnips"
+
+" Listing of snippets
+inoremap  <C-e>  <C-R>=UltiSnips#ListSnippets()<cr>
+nnoremap  <C-e>  :call UltiSnips#ListSnippets()<cr>
+
 
 " ================ Tabularize Shortcuts ============="{{{1
 "
