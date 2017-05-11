@@ -11,13 +11,13 @@ filetype off                  " required
 "
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'             " Vundle plugin manager
+
 
 " PLUGINS: General Vim Improvements {{{2
 Plugin 'vim-scripts/tComment'             " T-Comment for faster commenting
 Plugin 'godlygeek/tabular'                " Tabular util
-Plugin 'ctrlpvim/ctrlp.vim'               " Control-P file explorer
+Plugin 'ctrlpvim/ctrlp.vim'               " Control-P file explorer:let g:UltiSnipsListSnippets='<c-l>'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'mhinz/vim-startify'               " New Start Screen
@@ -41,6 +41,7 @@ Plugin 'othree/javascript-libraries-syntax.vim' " Javascript Syntax Helpers
 Plugin 'tpope/vim-fugitive'               " Better git handing
 Plugin 'gregsexton/gitv'
 Plugin 'mattn/gist-vim'
+Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
@@ -238,6 +239,7 @@ colorscheme solarized
 
 " ================ Ultisnips Plugin ================="{{{1
 "
+
 let g:UltiSnipsExpandTrigger="<Tab>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
