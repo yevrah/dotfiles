@@ -134,6 +134,7 @@ set laststatus=2
 set autowriteall  " Save buffers when lose focus
 set backspace=2 " Make backspace work on Mac 
 
+autocmd BufNewFile,BufRead *.tt setfiletype tt2html
 
 " ================ Search ==========================="{{{1
 "
