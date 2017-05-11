@@ -21,6 +21,7 @@ Plugin 'ctrlpvim/ctrlp.vim'               " Control-P file explorer
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'mhinz/vim-startify'               " New Start Screen
+Plugin 'skwp/vim-easymotion'
 
 " PLUGINS: Vim UI {{{2
 Plugin 'altercation/vim-colors-solarized' " Solarized colaour theme
@@ -42,16 +43,15 @@ Plugin 'gregsexton/gitv'
 Plugin 'mattn/gist-vim'
 
 " PLUGINS: Review these plugins on local {{{2
-" if has('mac')
+if has('mac')
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'vim-voom/VOoM'
 Plugin 'Raimondi/delimitMate'
-Plugin 'skwp/vim-easymotion'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
-" endif
+endif
 
 "Plugin 'ervandew/supertab'                " Supertab plugin
 
@@ -254,6 +254,13 @@ let g:UltiSnipsSnippetsDir="/Users/harvey/dotfiles/UltiSnips"
 "
 nmap \| :Tabularize /
 vmap \| :Tabularize /
+
+" Some tabularise shortcuts
+"      Align first = sign, run :Tabularize =
+"                          or  :Tabularize == if you don't need spaces
+" NOTES: This has to load after plugin is loaded, hence the autocmd
+autocmd VimEnter * AddTabularPattern! = /^[^=]*\zs=
+autocmd VimEnter * AddTabularPattern! == /^[^=]*\zs=/r0c0l0
 
 " ================ Smarter Commenting ==============="{{{1
 "
