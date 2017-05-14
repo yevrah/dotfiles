@@ -8,7 +8,7 @@ priority -50
 
 extends javascript
 
-snippet when "$.when(deferred).done|then( ... )" b!
+snippet jqwhen "$.when(deferred).done|then( ... )" b!
 $.when(${1:deferred}).${2:done/then}(
 	function(args) { /* args is ["success", statusText, jqXHR] */
 		${2:alert(args[1]);}
@@ -16,7 +16,7 @@ $.when(${1:deferred}).${2:done/then}(
 );
 endsnippet
 
-snippet ajaxs "$.ajaxSetup( ... )" b!
+snippet jqajaxs "$.ajaxSetup( ... )" b!
 $.ajaxSetup({
 	url: "${1:url}",
 	type: "${2:POST}",
@@ -34,7 +34,7 @@ $.ajaxSetup({
 });
 endsnippet
 
-snippet ajax "$.ajax(...)" b!
+snippet jqajax "$.ajax(...)" b!
 $.ajax({
 	url: "${1:url}",
 	type: "${2:POST}",
@@ -52,11 +52,11 @@ $.ajax({
 });
 endsnippet
 
-snippet empty "jQuery.isEmptyObject()" w!
+snippet jqempty "jQuery.isEmptyObject()" w!
 jQuery.isEmptyObject(${1:obj})
 endsnippet
 
-snippet hover ".hover(on, off)" w!
+snippet jqhover ".hover(on, off)" w!
 .hover(function() {
 	$1
 }, function() {
@@ -64,29 +64,29 @@ snippet hover ".hover(on, off)" w!
 });
 endsnippet
 
-snippet noop "jQuery.noop()" w!
+snippet jqnoop "jQuery.noop()" w!
 jQuery.noop()
 endsnippet
 
-snippet plain "jQuery.isPlainObject()" w!
+snippet jqplain "jQuery.isPlainObject()" w!
 jQuery.isPlainObject(${1:obj})
 endsnippet
 
-snippet proxy "jQuery.proxy()" w!
+snippet jqproxy "jQuery.proxy()" w!
 jQuery.proxy(${1:obj}, '${2:method}')
 endsnippet
 
-snippet ready "$(document).ready(function() { ... })" b!
+snippet jqready "$(document).ready(function() { ... })" b!
 $(document).ready(function() {
 	${0:${VISUAL}}
 });
 endsnippet
 
-snippet this "$(this)" w!
+snippet jqthis "$(this)" w!
 $(this)
 endsnippet
 
-snippet toggle ".toggle(on, off)" w!
+snippet jqtoggle ".toggle(on, off)" w!
 .toggle(function() {
 	$1
 }, function() {
@@ -94,19 +94,19 @@ snippet toggle ".toggle(on, off)" w!
 });
 endsnippet
 
-snippet trim "$.trim()" w!
+snippet jqtrim "$.trim()" w!
 $.trim('${1:string}')
 endsnippet
 
-snippet . ".name( ... )" w!
-.${1:name}($1)
-endsnippet
-
-snippet .. ".name( ... ) (multiline)" w!
-.${1:name}(
-	${0:${VISUAL}}
-)
-endsnippet
+# snippet . ".name( ... )" w!
+# .${1:name}($1)
+# endsnippet
+#
+# snippet .. ".name( ... ) (multiline)" w!
+# .${1:name}(
+# 	${0:${VISUAL}}
+# )
+# endsnippet
 
 snippet $ "$(css)" w!
 $('${1:css}')

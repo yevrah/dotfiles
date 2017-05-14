@@ -1,0 +1,234 @@
+# Global Git Ignore File
+# ======================
+#
+# From https://ricostacruz.com/til/navigate-code-with-ctags
+# Make sure to run
+#
+#   git config --global core.excludesfile $HOME/.global_ignore
+#
+
+
+# Python, src https://github.com/github/gitignore/blob/master/Python.gitignore  {{{1
+#  ____        _   _                 
+# |  _ \ _   _| |_| |__   ___  _ __  
+# | |_) | | | | __| '_ \ / _ \| '_ \ 
+# |  __/| |_| | |_| | | | (_) | | | |
+# |_|    \__, |\__|_| |_|\___/|_| |_|
+#        |___/                       
+# 
+
+
+# Byte-compiled / optimized / DLL files {{{2
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions {{{2
+*.so
+
+# Distribution / packaging {{{2
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller {{{2
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it. {{{2
+*.manifest
+*.spec
+
+# Installer logs {{{2
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports {{{2
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# Translations {{{2
+*.mo
+*.pot
+
+# Django stuff: {{{2
+*.log
+local_settings.py
+
+# Flask stuff: {{{2
+instance/
+.webassets-cache
+
+# Scrapy stuff: {{{2
+.scrapy
+
+# Sphinx documentation {{{2
+docs/_build/
+
+# PyBuilder {{{2
+target/
+
+# Jupyter Notebook {{{2
+.ipynb_checkpoints
+
+# pyenv {{{2
+.python-version
+
+# celery beat schedule file {{{2
+celerybeat-schedule
+
+# SageMath parsed files {{{2
+*.sage.py
+
+# dotenv {{{2
+.env
+
+# virtualenv {{{2
+.venv
+venv/
+ENV/
+
+# Spyder project settings {{{2
+.spyderproject
+.spyproject
+
+# Rope project settings {{{2
+.ropeproject
+
+# mkdocs documentation {{{2
+/site
+
+# mypy {{{2
+.mypy_cache/
+
+
+# SASS, src https://github.com/github/gitignore/blob/master/Sass.gitignore {{{1
+#  ____    _    ____ ____  
+# / ___|  / \  / ___/ ___| 
+# \___ \ / _ \ \___ \___ \ 
+#  ___) / ___ \ ___) |__) |
+# |____/_/   \_\____/____/ 
+#
+.sass-cache/
+*.css.map                          
+
+# Perl, src https://github.com/github/gitignore/blob/master/Perl.gitignore
+
+# General Items {{{2
+!Build/
+.last_cover_stats
+/META.yml
+/META.json
+/MYMETA.*
+*.o
+*.pm.tdy
+*.bs
+
+# Devel::Cover {{{2
+cover_db/
+
+# Devel::NYTProf {{{2
+nytprof.out
+
+# Dizt::Zilla {{{2
+/.build/
+
+# Module::Build {{{2
+_build/
+Build
+Build.bat
+
+# Module::Install {{{2
+inc/
+
+# ExtUitls::MakeMaker {{{2
+/blib/
+/_eumm/
+/*.gz
+/Makefile
+/Makefile.old
+/MANIFEST.bak
+/pm_to_blib
+/*.zip
+
+
+# MacOS, src https://github.com/github/gitignore/blob/master/Global/macOS.gitignore {{{1
+#  __  __             ___  ____  
+# |  \/  | __ _  ___ / _ \/ ___| 
+# | |\/| |/ _` |/ __| | | \___ \ 
+# | |  | | (_| | (__| |_| |___) |
+# |_|  |_|\__,_|\___|\___/|____/ 
+#                                
+
+# General                                             {{{2
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r                           {{{2
+Icon
+
+
+# Thumbnails                                          {{{2
+._*
+
+# Files that might appear in the root of a volume     {{{2
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share {{{2
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+
+
+
+
+
+# Vim, src https://github.com/github/gitignore/blob/master/Global/Vim.gitignore {{{1
+# __     ___           
+# \ \   / (_)_ __ ___  
+#  \ \ / /| | '_ ` _ \ 
+#   \ V / | | | | | | |
+#    \_/  |_|_| |_| |_|
+#                      
+
+# swap                     {{{2
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+# session                  {{{2
+Session.vim
+# temporary                {{{2
+.netrwhist
+*~
+# auto-generated tag files {{{2
+tags
