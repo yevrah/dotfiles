@@ -168,7 +168,8 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 " ================ Yankring Config =================="{{{1
 "
 
-nnoremap <leader>yr :YRShow<CR> " turn off YCM
+autocmd VimEnter * nnoremap <leader>yr :YRShow<CR>
+
 
 " ================ Easymotion Config ================"{{{1
 "
@@ -212,6 +213,8 @@ autocmd FileType scss set iskeyword+=-
 
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
+let g:ycm_server_python_interpreter="/usr/bin/python"
+
 
 " YCM gives you popups and splits by default that some people might 
 " not like, so these should tidy it up a bit for you.
