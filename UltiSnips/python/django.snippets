@@ -1,0 +1,355 @@
+priority -50
+
+# This files will define django snippets from sublime text djaneiro
+
+# FORMS SNIPPETS {{{1
+
+snippet djform "Form" b
+class ${1:FORMNAME}(forms.Form):
+
+	${2:# TODO: Define form fields here}
+endsnippet
+
+snippet djmodelform "ModelForm" b
+class ${1:MODELNAME}Form(forms.ModelForm):
+
+	class Meta:
+		model = $1
+endsnippet
+
+snippet djf_bool "BooleanField" b
+${1:FIELDNAME} = forms.BooleanField($2)
+endsnippet
+
+snippet djf_char "CharField" b
+${1:FIELDNAME} = forms.CharField($2)
+endsnippet
+
+snippet djf_choice "ChoiceField" b
+${1:FIELDNAME} = forms.ChoiceField($2)
+endsnippet
+
+snippet djf_combo "ComboField" b
+${1:FIELDNAME} = forms.ComboField($2)
+endsnippet
+
+snippet djf_date "DateField" b
+${1:FIELDNAME} = forms.DateField($2)
+endsnippet
+
+snippet djf_datetime "DateTimeField" b
+${1:FIELDNAME} = forms.DateTimeField($2)
+endsnippet
+
+snippet djf_decimal "DecimalField" b
+${1:FIELDNAME} = forms.DecimalField($2)
+endsnippet
+
+snippet djf_mail "EmailField" b
+${1:FIELDNAME} = forms.EmailField($2)
+endsnippet
+
+snippet djf_file "FileField" b
+${1:FIELDNAME} = forms.FileField($2)
+endsnippet
+
+snippet djf_filepath "FilePathField" b
+${1:FIELDNAME} = forms.FilePathField($2)
+endsnippet
+
+snippet djf_float "FloatField" b
+${1:FIELDNAME} = forms.FloatField($2)
+endsnippet
+
+snippet djf_ip "IPAddressField" b
+${1:FIELDNAME} = forms.IPAddressField($2)
+endsnippet
+
+snippet djf_img "ImageField" b
+${1:FIELDNAME} = forms.ImageField($2)
+endsnippet
+
+snippet djf_int "IntegerField" b
+${1:FIELDNAME} = forms.IntegerField($2)
+endsnippet
+
+snippet djf_mochoice "ModelChoiceField" b
+${1:FIELDNAME} = forms.ModelChoiceField($2)
+endsnippet
+
+snippet djf_momuchoice "ModelMultipleChoiceField" b
+${1:FIELDNAME} = forms.ModelMultipleChoiceField($2)
+endsnippet
+
+snippet djf_muval "MultiValueField" b
+${1:FIELDNAME} = forms.MultiValueField($2)
+endsnippet
+
+snippet djf_muchoice "MultipleChoiceField" b
+${1:FIELDNAME} = forms.MultipleChoiceField($2)
+endsnippet
+
+snippet djf_nullbool "NullBooleanField" b
+${1:FIELDNAME} = forms.NullBooleanField($2)
+endsnippet
+
+snippet djf_reg "RegexField" b
+${1:FIELDNAME} = forms.RegexField($2)
+endsnippet
+
+snippet djf_slug "SlugField" b
+${1:FIELDNAME} = forms.SlugField($2)
+endsnippet
+
+snippet djf_sdatetime "SplitDateTimeField" b
+${1:FIELDNAME} = forms.SplitDateTimeField($2)
+endsnippet
+
+snippet djf_time "TimeField" b
+${1:FIELDNAME} = forms.TimeField($2)
+endsnippet
+
+snippet djf_tchoice "TypedChoiceField" b
+${1:FIELDNAME} = forms.TypedChoiceField($2)
+endsnippet
+
+snippet djf_tmuchoice "TypedMultipleChoiceField" b
+${1:FIELDNAME} = forms.TypedMultipleChoiceField($2)
+endsnippet
+
+snippet djf_url "URLField" b
+${1:FIELDNAME} = forms.URLField($2)
+endsnippet
+
+# MODELS SNIPPETS {{{1
+
+snippet djdb_model "Model" b
+class ${1:MODELNAME}(models.Model):
+	${2:djdb_}
+
+	class Meta:
+		verbose_name = "$1"
+		verbose_name_plural = "$1s"
+
+	def __str__(self):
+		return super($1, self).__str__()
+
+	def save(self):
+		return super($1, self).save()
+
+	@models.permalink
+	def get_absolute_url(self):
+		return ('')
+
+	${3:# TODO: Define custom methods here}
+endsnippet
+
+# Model Options**
+snippet djdb_options "Options"
+${1:null=False, }${2:blank=True, }${3:choices=[('Yes', 'Yes'), ('No', 'No')], }${4:default=""}
+endsnippet	
+
+
+snippet djdb_auto "AutoField" b
+${1:FIELDNAME} = models.AutoField($2)
+endsnippet
+
+snippet djdb_bigint "BigIntegerField" b
+${1:FIELDNAME} = models.BigIntegerField($2)
+endsnippet
+
+snippet djdb_bool "BooleanField" b
+${1:FIELDNAME} = models.BooleanField($2)
+endsnippet
+
+snippet djdb_char "CharField" b
+${1:FIELDNAME} = models.CharField($2, max_length=${3:50})
+endsnippet
+
+snippet djdb_coseint "CommaSeparatedIntegerField" b
+${1:FIELDNAME} = models.CommaSeparatedIntegerField($2)
+endsnippet
+
+snippet djdb_date "DateField" b
+${1:FIELDNAME} = models.DateField($2)
+endsnippet
+
+snippet djdb_datetime "DateTimeField" b
+${1:FIELDNAME} = models.DateTimeField($2)
+endsnippet
+
+snippet djdb_decimal "DecimalField" b
+${1:FIELDNAME} = models.DecimalField(max_digits=${2:10}, decimal_places=${3:2})
+endsnippet
+
+snippet djdb_email "EmailField" b
+${1:FIELDNAME} = models.EmailField($2)
+endsnippet
+
+snippet djdb_file "FileField" b
+${1:FIELDNAME} = models.FileField($2)
+endsnippet
+
+snippet djdb_filepath "FilePathField" b
+${1:FIELDNAME} = models.FilePathField($2)
+endsnippet
+
+snippet djdb_float "FloatField" b
+${1:FIELDNAME} = models.FloatField($2)
+endsnippet
+
+snippet fk "ForeignKey" b
+${1:FIELDNAME} = models.ForeignKey($2)
+endsnippet
+
+snippet djdb_ip "IPAddressField" b
+${1:FIELDNAME} = models.IPAddressField($2)
+endsnippet
+
+snippet djdb_img "ImageField" b
+${1:FIELDNAME} = models.ImageField($2)
+endsnippet
+
+snippet djdb_int "IntegerField" b
+${1:FIELDNAME} = models.IntegerField($2)
+endsnippet
+
+snippet djdb_2m "ManyToManyField" b
+${1:FIELDNAME} = models.ManyToManyField($2)
+endsnippet
+
+snippet djdb_nullbool "NullBooleanField" b
+${1:FIELDNAME} = models.NullBooleanField($2)
+endsnippet
+
+snippet o2o "OneToOneField" b
+${1:FIELDNAME} = models.OneToOneField($2)
+endsnippet
+
+snippet djdb_phone "PhoneNumberField" b
+${1:FIELDNAME} = models.PhoneNumberField($2)
+endsnippet
+
+snippet djdb_posint "PositiveIntegerField" b
+${1:FIELDNAME} = models.PositiveIntegerField($2)
+endsnippet
+
+snippet djdb_possmallint "PositiveSmallIntegerField" b
+${1:FIELDNAME} = models.PositiveSmallIntegerField($2)
+endsnippet
+
+snippet djdb_slug "SlugField" b
+${1:FIELDNAME} = models.SlugField($2)
+endsnippet
+
+snippet djdb_smallint "SmallIntegerField" b
+${1:FIELDNAME} = models.SmallIntegerField($2)
+endsnippet
+
+snippet djdb_text "TextField" b
+${1:FIELDNAME} = models.TextField($2)
+endsnippet
+
+snippet djdb_time "TimeField" b
+${1:FIELDNAME} = models.TimeField($2)
+endsnippet
+
+snippet djdb_url "URLField" b
+${1:FIELDNAME} = models.URLField($2)
+endsnippet
+
+snippet djdb_usstate "USStateField" b
+${1:FIELDNAME} = models.USStateField($2)
+endsnippet
+
+snippet djdb_xml "XMLField" b
+${1:FIELDNAME} = models.XMLField($2)
+endsnippet
+
+# VIEWS SNIPPETS {{{1
+
+snippet djv_adminview "Model Admin View" b
+class $1Admin(admin.ModelAdmin):
+	'''
+		Admin View for $1
+	'''
+	list_display = ('$2',)
+	list_filter = ('$3',)
+	inlines = [
+		$4Inline,
+	]
+	raw_id_fields = ('$5',)
+	readonly_fields = ('$6',)
+	search_fields = ['$7']
+admin.site.register($1, $1Admin)
+endsnippet
+
+snippet djv_createview "Generic Create View" b
+class ${1:MODEL_NAME}CreateView(CreateView):
+	model = ${1:MODEL_NAME}
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_deleteview "Generic Delete View" b
+class ${1:MODEL_NAME}DeleteView(DeleteView):
+	model = ${1:MODEL_NAME}
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_detailview "Generic Detail View" b
+class ${1:MODEL_NAME}DetailView(DetailView):
+	model = ${1:MODEL_NAME}
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_listview "Generic List View" b
+class ${1:MODEL_NAME}ListView(ListView):
+	model = ${1:MODEL_NAME}
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_stackedinline "Stacked Inline" b
+class $1Inline(admin.StackedInline):
+	'''
+	Stacked Inline View for $1
+	'''
+	model = ${2:$1}
+	min_num = ${3:3}
+	max_num = ${4:20}
+	extra = ${5:1}
+	raw_id_fields = ($6,)
+endsnippet
+
+snippet djv_tabularinline "Tabular Inline" b
+class $1Inline(admin.TabularInline):
+	'''
+	Tabular Inline View for $1
+	'''
+	model = ${2:$1}
+	min_num = ${3:3}
+	max_num = ${4:20}
+	extra = ${5:1}
+	raw_id_fields = ($6,)
+endsnippet
+
+snippet djv_templateview "Generic Template View" b
+class ${1:CLASS_NAME}(TemplateView):
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_updateview "Generic Update View" b
+class ${1:MODEL_NAME}UpdateView(UpdateView):
+	model = ${1:MODEL_NAME}
+	template_name = "${2:TEMPLATE_NAME}"
+endsnippet
+
+snippet djv_dispatch "Dispatch View method" b
+def dispatch(self, request, *args, **kwargs):
+	return super(${1:CLASS_NAME}, self).dispatch(request, *args, **kwargs)
+endsnippet
+
+snippet djv_context "get_context_data view method" b
+def get_context_data(self, **kwargs):
+	kwargs['extra_context'] = ${1:'New Value'}
+	return super(${2:CLASS_NAME}, self).get_context_data(**kwargs)
+endsnippet

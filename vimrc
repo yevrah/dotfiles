@@ -12,7 +12,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'             " Vundle plugin manager
 
-
 " PLUGINS: General Vim Improvements {{{2
 Plugin 'vim-scripts/tComment'             " T-Comment for faster commenting
 Plugin 'godlygeek/tabular'                " Tabular util
