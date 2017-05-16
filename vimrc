@@ -1,23 +1,38 @@
+" {{{1
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" ================ Vundle Section =================== {{{1
+" ================ Vundle Section =================== {{{1"{{{
 "
 "
 " 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git \
 "                   ~/.vim/bundle/Vundle.vim`
-" 2. Install Nerfonts from https://github.com/ryanoasis/nerd-fonts
+" 2. Install Nerdfonts from https://github.com/ryanoasis/nerd-fonts
 "
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'             " Vundle plugin manager
 
+" PLUGINS: Vim UI {{{2
+Plugin 'altercation/vim-colors-solarized' " Solarized colaour theme
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 " PLUGINS: General Vim Improvements {{{2
 Plugin 'vim-scripts/tComment'             " T-Comment for faster commenting
 Plugin 'godlygeek/tabular'                " Tabular util
 Plugin 'vim-scripts/YankRing.vim'
-Plugin 'scrooloose/nerdtree.git'
 Plugin 'majutsushi/tagbar'                " Tagbar
+Plugin 'airblade/vim-rooter'              " Set Project Root to something sane!
+Plugin 'mileszs/ack.vim'
+Plugin 'sheerun/vim-polyglot'
+
+" PLUGINS: Nerdtree Related
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'janlay/NERD-tree-project'
+" Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 Plugin 'mhinz/vim-startify'               " New Start Screen
 Plugin 'skwp/vim-easymotion'
 
@@ -28,12 +43,6 @@ Plugin 'craigemery/vim-autotag'
 Plugin 'ctrlpvim/ctrlp.vim'               " Control-P file explorer:let g:UltiSnipsListSnippets='<c-l>'
 Plugin 'sgur/ctrlp-extensions.vim'
 Plugin 'ivalkeen/vim-ctrlp-tjump'
-
-" PLUGINS: Vim UI {{{2
-Plugin 'altercation/vim-colors-solarized' " Solarized colaour theme
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ryanoasis/vim-devicons'           " Dev icons
 
 " PLUGINS: Snippets Support {{{2
 Plugin 'SirVer/ultisnips'                 " Ultisnips for snippets
@@ -50,13 +59,11 @@ Plugin 'othree/html5.vim'
 
 " PLUGINS: CSS {{{2
 "Plugin 'JulesWang/css.vim' " only necessary if your Vim version < 7.4
-Plugin 'cakebaker/scss-syntax.vim'"
+Plugin 'cakebaker/scss-syntax.vim'
 
 " PLUGINS: Git  {{{2
-Plugin 'mattn/webapi-vim'
 Plugin 'tpope/vim-fugitive'               " Better git handing
 Plugin 'gregsexton/gitv'
-Plugin 'mattn/gist-vim'
 Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Review these plugins on local {{{2
@@ -68,28 +75,46 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+
+" PLUGINS: Needing to be loaded last
+Plugin 'ryanoasis/vim-devicons'           " Dev icons
 endif
 
 "Plugin 'ervandew/supertab'                " Supertab plugin
 
 
 " ================ End Vundle Section =============== {{{1
-call vundle#end() 
+call vundle#end()
 filetype plugin indent on
-
-
+"}}}
 " ################ START PLUGINS CONFIG ############# {{{1
-"  ___ _    _ _  __  _  _  _  __     __ _  _  _  ___  _  __ 
+"  ___ _    _ _  __  _  _  _  __     __ _  _  _  ___  _  __
 " | o \ |  | | |/ _|| || \| |/ _|   / _/ \| \| || __|| |/ _|
 " |  _/ |_ | U ( |_n| || \\ |\_ \  ( (( o ) \\ || _| | ( |_n
 " |_| |___||___|\__/|_||_|\_||__/   \__\_/|_|\_||_|  |_|\__/
 "
 
 
-" ================ Improved Javascript =============="{{{1
+" ================ improved javascript =============="{{{1
 "
 let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
 
+" ================ ACK Search ======================="{{{1
+"
+if executable('ag')
+  let g:ackprg = "ag --nogroup --nocolor --column"
+  nnoremap <Leader>a :Ack |
+elseif executable('ack') || executable ('ack-grep')
+  nnoremap <Leader>a :Ack |
+else
+  nnoremap <Leader>a :grep |
+endif
+
+
+" ================ Project Root Setup ==============="{{{1
+"
+let g:rooter_patterns = ['.git', '.git/', '.svn', 'package.json', 'Gemfile', 'Gulpfile.js', 'Gruntfile.js', 'config.rb']
+let g:rooter_silent_chdir = 1
 
 " ================ NERDTree and Tagbar =============="{{{1
 "
@@ -102,11 +127,18 @@ nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 let g:tagbar_ctags_bin="/usr/local/bin/ctags"
 
+" NERDTree Project
+let g:NTPNames = ['.git*', 'package.json', 'Gemfile', 'Gulpfile.js', 'Gruntfile.js']
+let g:NTPNamesDirs = ['.git', '.svn']
+
 " ================ Ariline Config ==================="{{{1
 "
 let g:airline_theme='solarized'
-let g:airline#extensions#tabline#enabled = 1            " 
 let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#tabline#enabled = 1 " Use tabline
+" let g:airline#extensions#tabline#show_tabs = 1 " Always show tabline
+" let g:airline#extensions#tabline#show_buffers = 1 " Show buffers when no tabs
 
 " ================ Solarized Plugin ================="{{{1
 "
@@ -154,6 +186,27 @@ map <leader>c <c-_><c-_>
 " ================ Startify Config =================="{{{1
 "
 let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
+let g:startify_session_dir='~/.vim/session'
+
+let g:startify_list_order=[
+    \ ['   My sessions:'],
+    \ 'sessions',
+    \ ['   My most recently used files in the current directory:'],
+    \ 'dir',
+    \ ['   My most recently used files'],
+    \ 'files',
+    \ ['   My bookmarks:'],
+    \ 'bookmarks',
+    \ ['   My commands:'],
+    \ 'commands',
+\ ]
+"
+" Close Cleanup
+let g:startify_session_before_save = [
+    \ 'echo "Cleaning up before saving.."',
+    \ 'silent! NERDTreeClose',
+    \ 'silent! TagbarClose',
+\ ]
 
 
 " ================ Ctrl-P Config ===================="{{{1
@@ -163,6 +216,22 @@ let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 nnoremap <c-]> :CtrlPtjump<cr>
 vnoremap <c-]> :CtrlPtjumpVisual<cr>
 
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_use_caching = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
+if executable('ag')
+  " If the silver searcher is installed
+  let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+elseif executable('find')
+  " If unix OS
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+elseif executable('dir')
+  " If windows
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'dir %s /-n /b /s /a-d']
+endif
 
 " ================ Yankring Config =================="{{{1
 "
@@ -186,10 +255,6 @@ call EasyMotion#InitOptions({
 nnoremap <silent> ,dg :diffget<CR>
 nnoremap <silent> ,dp :diffput<CR>
 
-
-" ================ Syntastic Config ================="{{{1
-"
-
 let g:syntastic_enable_signs=1 " Mark syntax errors with :signs
 let g:syntastic_auto_jump=0 " Auto jump to the error when saving the file
 let g:syntastic_auto_loc_list=1 " Show the error list automatically
@@ -203,7 +268,7 @@ au BufRead,BufNewFile *.scss set filetype=scss.css
 
 " Function names starting with a keyword (e.g. baseline-unit()) are not
 " highlighted correctly by default. 
-autocmd FileType scss set iskeyword+=- 
+autocmd FileType scss set iskeyword+=-
 
 
 " ================ YouCompleteMe ===================="{{{1
@@ -213,7 +278,6 @@ autocmd FileType scss set iskeyword+=-
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 let g:ycm_server_python_interpreter="/usr/bin/python"
-
 
 " YCM gives you popups and splits by default that some people might 
 " not like, so these should tidy it up a bit for you.
@@ -273,10 +337,6 @@ let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB
 "
 
 
-" ================ buffer shortcuts ================="{{{1
-"
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
 
 
 " ================ Indenting Shortcuts =============="{{{1
@@ -328,32 +388,76 @@ autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 "
 let mapleader=","
 let &colorcolumn=join(range(81,999),",")
+
+" line numbers
 set number      " Numbers on left
 set relativenumber
+
 set ignorecase  " Ignore case
 set smartcase 
+
 set laststatus=2
 set autowriteall  " Save buffers when lose focus
-set backspace=2 " Make backspace work on Mac 
 
+" Don't break words when wrapping lines
+set linebreak
+
+" Make backspace on mac behave
+set backspace=2 
+
+" use visual terminal bell
+set vb
+
+" make wrapped lines more obvious
+let &showbreak="↳ "
+set cpoptions+=n
+
+" Make tabs, non-breaking spaces and trailing white space visible
+set list
+" Use a Musical Symbol Single Barline (0x1d100) to show a Tab, a Middle
+" Dot (0x00B7) for trailing spaces, and the negation symbol (0x00AC) for
+" non-breaking spaces
+set listchars=tab:𝄀\ ,trail:·,extends:→,precedes:←,nbsp:¬
+
+" Force *.tt files to load proper syntax
 autocmd BufNewFile,BufRead *.tt setfiletype tt2html
+
+
+" When wrap is off, horizontally scroll a decent amount.
+set sidescroll=16
+
+" Open file in last postion,runs the shortcut '"
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 " ================ Search ==========================="{{{1
 "
+set hlsearch
+set incsearch
 nnoremap // :nohlsearch<CR>
 
 
 " ================ Persistent Undo =================="{{{1
 "
+call system('mkdir -p ~/.vim/backups/' )
+call system('mkdir -p ~/.vim/undos/' )
+call system('mkdir -p ~/.vim/swaps/' )
+
 set undofile
-set undodir=~/.vim/backups
+set undodir=~/.vim/undos
+
+set backup
+set backupdir=~/.vim/backups
+
+set directory=~/.vim/swaps
 
 
 " ================ Font Settings ===================="{{{1
 "
 set encoding=utf8
-" set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types\:h12
-
+set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete:h15
+set linespace=2
 
 " ================ Modelines ========================"{{{1
 "
@@ -389,7 +493,13 @@ command! -nargs=+ Figlet :r!figlet -f eftifont <args>
 set wildmenu
 
 " Make repeated presses cycle between all matching choices
-set wildmode=full
+" better command line completion
+	set wildmode=longest,full
+	set fileignorecase
+	set wildignorecase
+
+	" Ingore backup files & git directories
+	set wildignore+=*~,.git
 
 " Load the default menus (this would happen automatically in gvim, but not in
 " terminal vim)
@@ -397,18 +507,11 @@ set wildmode=full
 source $VIMRUNTIME/menu.vim
 
 
-" ################ START PLUGINS CONFIG ############# {{{1
-"   _   ___  ___  ___  ___     ___ _    _ _  __ 
-"  / \ | __||_ _|| __|| o \   | o \ |  | | |/ _|
-" | o || _|  | | | _| |   /   |  _/ |_ | U ( |_n
-" |_n_||_|   |_| |___||_|\\   |_| |___||___|\__/
-"
-                                            
 
 " ================ Spelling Options ================="{{{1
 "
 set complete+=kspell " auto complete with C-X C-K
-set spelllang=en_us
+set spelllang=en_gb
 
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red ctermbg=white
@@ -424,4 +527,44 @@ set nofoldenable        "dont fold by default
 set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
 
+" ================ Better Vim Strokes ==============="{{{1
+"
+" unmap keys I shouldn't be using
 
+inoremap jk <esc>
+inoremap <esc> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+" ================ DEV ICON ========================="{{{1
+"
+let g:WebDevIconsUnicodeDecorateFolderNodes=1
+let g:WebDevIconsNerdTreeAfterGlyphPadding='  '
+let g:WebDevIconsNerdTreeGitPluginForceVAlign=1
+augroup devicons
+  autocmd!
+  autocmd FileType nerdtree setlocal nolist
+  autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
+  autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\[" contained conceal containedin=ALL
+  autocmd FileType nerdtree setlocal conceallevel=3
+  autocmd FileType nerdtree setlocal concealcursor=nvic
+augroup END
+if exists("g:loaded_webdevicons")
+  call webdevicons#refresh()
+endif
+
+" so ~/dotfiles/vim/plugins/color_devicons.vim
+so ~/dotfiles/vim/plugins/color_devicons_alt.vim
+so ~/dotfiles/vim/startify.vim
+
+" ================ buffer shortcuts ================="{{{1
+"
+nnoremap <leader>q :bd!<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
