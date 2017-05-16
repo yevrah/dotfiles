@@ -22,7 +22,8 @@
 " Global Variables {{{
 
 if !exists('g:coldevicons_filetypes')   " String containing comma-separated list of filetypes [NO SPACES]   eg: 'nerdtree,startify,unite'
-    let g:coldevicons_filetypes = '*'
+    " let g:coldevicons_filetypes = '*'
+    let g:coldevicons_filetypes = 'nerdtree,startify'
 endif
 
 if !exists('g:coldevicons_colormap')    " Colormap containing name for color and RRGGBB hex values

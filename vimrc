@@ -208,6 +208,10 @@ let g:startify_session_before_save = [
     \ 'silent! TagbarClose',
 \ ]
 
+let g:startify_bookmarks = [
+      \ { 'v': '~/dotfiles/vimrc' },
+      \ ]
+
 
 " ================ Ctrl-P Config ===================="{{{2
 "
@@ -473,6 +477,7 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " ================ Additional Vim Commands =========="{{{2
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
+command! -nargs=+ Gitlazy :r!git add .;git commit -am '<args>';git push
 
 
 " ================ emenu - experimental ============="{{{2
