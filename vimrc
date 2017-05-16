@@ -102,8 +102,8 @@ nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
 if has('mac')
   let g:tagbar_ctags_bin="/usr/local/bin/ctags"
-elseif has('unix')
-  let g:tagbar_ctags_bin=" /usr/bin/ctags"
+" elseif has('unix')
+"   let g:tagbar_ctags_bin=" /usr/bin/ctags"
 endif
 
 " ================ Ariline Config ==================="{{{1
