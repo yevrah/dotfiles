@@ -477,8 +477,7 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " ================ Additional Vim Commands =========="{{{2
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
-command! -nargs=+ Gitlazy :r!git add .;git commit -am '<args>';git push
-
+command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
 
 " ================ emenu - experimental ============="{{{2
 "
