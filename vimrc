@@ -125,7 +125,11 @@ autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
-let g:tagbar_ctags_bin="/usr/local/bin/ctags"
+if has('mac')
+  let g:tagbar_ctags_bin="/usr/local/bin/ctags"
+" elseif has('unix')
+"   let g:tagbar_ctags_bin=" /usr/bin/ctags"
+endif
 
 " NERDTree Project
 let g:NTPNames = ['.git*', 'package.json', 'Gemfile', 'Gulpfile.js', 'Gruntfile.js']
