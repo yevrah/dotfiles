@@ -1,8 +1,8 @@
-" {{{1
+" ################ HEADER ########################### {{{1
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" ================ Vundle Section =================== {{{1"{{{
+" ################ VUNDLE SECTION ################### {{{1
 "
 "
 " 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git \
@@ -80,13 +80,10 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
 endif
 
-"Plugin 'ervandew/supertab'                " Supertab plugin
-
-
-" ================ End Vundle Section =============== {{{1
+" ================ End Vundle Section =============== {{{2
 call vundle#end()
 filetype plugin indent on
-"}}}
+
 " ################ START PLUGINS CONFIG ############# {{{1
 "  ___ _    _ _  __  _  _  _  __     __ _  _  _  ___  _  __
 " | o \ |  | | |/ _|| || \| |/ _|   / _/ \| \| || __|| |/ _|
@@ -94,12 +91,11 @@ filetype plugin indent on
 " |_| |___||___|\__/|_||_|\_||__/   \__\_/|_|\_||_|  |_|\__/
 "
 
-
-" ================ improved javascript =============="{{{1
+" ================ Improved javascript =============="{{{2
 "
 let g:used_javascript_libs = 'angularjs,jquery,angularui,angularuirouter,vue'
 
-" ================ ACK Search ======================="{{{1
+" ================ ACK Search ======================="{{{2
 "
 if executable('ag')
   let g:ackprg = "ag --nogroup --nocolor --column"
@@ -111,12 +107,12 @@ else
 endif
 
 
-" ================ Project Root Setup ==============="{{{1
+" ================ Project Root Setup ==============="{{{2
 "
 let g:rooter_patterns = ['.git', '.git/', '.svn', 'package.json', 'Gemfile', 'Gulpfile.js', 'Gruntfile.js', 'config.rb']
 let g:rooter_silent_chdir = 1
 
-" ================ NERDTree and Tagbar =============="{{{1
+" ================ NERDTree and Tagbar =============="{{{2
 "
 nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
 autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer
@@ -135,7 +131,7 @@ endif
 let g:NTPNames = ['.git*', 'package.json', 'Gemfile', 'Gulpfile.js', 'Gruntfile.js']
 let g:NTPNamesDirs = ['.git', '.svn']
 
-" ================ Ariline Config ==================="{{{1
+" ================ Ariline Config ==================="{{{2
 "
 let g:airline_theme='solarized'
 let g:airline_powerline_fonts = 1
@@ -144,14 +140,14 @@ let g:airline#extensions#tabline#enabled = 1 " Use tabline
 " let g:airline#extensions#tabline#show_tabs = 1 " Always show tabline
 " let g:airline#extensions#tabline#show_buffers = 1 " Show buffers when no tabs
 
-" ================ Solarized Plugin ================="{{{1
+" ================ Solarized Plugin ================="{{{2
 "
 syntax enable
 set background=dark
 colorscheme solarized
 
 
-" ================ Ultisnips Plugin ================="{{{1
+" ================ Ultisnips Plugin ================="{{{2
 "
 
 let g:UltiSnipsExpandTrigger="<Tab>"
@@ -171,7 +167,7 @@ inoremap  <C-e>  <C-R>=UltiSnips#ListSnippets()<cr>
 nnoremap  <C-e>  :call UltiSnips#ListSnippets()<cr>
 
 
-" ================ Tabularize Shortcuts ============="{{{1
+" ================ Tabularize Shortcuts ============="{{{2
 "
 nmap \| :Tabularize /
 vmap \| :Tabularize /
@@ -183,11 +179,11 @@ vmap \| :Tabularize /
 autocmd VimEnter * AddTabularPattern! = /^[^=]*\zs=
 autocmd VimEnter * AddTabularPattern! == /^[^=]*\zs=/r0c0l0
 
-" ================ Smarter Commenting ==============="{{{1
+" ================ Smarter Commenting ==============="{{{2
 "
 map <leader>c <c-_><c-_>
 
-" ================ Startify Config =================="{{{1
+" ================ Startify Config =================="{{{2
 "
 let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
 let g:startify_session_dir='~/.vim/session'
@@ -213,7 +209,7 @@ let g:startify_session_before_save = [
 \ ]
 
 
-" ================ Ctrl-P Config ===================="{{{1
+" ================ Ctrl-P Config ===================="{{{2
 "
 let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 
@@ -237,13 +233,13 @@ elseif executable('dir')
   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'dir %s /-n /b /s /a-d']
 endif
 
-" ================ Yankring Config =================="{{{1
+" ================ Yankring Config =================="{{{2
 "
 
 autocmd VimEnter * nnoremap <leader>yr :YRShow<CR>
 
 
-" ================ Easymotion Config ================"{{{1
+" ================ Easymotion Config ================"{{{2
 "
 
 call EasyMotion#InitOptions({
@@ -254,7 +250,7 @@ call EasyMotion#InitOptions({
  \ , 'do_mapping'      : 1
  \ })
 
-" ================ Fugitive Config =================="{{{1
+" ================ Fugitive Config =================="{{{2
 "
 nnoremap <silent> ,dg :diffget<CR>
 nnoremap <silent> ,dp :diffput<CR>
@@ -266,7 +262,7 @@ let g:syntastic_quiet_messages={'level': 'warnings'} " Don't care about warnings
 let g:syntastic_enable_perl_checker=0 " Perl checker
 
 
-" ================ YouCompleteMe ===================="{{{1
+" ================ SASS Config ======================"{{{2
 "
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
@@ -275,7 +271,7 @@ au BufRead,BufNewFile *.scss set filetype=scss.css
 autocmd FileType scss set iskeyword+=-
 
 
-" ================ YouCompleteMe ===================="{{{1
+" ================ YouCompleteMe ===================="{{{2
 "
 " These settings prevent YCM from clashing with UltiSnips
 
@@ -306,7 +302,7 @@ endtry
 
 
 
-" ================ dbext ============================"{{{1
+" ================ dbext ============================"{{{2
 "
 
 " Any number of profiles (connections) can be configured using this basic format:
@@ -330,9 +326,6 @@ let g:dbext_default_profile_lk = 'type=MYSQL:user=www:passwd=www:dbname=freeol'
 let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB'
 
 
-
-
-
 " ################ START VIM SETTINGS ############### {{{1
 "  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __ 
 " | | || || \_/ |  / _|| __||_ _||_ _|| || \| |/ _|/ _|
@@ -340,15 +333,12 @@ let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB
 "  \_/ |_||_| |_|  |__/|___| |_|  |_| |_||_|\_|\__/|__/
 "
 
-
-
-
-" ================ Indenting Shortcuts =============="{{{1
+" ================ Indenting Shortcuts =============="{{{2
 "
 vnoremap > >gv " Keep selection when indending
 
 
-" ================ Tab shortcuts ===================="{{{1
+" ================ Tab shortcuts ===================="{{{2
 "
 nnoremap <silent> tt :tabnew<cr>   " Create Tab
 nnoremap <silent> -- :tabp<cr>     " Previous tab
@@ -366,7 +356,7 @@ nnoremap <silent> <leader>8 :tabn 8<cr>
 nnoremap <silent> <leader>9 :tabn 9<cr>
 
 
-" ================ Split window shortcuts ==========="{{{1
+" ================ Split window shortcuts ==========="{{{2
 "
 nnoremap <silent> vv <C-w>v " Split vert.
 nnoremap <silent> ss <C-w>s " Split hori.
@@ -377,7 +367,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 
-" ================ Indentation ======================"{{{1
+" ================ Indentation ======================"{{{2
 "
 set autoindent
 set smartindent
@@ -388,7 +378,7 @@ set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 
 
-" ================ Set Sane Defaults ================"{{{1
+" ================ Set Sane Defaults ================"{{{2
 "
 let mapleader=","
 let &colorcolumn=join(range(81,999),",")
@@ -435,14 +425,14 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" ================ Search ==========================="{{{1
+" ================ Search ==========================="{{{2
 "
 set hlsearch
 set incsearch
 nnoremap // :nohlsearch<CR>
 
 
-" ================ Persistent Undo =================="{{{1
+" ================ Persistent Undo =================="{{{2
 "
 call system('mkdir -p ~/.vim/backups/' )
 call system('mkdir -p ~/.vim/undos/' )
@@ -457,13 +447,13 @@ set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 
 
-" ================ Font Settings ===================="{{{1
+" ================ Font Settings ===================="{{{2
 "
 set encoding=utf8
 set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete:h15
 set linespace=2
 
-" ================ Modelines ========================"{{{1
+" ================ Modelines ========================"{{{2
 "
 set modeline
 set modelines=5
@@ -480,12 +470,12 @@ endfunction
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-" ================ Additional Vim Commands =========="{{{1
+" ================ Additional Vim Commands =========="{{{2
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
 
 
-" ================ emenu - experimental ============="{{{1
+" ================ emenu - experimental ============="{{{2
 "
 
 " YOU CAN MANUALLY TRIGGER MENU COMPLETION BY INVOKING TAB COMPLETION ON THE
@@ -512,7 +502,7 @@ source $VIMRUNTIME/menu.vim
 
 
 
-" ================ Spelling Options ================="{{{1
+" ================ Spelling Options ================="{{{2
 "
 set complete+=kspell " auto complete with C-X C-K
 set spelllang=en_gb
@@ -523,30 +513,52 @@ hi SpellBad cterm=underline ctermfg=red ctermbg=white
 nnoremap <Leader>. :setlocal spell! spelllang=en_us<CR>
 
 
-" ================ Folds ============================"{{{1
+" ================ Folds ============================"{{{2
 "
 set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
+set fillchars+=fold:\·
 
-" ================ Better Vim Strokes ==============="{{{1
+function! NeatFoldText() "{{{2
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = '·'
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
+" }}}2
+
+
+" ################ REQURES TO BE AT END ############# {{{1
+""         ___  _  _  __    _ _   _   ___ __
+""        | __|| \| ||  \  | | | / \ | o Y _|
+""        | _| | \\ || o ) | V || o ||   |_ \
+""        |___||_|\_||__/   \_/ |_n_||_|\\__/
+""
+
+" ================ Better Vim Strokes ==============="{{{2
 "
 " unmap keys I shouldn't be using
 
-inoremap jk <esc>
-inoremap <esc> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-
-" ================ DEV ICON ========================="{{{1
+" inoremap jk <esc>
+" inoremap <esc> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+" inoremap <left> <nop>
+" inoremap <right> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" nnoremap <left> <nop>
+" nnoremap <right> <nop>
+"
+" ================ DEV ICON ========================="{{{2
 "
 let g:WebDevIconsUnicodeDecorateFolderNodes=1
 let g:WebDevIconsNerdTreeAfterGlyphPadding='  '
@@ -567,7 +579,7 @@ endif
 so ~/dotfiles/vim/plugins/color_devicons_alt.vim
 so ~/dotfiles/vim/startify.vim
 
-" ================ buffer shortcuts ================="{{{1
+" ================ buffer shortcuts ================="{{{2
 "
 nnoremap <leader>q :bd!<CR>
 nnoremap <Tab> :bnext<CR>

@@ -62,7 +62,7 @@ if !exists('g:coldevicons_iconmap')     " Iconmap mapping colors to the Symbols 
         \'Green'        : ['','','','',''],
         \'Lightgreen'   : ['',''],
         \'White'        : ['','','','','','']
-    \}                                                       
+    \}
 endif
 
 " }}}
