@@ -66,6 +66,10 @@ Plugin 'tpope/vim-fugitive'               " Better git handing
 Plugin 'gregsexton/gitv'
 Plugin 'airblade/vim-gitgutter.git'
 
+" PLUGINS: Python Related
+Plugin 'lambdalisue/vim-pyenv'
+Plugin 'dhalter/jedi-vim'
+
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
 Plugin 'jtratner/vim-flavored-markdown'
@@ -341,7 +345,8 @@ let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB
 
 " ================ Indenting Shortcuts =============="{{{2
 "
-vnoremap > >gv " Keep selection when indending
+" vnoremap > >gv " Keep selection when indending   # Use . instead to repeat
+" indent
 
 
 " ================ Tab shortcuts ===================="{{{2
@@ -592,6 +597,24 @@ so ~/dotfiles/vim/startify.vim
 nnoremap <leader>q :bd!<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+
+
+
+
+" ================ Custom Colors ===================="{{{2
+"                    __ _  _   _  ___ __
+"                   / _/ \| | / \| o Y _|
+"                  ( (( o ) |( o )   |_ \
+"                   \__\_/|___\_/|_|\\__/
+"
+
+
+" See https://github.com/scrooloose/nerdtree/issues/201
+" syntax match NERDTreeTxtFile #^\s\+.*txt$#
+" highlight def link NERDTreeTxtFile error
+
+" syntax match COMMCust #^" ==.*$#
+" highlight def link COMMCust error
 
 
 " ================ Additional Vim Commands =========="{{{2
