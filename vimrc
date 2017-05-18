@@ -210,6 +210,7 @@ let g:startify_session_before_save = [
 
 let g:startify_bookmarks = [
       \ { 'v': '~/dotfiles/vimrc' },
+      \ { 'z': '~/dotfiles/zshrc' },
       \ ]
 
 
@@ -478,8 +479,7 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " ================ Additional Vim Commands =========="{{{2
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
-command! -nargs=+ Gitlazy :r!git add .;git commit -am '<args>';git push
-
+command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
 
 " ================ emenu - experimental ============="{{{2
 "
@@ -492,8 +492,7 @@ command! -nargs=+ Gitlazy :r!git add .;git commit -am '<args>';git push
 " <Enter>)
 set wildmenu
 
-" Make repeated presses cycle between all matching choices
-" better command line completion
+" Make repeated presses cycle between all matching choices " better command line completion
 	set wildmode=longest,full
 	set fileignorecase
 	set wildignorecase
@@ -541,6 +540,13 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}2
 
+" Vim Debigging
+
+" Identify the syntax highlighting group used at the cursor
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " ################ REQURES TO BE AT END ############# {{{1
 ""         ___  _  _  __    _ _   _   ___ __
