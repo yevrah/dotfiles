@@ -75,10 +75,10 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'vim-scripts/DrawIt'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+endif
 
 " PLUGINS: Needing to be loaded last
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
-endif
 
 " ================ End Vundle Section =============== {{{2
 call vundle#end()
@@ -212,6 +212,7 @@ let g:startify_bookmarks = [
       \ { 'v': '~/dotfiles/vimrc' },
       \ { 'z': '~/dotfiles/zshrc' },
       \ ]
+
 
 
 " ================ Ctrl-P Config ===================="{{{2
