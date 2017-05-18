@@ -601,7 +601,7 @@ nnoremap <S-Tab> :bprevious<CR>
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
-command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
+command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
 
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
 
