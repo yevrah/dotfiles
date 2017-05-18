@@ -224,7 +224,7 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'r'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
