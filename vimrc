@@ -228,7 +228,7 @@ vnoremap <c-]> :CtrlPtjumpVisual<cr>
 
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
@@ -624,7 +624,7 @@ nnoremap <S-Tab> :bprevious<CR>
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
-command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
+command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
 
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
 
