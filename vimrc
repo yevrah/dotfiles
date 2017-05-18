@@ -158,7 +158,7 @@ let g:UltiSnipsEditSplit='vertical'
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=[
-        \ "bundle/vim-snippets/UltiSnips", 
+        \ "bundle/vim-snippets/UltiSnips",
         \ "/Users/harvey/dotfiles/UltiSnips" ]
 let g:UltiSnipsSnippetsDir="/Users/harvey/dotfiles/UltiSnips"
 
@@ -272,7 +272,7 @@ let g:syntastic_enable_perl_checker=0 " Perl checker
 au BufRead,BufNewFile *.scss set filetype=scss.css
 
 " Function names starting with a keyword (e.g. baseline-unit()) are not
-" highlighted correctly by default. 
+" highlighted correctly by default.
 autocmd FileType scss set iskeyword+=-
 
 
@@ -284,7 +284,7 @@ let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 let g:ycm_server_python_interpreter="/usr/bin/python"
 
-" YCM gives you popups and splits by default that some people might 
+" YCM gives you popups and splits by default that some people might
 " not like, so these should tidy it up a bit for you.
 
 " let g:ycm_add_preview_to_completeopt=0
@@ -332,7 +332,7 @@ let g:dbext_default_profile_piq = 'type=MYSQL:user=www:passwd=www:dbname=clubsDB
 
 
 " ################ START VIM SETTINGS ############### {{{1
-"  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __ 
+"  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __
 " | | || || \_/ |  / _|| __||_ _||_ _|| || \| |/ _|/ _|
 " | V || || \_/ |  \_ \| _|  | |  | | | || \\ ( |_n\_ \
 "  \_/ |_||_| |_|  |__/|___| |_|  |_| |_||_|\_|\__/|__/
@@ -350,7 +350,7 @@ nnoremap <silent> -- :tabp<cr>     " Previous tab
 nnoremap <silent> == :tabn<cr>     " Next Tab
 
 " Use numbers to pick the tab you want (like iTerm)
-nnoremap <silent> <leader>1 :tabn 1<cr> 
+nnoremap <silent> <leader>1 :tabn 1<cr>
 nnoremap <silent> <leader>2 :tabn 2<cr>
 nnoremap <silent> <leader>3 :tabn 3<cr>
 nnoremap <silent> <leader>4 :tabn 4<cr>
@@ -393,7 +393,7 @@ set number      " Numbers on left
 set relativenumber
 
 set ignorecase  " Ignore case
-set smartcase 
+set smartcase
 
 set laststatus=2
 set autowriteall  " Save buffers when lose focus
@@ -402,7 +402,7 @@ set autowriteall  " Save buffers when lose focus
 set linebreak
 
 " Make backspace on mac behave
-set backspace=2 
+set backspace=2
 
 " use visual terminal bell
 set vb
@@ -475,10 +475,6 @@ endfunction
 
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-" ================ Additional Vim Commands =========="{{{2
-"
-command! -nargs=+ Figlet :r!figlet -f eftifont <args>
-command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
 
 " ================ emenu - experimental ============="{{{2
 "
@@ -595,3 +591,22 @@ so ~/dotfiles/vim/startify.vim
 nnoremap <leader>q :bd!<CR>
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
+
+
+" ================ Additional Vim Commands =========="{{{2
+"   __  _ _  __  ___ _  _   _    __  _   _  __
+"  / _|| | |/ _||_ _/ \| \_/ |  / _|| \_/ ||  \
+" ( (_ | U |\_ \ | ( o ) \_/ | ( (_ | \_/ || o )
+"  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
+"
+command! -nargs=+ Figlet :r!figlet -f eftifont <args>
+command! -nargs=+ Gitlazy :!git add .;git commit -am '<args>';git push
+
+command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
+
+command Pyrun execute "!python %"
+command PyrunI execute "!python -i %"
+
+
+
+
