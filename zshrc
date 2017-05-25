@@ -136,3 +136,13 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 alias v='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
 # alias vim='NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim'
+
+
+
+export PYTHONSTARTUP=~/.pythonrc
+# export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
+#
+#
+
+
+export PATH=/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH

@@ -26,6 +26,7 @@ Plugin 'majutsushi/tagbar'                " Tagbar
 Plugin 'airblade/vim-rooter'              " Set Project Root to something sane!
 Plugin 'mileszs/ack.vim'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-dispatch'
 
 " PLUGINS: Nerdtree Related
 Plugin 'scrooloose/nerdtree.git'
@@ -67,8 +68,8 @@ Plugin 'gregsexton/gitv'
 Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Python Related
-Plugin 'lambdalisue/vim-pyenv'
-Plugin 'dhalter/jedi-vim'
+" Plugin 'lambdalisue/vim-pyenv'
+" Plugin 'davidhalter/jedi-vim'
 
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
@@ -215,6 +216,7 @@ let g:startify_session_before_save = [
 let g:startify_bookmarks = [
       \ { 'v': '~/dotfiles/vimrc' },
       \ { 'z': '~/dotfiles/zshrc' },
+      \ { 'p': '~/dotfiles/pythonrc' },
       \ ]
 
 
@@ -628,9 +630,10 @@ command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
 
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
 
-command Pyrun execute "!python %"
-command PyrunI execute "!python -i %"
+command! Pyrun execute "!python %"
+command! PyrunI execute "!python -i %"
 
+command! Write :!sudo tee %
 
 
 
