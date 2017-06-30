@@ -126,6 +126,8 @@ autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 
+let NERDTreeIgnore = ['\.pyc$']
+
 if has('mac')
   let g:tagbar_ctags_bin="/usr/local/bin/ctags"
 " elseif has('unix')
@@ -216,7 +218,7 @@ let g:startify_session_before_save = [
 let g:startify_bookmarks = [
       \ { 'v': '~/dotfiles/vimrc' },
       \ { 'z': '~/dotfiles/zshrc' },
-      \ { 'p': '~/dotfiles/pythonrc' },
+      \ { 'p': '~/dotfiles/pythonrc.py' },
       \ ]
 
 

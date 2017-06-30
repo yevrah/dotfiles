@@ -1,0 +1,83 @@
+set nocompatible
+filetype off
+set encoding=utf-8
+set wrap
+set textwidth=79
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+" Search
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+
+" Color scheme (terminal)
+set t_Co=256
+syntax off
+
+
+
+" Only echo if g:HardMode_echo = 1
+fun! HardModeEcho()
+        echo "VIM: HARD MODE"
+endfun
+
+fun! NoArrows()
+    set backspace=0
+
+    nnoremap <buffer> <Left> <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> <Right> <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> <Up> <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> <Down> <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> <PageUp> <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> <PageDown> <Esc>:call HardModeEcho()<CR>
+
+    inoremap <buffer> <Left> <Esc>:call HardModeEcho()<CR>
+    inoremap <buffer> <Right> <Esc>:call HardModeEcho()<CR>
+    inoremap <buffer> <Up> <Esc>:call HardModeEcho()<CR>
+    inoremap <buffer> <Down> <Esc>:call HardModeEcho()<CR>
+    inoremap <buffer> <PageUp> <Esc>:call HardModeEcho()<CR>
+    inoremap <buffer> <PageDown> <Esc>:call HardModeEcho()<CR>
+
+    vnoremap <buffer> <Left> <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> <Right> <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> <Up> <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> <Down> <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> <PageUp> <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> <PageDown> <Esc>:call HardModeEcho()<CR>
+
+endfun
+
+fun! NoLetters()
+
+    vnoremap <buffer> h <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> j <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> k <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> l <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> - <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> + <Esc>:call HardModeEcho()<CR>
+
+    " Display line motions
+    vnoremap <buffer> gj <Esc>:call HardModeEcho()<CR>
+    vnoremap <buffer> gk <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> gk <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> gj <Esc>:call HardModeEcho()<CR>
+
+    nnoremap <buffer> h <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> j <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> k <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> l <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> - <Esc>:call HardModeEcho()<CR>
+    nnoremap <buffer> + <Esc>:call HardModeEcho()<CR>
+
+endfun
+
+
+call NoArrows()
+" call NoLetters()
+

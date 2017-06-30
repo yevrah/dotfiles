@@ -144,5 +144,6 @@ export PYTHONSTARTUP=~/.pythonrc
 #
 #
 
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 export PATH=/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
