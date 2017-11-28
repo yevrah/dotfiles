@@ -401,7 +401,8 @@ let mapleader=","
 
 " line numbers
 set number      " Numbers on left
-set relativenumber
+" set relativenumber
+nnoremap rr :set relativenumber!<CR>
 
 set ignorecase  " Ignore case
 set smartcase
