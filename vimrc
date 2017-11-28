@@ -73,6 +73,7 @@ Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
+Plugin 'gbigwood/Clippo'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'vim-voom/VOoM'
@@ -396,7 +397,7 @@ autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
 " ================ Set Sane Defaults ================"{{{2
 "
 let mapleader=","
-let &colorcolumn=join(range(81,999),",")
+" let &colorcolumn=join(range(81,999),",")
 
 " line numbers
 set number      " Numbers on left
@@ -418,8 +419,9 @@ set backspace=2
 set vb
 
 " make wrapped lines more obvious
-let &showbreak="↳ "
-set cpoptions+=n
+" set wrap!
+let &showbreak="↳ ↳ "
+set cpoptions+=n " start soft-wrap lines (and any prefix) in the line-number area
 
 " Make tabs, non-breaking spaces and trailing white space visible
 set list
@@ -439,6 +441,13 @@ set sidescroll=16
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+" ================ Split Windows ===================="{{{2
+"
+
+set fillchars+=vert:│
+hi VertSplit ctermbg=NONE guibg=NONE
+
 
 " ================ Search ==========================="{{{2
 "
