@@ -549,7 +549,7 @@ set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
 set fillchars+=fold:\·
 
-function! NeatFoldText() "{{{2
+function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
   let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
@@ -561,14 +561,6 @@ function! NeatFoldText() "{{{2
 endfunction
 set foldtext=NeatFoldText()
 " }}}2
-
-" Vim Debigging
-
-" Identify the syntax highlighting group used at the cursor
-" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
-nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " ################ REQURES TO BE AT END ############# {{{1
 ""         ___  _  _  __    _ _   _   ___ __
@@ -613,6 +605,15 @@ endif
 so ~/dotfiles/vim/plugins/color_devicons_alt.vim
 so ~/dotfiles/vim/startify.vim
 
+" Vim Color Debugging
+
+" Identify the syntax highlighting group used at the cursor
+" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
+nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+
 " ================ buffer shortcuts ================="{{{2
 "
 nnoremap <leader>q :bd!<CR>
@@ -630,8 +631,6 @@ autocmd FileType qf  map <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
 
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
-
-
 
 
 " ================ Custom Colors ===================="{{{2
