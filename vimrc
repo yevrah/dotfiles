@@ -4,6 +4,7 @@ filetype off                  " required
 
 " ################ VUNDLE SECTION ################### {{{1
 "
+
 "
 " 1. Install with `git clone https://github.com/VundleVim/Vundle.vim.git \
 "                   ~/.vim/bundle/Vundle.vim`
@@ -73,14 +74,18 @@ Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
+Plugin 'plytophogy/vim-virtualenv'
 Plugin 'gbigwood/Clippo'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'vim-voom/VOoM'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-scripts/DrawIt'
-Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+"Plugin 'scrooloose/syntastic'
+Plugin 'neomake/neomake'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'lepture/vim-jinja'
 endif
 
 " PLUGINS: Needing to be loaded last
@@ -121,8 +126,6 @@ let g:rooter_silent_chdir = 1
 " ================ NERDTree and Tagbar =============="{{{2
 "
 nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
-autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer
-autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -270,12 +273,13 @@ call EasyMotion#InitOptions({
 nnoremap <silent> ,dg :diffget<CR>
 nnoremap <silent> ,dp :diffput<CR>
 
-let g:syntastic_enable_signs=1 " Mark syntax errors with :signs
-let g:syntastic_auto_jump=0 " Auto jump to the error when saving the file
-let g:syntastic_auto_loc_list=1 " Show the error list automatically
-let g:syntastic_quiet_messages={'level': 'warnings'} " Don't care about warnings
-let g:syntastic_enable_perl_checker=0 " Perl checker
+" let g:syntastic_enable_signs=1 " Mark syntax errors with :signs
+" let g:syntastic_auto_jump=0 " Auto jump to the error when saving the file
+" let g:syntastic_auto_loc_list=1 " Show the error list automatically
+" let g:syntastic_quiet_messages={'level': 'warnings'} " Don't care about warnings
+" let g:syntastic_enable_perl_checker=0 " Perl checker
 
+call neomake#configure#automake('rw', 200)
 
 " ================ SASS Config ======================"{{{2
 "
@@ -292,7 +296,7 @@ autocmd FileType scss set iskeyword+=-
 
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let g:ycm_server_python_interpreter="/usr/bin/python"
+" let g:ycm_server_python_interpreter="/usr/bin/python"
 
 " YCM gives you popups and splits by default that some people might
 " not like, so these should tidy it up a bit for you.
@@ -300,11 +304,13 @@ let g:ycm_server_python_interpreter="/usr/bin/python"
 " let g:ycm_add_preview_to_completeopt=0
 " let g:ycm_confirm_extra_conf=0
 " set completeopt-=preview
-"
-"
+
 " Useful keymapes to enable/disable
 nnoremap <leader>y :let g:ycm_auto_trigger=0<CR> " turn off YCM
 nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR> " turn on YCM
+
+" Go to definition shortcut
+nnoremap gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 " Fixes error messages when typing in some filetypes
@@ -314,7 +320,6 @@ try
   set shortmess+=c
 catch /E539: Illegal character/
 endtry
-
 
 
 " ================ dbext ============================"{{{2
@@ -391,7 +396,9 @@ set smarttab
 set expandtab
 
 set shiftwidth=2 tabstop=2 softtabstop=2
-autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4 foldmethod=indent
+
+
 
 
 " ================ Set Sane Defaults ================"{{{2
@@ -609,6 +616,18 @@ so ~/dotfiles/vim/startify.vim
 " ================ buffer shortcuts ================="{{{2
 "
 nnoremap <leader>q :bd!<CR>
+
+
+" Prevent preview windows from being on buffer list
+" autocmd BufNew * if FileType qf | setlocal nobuflisted | endif
+autocmd FileType qf setlocal nobuflisted
+
+" If in particular window, just tab to main
+"
+autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer - right
+autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer - left
+autocmd FileType qf  map <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
+
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
@@ -639,11 +658,17 @@ nnoremap <S-Tab> :bprevious<CR>
 "
 command! -nargs=+ Figlet :r!figlet -f eftifont <args>
 command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
+command! -nargs=* ItermTitle silent execute '!echo -e "\033];<args>\007";export DISABLE_AUTO_TITLE="true"' | redraw!
 
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
 
 command! Pyrun execute "!python %"
 command! PyrunI execute "!python -i %"
+
+" Run yapf when = is pressed to format python - https://github.com/mindriot101/vim-yapf
+" You can yse `=` or `gq` to format python code using pep8
+" autocmd filetype python setlocal equalprg=yapf formatprg=yapf
+command! AutoPep8  execute "!yapf %"
 
 command! Write :!sudo tee %
 

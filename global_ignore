@@ -1,4 +1,4 @@
-# Global Git Ignore File
+# Global Git Ignore File - Here I am
 # ======================
 #
 # From https://ricostacruz.com/til/navigate-code-with-ctags
@@ -115,7 +115,7 @@ ENV/
 .ropeproject
 
 # mkdocs documentation {{{2
-/site
+#/site
 
 # mypy {{{2
 .mypy_cache/

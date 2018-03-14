@@ -100,12 +100,6 @@ $0
 endsnippet
 
 
-snippet ngma "A new angular module without a config function and a variable assignment."
-var ${1:moduleName} = angular.module('$1$', [${2:moduleDeps}]);
-$0
-endsnippet
-
-
 snippet ngmc "A new angular module with a config function"
 var ${1:moduleName} = angular.module('$1', [${2:moduleDeps}], function(${3:configDeps}) {
   $0
@@ -328,17 +322,17 @@ endsnippet
 
 # TESTING snippets
 
-snippet inj "angular inject() function" !b
+snippet nginj "angular inject() function" !b
 inject(function(${1:thingsToInject}) {
 	${0://Do something with $1}
 });
 endsnippet
 
-snippet $ig "$injector.get" !b
+snippet ng$ig "$injector.get" !b
 ${1:something} = \$injector.get('${2:$1}');
 endsnippet
 
-snippet mod "" !b
+snippet ngmod "" !b
 beforeEach(module(function(${1:\$provide}) {
 	${0:\$provide.service('TestThing', function(/*injected*/) {
 		this.foo = 'bar';
@@ -346,11 +340,11 @@ beforeEach(module(function(${1:\$provide}) {
 }));
 endsnippet
 
-snippet injg "Set a local variable via injection" !b
+snippet nginjg "Set a local variable via injection" !b
 var ${1:injectable}; inject(function(_$1_) { $1 = _$1_; });
 endsnippet
 
-snippet test "karma angular test scaffold" !b
+snippet ngtest "karma angular test scaffold" !b
 describe('${1:something to be tested}', function() {
 	//Setup
 	beforeEach(module('${2:someModule}'));
