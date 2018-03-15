@@ -156,6 +156,7 @@ let g:airline#extensions#tabline#enabled = 1 " Use tabline
 syntax enable
 set background=dark
 colorscheme solarized
+"set t_Co=16
 
 
 " ================ Ultisnips Plugin ================="{{{2
@@ -671,5 +672,8 @@ command! AutoPep8  execute "!yapf %"
 
 command! Write :!sudo tee %
 
+
+" Helpers for Simplerr
+command! RunServer execute "term python manage.py runserver --site=website"
 
 
