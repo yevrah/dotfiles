@@ -9,9 +9,12 @@ export ZSH=/Users/harvey/.oh-my-zsh
 autoload -U colors
 colors
 
-# Show System Info
-
-screenfetch
+# Show System Info - use neofect as it's aster
+if hash neofetch 2>/dev/null; then
+  neofetch
+else
+  screenfetch
+fi
 
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -142,7 +145,7 @@ function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 export PYTHONSTARTUP=~/.pythonrc
 export DEVBOX='HARVEY'
-export PATH=/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
+export PATH=/usr/local/bin:/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
