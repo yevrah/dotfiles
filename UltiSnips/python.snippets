@@ -1,6 +1,6 @@
-
+# Hello World: hello {{{1
 snippet hello "Basic hello world" b
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # encoding: utf-8
 
 def main():
@@ -10,51 +10,10 @@ if __name__ == '__main__':
     main()
 endsnippet
 
-snippet mdc "Mistune render snipet" b
-    def $1(self, $2):
-        self.tokens.append({
-            # Standard Elements
-            'type': 'block',
-            'format': 'code',
-            'text':code,
 
-            # Customer Elements
-	    $2})
-        return super(TokenMixin, self).$1($2)
-
-endsnippet
-
-snippet class_wip "Auto gen class from docstring" b
-
-class $1($2):
-	 """
-	 Customer base class
-	 ref: https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt
-
-	 Base Properties
-	 ---------------
-	 name     : ${1:customer}
-	 inherits : ${2:object}
-
-	 Attributes
-   ------------
-	 name : string
-			Name of the current user
-	 stats : string
-
-	 Children
-	 --------
-		
-	Parents
-	-------
-
-
-
-	 """
-endsnippet
-
-
-# SQL Alchemy filters, t hanks to:
+# SQL Alchemy filters{{{1
+#
+# Thanks to...
 # http://manuelmax.tumblr.com/post/289720781/common-filter-operators-sqlalchemy
 
 snippet sqla_hello "SQL Alchemy Hello World" b
@@ -241,4 +200,491 @@ endsnippet
 
 snippet sqla_limit "Get top x"
 query.limit($1)
+endsnippet
+
+
+# Test case boiler plate: test_case {{{1
+snippet test_case "Basic test case" b
+class Test_$1(TestCase):
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_${1/.*/\L$0\E/g}(self):
+        self.fail()
+
+endsnippet
+
+# INFO: For following Sections {{{1
+# The following is sourced from http://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy
+
+
+
+# Module Level: module  {{{1
+snippet module "Module"
+# -*- coding: utf-8 -*-
+"""Example Google style docstrings.
+
+This module demonstrates documentation as specified by the `Google Python
+Style Guide`_. Docstrings may extend over multiple lines. Sections are created
+with a section header and a colon followed by a block of indented text.
+
+Example:
+    Examples can be given using either the ``Example`` or ``Examples``
+    sections. Sections support any reStructuredText formatting, including
+    literal blocks::
+
+        $ python example_google.py
+
+Section breaks are created by resuming unindented text. Section breaks
+are also implicitly created anytime a new section starts.
+
+Attributes:
+    module_level_variable1 (int): Module level variables may be documented in
+        either the ``Attributes`` section of the module docstring, or in an
+        inline docstring immediately following the variable.
+
+        Either form is acceptable, but the two should not be mixed. Choose
+        one convention to document module level variables and be consistent
+        with it.
+
+Todo:
+    * For module TODOs
+    * You have to also use ``sphinx.ext.todo`` extension
+
+.. _Google Python Style Guide:
+   http://google.github.io/styleguide/pyguide.html
+
+"""
+endsnippet
+
+# Module level variable: modulevar {{{1
+snippet modulevar "Module level variable docstring" b
+# myvar = 123
+"""int: Module level variable documented inline.
+
+The docstring may span multiple lines. The type may optionally be specified
+on the first line, separated by a colon.
+"""
+endsnippet
+
+# Function: def, deftyped (typed functions), defmodule (module level functions) {{{1
+snippet def "Function docstring" b
+def function_with_types_in_docstring(param1, param2):
+	    """Example function with types documented in the docstring.
+
+    `PEP 484`_ type annotations are supported. If attribute, parameter, and
+    return types are annotated according to `PEP 484`_, they do not need to be
+    included in the docstring:
+
+    Args:
+        param1 (int): The first parameter.
+        param2 (str): The second parameter.
+
+    Returns:
+        bool: The return value. True for success, False otherwise.
+
+    .. _PEP 484:
+        https://www.python.org/dev/peps/pep-0484/
+
+    """
+endsnippet
+
+snippet defftyped "Function with type annotation" b
+def function_with_types_in_docstring(param1, param2):
+    """Example function with types documented in the docstring.
+
+    `PEP 484`_ type annotations are supported. If attribute, parameter, and
+    return types are annotated according to `PEP 484`_, they do not need to be
+    included in the docstring:
+
+    Args:
+        param1 (int): The first parameter.
+        param2 (str): The second parameter.
+
+    Returns:
+        bool: The return value. True for success, False otherwise.
+
+    .. _PEP 484:
+        https://www.python.org/dev/peps/pep-0484/
+
+    """
+endsnippet
+
+snippet defmodule "Module level function" b
+def module_level_function(param1, param2=None, *args, **kwargs):
+    """This is an example of a module level function.
+
+    Function parameters should be documented in the ``Args`` section. The name
+    of each parameter is required. The type and description of each parameter
+    is optional, but should be included if not obvious.
+
+    If \*args or \*\*kwargs are accepted,
+    they should be listed as ``*args`` and ``**kwargs``.
+
+    The format for a parameter is::
+
+        name (type): description
+            The description may span multiple lines. Following
+            lines should be indented. The "(type)" is optional.
+
+            Multiple paragraphs are supported in parameter
+            descriptions.
+
+    Args:
+        param1 (int): The first parameter.
+        param2 (:obj:`str`, optional): The second parameter. Defaults to None.
+            Second line of description should be indented.
+        *args: Variable length argument list.
+        **kwargs: Arbitrary keyword arguments.
+
+    Returns:
+        bool: True if successful, False otherwise.
+
+        The return type is optional and may be specified at the beginning of
+        the ``Returns`` section followed by a colon.
+
+        The ``Returns`` section may span multiple lines and paragraphs.
+        Following lines should be indented to match the first line.
+
+        The ``Returns`` section supports any reStructuredText formatting,
+        including literal blocks::
+
+            {
+                'param1': param1,
+                'param2': param2
+            }
+
+    Raises:
+        AttributeError: The ``Raises`` section is a list of all exceptions
+            that are relevant to the interface.
+        ValueError: If `param2` is equal to `param1`.
+
+    """
+    if param1 == param2:
+        raise ValueError('param1 may not be equal to param2')
+    return True
+endsnippet
+
+# Generator: defgen {{{1
+snippet defgen "Generator" b
+def example_generator(n):
+    """Generators have a ``Yields`` section instead of a ``Returns`` section.
+
+    Args:
+        n (int): The upper limit of the range to generate, from 0 to `n` - 1.
+
+    Yields:
+        int: The next number in the range of 0 to `n` - 1.
+
+    Examples:
+        Examples should be written in doctest format, and should illustrate how
+        to use the function.
+
+        >>> print([i for i in example_generator(4)])
+        [0, 1, 2, 3]
+
+    """
+    for i in range(n):
+        yield i
+endsnippet
+
+# Errpr: error {{{1
+snippet error "Error" b
+class ExampleError(Exception):
+    """Exceptions are documented in the same way as classes.
+
+    The __init__ method may be documented in either the class level
+    docstring, or as a docstring on the __init__ method itself.
+
+    Either form is acceptable, but the two should not be mixed. Choose one
+    convention to document the __init__ method and be consistent with it.
+
+    Note:
+        Do not include the `self` parameter in the ``Args`` section.
+
+    Args:
+        msg (str): Human readable string describing the exception.
+        code (:obj:`int`, optional): Error code.
+
+    Attributes:
+        msg (str): Human readable string describing the exception.
+        code (int): Exception error code.
+
+    """
+
+    def __init__(self, msg, code):
+        self.msg = msg
+        self.code = code
+endsnippet
+
+# Class: class {{{1
+snippet class "Class" b
+class ExampleClass(object):
+    """The summary line for a class docstring should fit on one line.
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute's declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property's getter method.
+
+    Attributes:
+        attr1 (str): Description of `attr1`.
+        attr2 (:obj:`int`, optional): Description of `attr2`.
+
+    """
+
+    def __init__(self, param1, param2, param3):
+        """Example of docstring on the __init__ method.
+
+        The __init__ method may be documented in either the class level
+        docstring, or as a docstring on the __init__ method itself.
+
+        Either form is acceptable, but the two should not be mixed. Choose one
+        convention to document the __init__ method and be consistent with it.
+
+        Note:
+            Do not include the `self` parameter in the ``Args`` section.
+
+        Args:
+            param1 (str): Description of `param1`.
+            param2 (:obj:`int`, optional): Description of `param2`. Multiple
+                lines are supported.
+            param3 (:obj:`list` of :obj:`str`): Description of `param3`.
+
+        """
+        self.attr1 = param1
+        self.attr2 = param2
+        self.attr3 = param3  #: Doc comment *inline* with attribute
+
+        #: list of str: Doc comment *before* attribute, with type specified
+        self.attr4 = ['attr4']
+
+        self.attr5 = None
+        """str: Docstring *after* attribute, with type specified."""
+
+endsnippet
+
+# Properties: property {{{1
+snippet property "Property" b
+@property
+def readonly_property(self):
+    """str: Properties should be documented in their getter method."""
+    return 'readonly_property'
+
+@property
+def readwrite_property(self):
+    """:obj:`list` of :obj:`str`: Properties with both a getter and setter
+    should only be documented in their getter method.
+
+    If the setter method contains notable behavior, it should be
+    mentioned here.
+    """
+    return ['readwrite_property']
+
+@readwrite_property.setter
+def readwrite_property(self, value):
+    value
+endsnippet
+
+
+# Special and hidden variables _special, _private  {{{1
+snippet _special "Special and private class members" b
+def __special__(self):
+    """By default special members with docstrings are not included.
+
+    Special members are any methods or attributes that start with and
+    end with a double underscore. Any special member with a docstring
+    will be included in the output, if
+    ``napoleon_include_special_with_doc`` is set to True.
+
+    This behavior can be enabled by changing the following setting in
+    Sphinx's conf.py::
+
+        napoleon_include_special_with_doc = True
+
+    """
+    pass
+
+def __special_without_docstring__(self):
+    pass
+
+endsnippet
+
+snippet _private "Description" b
+def _private(self):
+    """By default private members are not included.
+
+    Private members are any methods or attributes that start with an
+    underscore and are *not* special. By default they are not included
+    in the output.
+
+    This behavior can be changed such that private members *are* included
+    by changing the following setting in Sphinx's conf.py::
+
+        napoleon_include_private_with_doc = True
+
+    """
+    pass
+
+  def _private_without_docstring(self):
+      pass
+endsnippet
+
+
+# INFO: Spinx snippets {{{1
+
+snippet #link "Link snippet" b
+`${1:Python}${2: <http://www.python.org/>}`_
+endsnippet
+
+snippet #code "Code" b
+This is a simple example::
+
+    import math
+    print 'import done'
+endsnippet
+
+snippet #code_include "Include code from file" b
+.. literalinclude:: ${1:filename}
+    :linenos:
+    :language: python
+    :lines: 1, 3-5
+    :start-after: 3
+    :end-before: 5
+endsnippet
+
+snippet #toc "Include rst from file" b
+User's Guide
+------------
+
+This part of the documentation, which is mostly prose, begins with some
+background information about simplerr, then focuses on step-by-step
+instructions for web development with simplerr.
+
+.. toctree::
+    :maxdepth: 2
+    :numbered:
+    :titlesonly:
+    :glob:
+    :hidden:
+
+    intro.rst
+    chapter1.rst
+    chapter2.rst
+
+.. toctree::
+   :maxdepth: 2
+
+API Reference
+-------------
+
+.. toctree::
+   :maxdepth: 2
+
+   api.rst
+
+Additional Notes
+----------------
+
+Design notes, legal information and changelog are here for the interested.
+
+.. toctree::
+   :maxdepth: 2
+
+   design
+   htmlfaq
+   security
+   unicode
+   extensiondev
+   styleguide
+   upgrading
+   changelog
+   license
+   contributing
+endsnippet
+
+snippet #image "Image" b
+.. image:: stars.jpg
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
+endsnippet
+
+snippet #figure "Figure" b
+.. figure:: stars.jpg
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
+    :figclass: align-center
+
+    figure are like images but with a caption
+
+    and whatever else youwish to add
+
+    .. code-block:: python
+
+        import image
+endsnippet
+
+snippet #box_seealso "See also box" b
+.. seealso:: This is a simple **seealso** note.
+endsnippet
+
+snippet #box_note "Note box" b
+.. note::  This is a **note** box.
+endsnippet
+
+snippet #box_ "Warning box" b
+.. warning:: note the space between the directive and the text
+endsnippet
+
+snippet #gloassary "Glossary" b
+.. glossary::
+     apical
+        at the top of the plant.
+endsnippet
+
+snippet #cite "Citation" b
+.. [CIT2002] A citation
+          (as often used in journals, use as follows [CIT2002]_ ).
+endsnippet
+
+snippet #substitution "Description" b
+simplerr depends on the `Jinja`_ template engine and the `Werkzeug`_ WSGI
+toolkit. The documentation for these libraries can be found at:
+
+- `Jinja documentation <http://jinja.pocoo.org/docs>`_
+- `Werkzeug documentation <http://werkzeug.pocoo.org/docs>`_
+
+.. _Jinja: https://www.palletsprojects.com/p/jinja/
+.. _Werkzeug: https://www.palletsprojects.com/p/werkzeug/
+endsnippet
+
+snippet #heading1 "Heading (section)" b
+==================================================
+endsnippet
+
+snippet #heading2 "Sub-headering (sub section)" b
+--------------------------------------------------
+endsnippet
+
+snippet #heading3 "Sub-Sub-Heading (sub-sub-section)" b
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+endsnippet
+
+snippet #link_to_class "Link to class document" b
+:class:`~module.cls`
+endsnippet
+
+snippet #link_to_function "Link to function document" b
+:fun:`~module.class.fun`
 endsnippet
