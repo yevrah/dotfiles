@@ -1,0 +1,147 @@
+
+# 2018-04-04 11:00:16.240900
++print('hello'.format(__file__))
+
+# 2018-04-04 11:03:32.624969
++print('Hello {}'.format(__file__))
+
+# 2018-04-04 11:03:40.409454
++exit
+
+# 2018-04-04 11:04:59.453328
++print('Hello {}'.format(__file__))
+
+# 2018-04-04 11:05:25.309977
++print('hello'.format(__file__))
++print('Hello {}'.format(__file__))
++
++print('Hello {}'.format(__file__))
+
+# 2018-04-04 11:05:52.411187
++from website.common.models.broker import *
+
+# 2018-04-04 11:08:06.381639
++from common.models.broker import *
+
+# 2018-04-04 11:08:40.709679
++broker = Brokers.create(name=abc)
+
+# 2018-04-04 11:08:44.633301
++broker = Brokers.create(name='abc')
+
+# 2018-04-04 11:11:27.175411
++v
+
+# 2018-04-04 11:16:01.190268
++print('hello {}'.format(__file__))
++
++def hello(msg):
++    print('hello {}'.format(__file__))
++    return True
+
+# 2018-04-04 11:16:14.962518
++hello('abc')
+
+# 2018-04-04 11:16:53.282773
++def hello(msg=''):
++    """Takes a message and prints it"""
++    print("Echo: {}".format(msg))
+
+# 2018-04-04 11:17:09.048413
++hello()
+
+# 2018-04-04 11:17:15.440392
++hello('some message')
+
+# 2018-04-04 13:44:06.797043
++from common.models import *
+
+# 2018-04-04 13:46:03.926214
++Branches.get(Branches.branch == 362 )
+
+# 2018-04-04 13:46:14.124472
++BrokersBranches.get(Branches.branch == 362 )
+
+# 2018-04-04 13:46:22.818197
++BrokersBranches.get(BrokersBranches.branch == 362 )
+
+# 2018-04-04 13:46:41.025992
++branch = BrokersBranches.get(BrokersBranches.branch == 362 )
+
+# 2018-04-04 13:46:45.576772
++branch.brokers
+
+# 2018-04-04 13:47:08.001034
++for broker in branch.brokers:
++    print(broker.name)
+
+# 2018-04-04 13:47:45.198552
++broker.group.name
+
+# 2018-04-04 13:48:03.926170
++branch.groupe.name
+
+# 2018-04-04 13:48:07.654253
++branch.group.name
+
+# 2018-04-04 13:51:10.764354
++branch._meta
+
+# 2018-04-04 13:51:22.448284
++branch._meta.fields
+
+# 2018-04-04 13:54:01.871968
++Accounts.scenarios = True/False
+
+# 2018-04-04 13:54:17.166301
++# Accounts.scenarios = True/False
+
+# 2018-04-04 14:09:00.604681
++v
+
+# 2018-04-04 14:12:02.668777
++import config
+
+# 2018-04-04 14:12:04.964574
++config
+
+# 2018-04-04 14:12:15.268853
++repl
+
+# 2018-04-04 14:12:27.724435
++PythonRepl
+
+# 2018-04-04 14:15:27.332977
++def hello(msg):
++    print(msg)
+
+# 2018-04-04 14:15:34.996080
++hello('Tom')
+
+# 2018-04-04 14:17:45.991609
++def hello(msh):
++    pass
+
+# 2018-04-04 14:18:18.421672
++def hello(msg):
++    return "Some variation"
+
+# 2018-04-04 14:18:39.381112
++def hello(msh):
++    return "123"
+
+# 2018-04-04 14:20:19.945460
++def abc(msg):
++    return "123"
+
+# 2018-04-04 14:21:11.775614
++def abc(msh):
++    return "abcde"
+
+# 2018-04-04 14:21:58.677920
++def abc(msg=""):
++    return msg.upper()
+
+# 2018-04-05 16:12:31.081808
++def mynameis(john):
++    print(john)

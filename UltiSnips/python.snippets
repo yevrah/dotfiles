@@ -228,12 +228,12 @@ snippet module "Module"
 # -*- coding: utf-8 -*-
 """Example Google style docstrings.
 
-This module demonstrates documentation as specified by the `Google Python
-Style Guide`_. Docstrings may extend over multiple lines. Sections are created
+This module demonstrates documentation as specified by the \`Google Python
+Style Guide\`_. Docstrings may extend over multiple lines. Sections are created
 with a section header and a colon followed by a block of indented text.
 
 Example:
-    Examples can be given using either the ``Example`` or ``Examples``
+    Examples can be given using either the \`\`Example\`\` or \`\`Examples\`\`
     sections. Sections support any reStructuredText formatting, including
     literal blocks::
 
@@ -244,7 +244,7 @@ are also implicitly created anytime a new section starts.
 
 Attributes:
     module_level_variable1 (int): Module level variables may be documented in
-        either the ``Attributes`` section of the module docstring, or in an
+        either the \`\`Attributes\`\` section of the module docstring, or in an
         inline docstring immediately following the variable.
 
         Either form is acceptable, but the two should not be mixed. Choose
@@ -253,7 +253,7 @@ Attributes:
 
 Todo:
     * For module TODOs
-    * You have to also use ``sphinx.ext.todo`` extension
+    * You have to also use \`\`sphinx.ext.todo\`\` extension
 
 .. _Google Python Style Guide:
    http://google.github.io/styleguide/pyguide.html
@@ -276,8 +276,8 @@ snippet def "Function docstring" b
 def function_with_types_in_docstring(param1, param2):
 	    """Example function with types documented in the docstring.
 
-    `PEP 484`_ type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`_, they do not need to be
+    \`PEP 484\`_ type annotations are supported. If attribute, parameter, and
+    return types are annotated according to \`PEP 484\`_, they do not need to be
     included in the docstring:
 
     Args:
@@ -297,8 +297,8 @@ snippet defftyped "Function with type annotation" b
 def function_with_types_in_docstring(param1, param2):
     """Example function with types documented in the docstring.
 
-    `PEP 484`_ type annotations are supported. If attribute, parameter, and
-    return types are annotated according to `PEP 484`_, they do not need to be
+    \`PEP 484\`_ type annotations are supported. If attribute, parameter, and
+    return types are annotated according to \`PEP 484\`_, they do not need to be
     included in the docstring:
 
     Args:
@@ -318,12 +318,12 @@ snippet defmodule "Module level function" b
 def module_level_function(param1, param2=None, *args, **kwargs):
     """This is an example of a module level function.
 
-    Function parameters should be documented in the ``Args`` section. The name
+    Function parameters should be documented in the \`\`Args\`\` section. The name
     of each parameter is required. The type and description of each parameter
     is optional, but should be included if not obvious.
 
     If \*args or \*\*kwargs are accepted,
-    they should be listed as ``*args`` and ``**kwargs``.
+    they should be listed as \`\`*args\`\` and \`\`**kwargs\`\`.
 
     The format for a parameter is::
 
@@ -336,7 +336,7 @@ def module_level_function(param1, param2=None, *args, **kwargs):
 
     Args:
         param1 (int): The first parameter.
-        param2 (:obj:`str`, optional): The second parameter. Defaults to None.
+        param2 (:obj:\`str\`, optional): The second parameter. Defaults to None.
             Second line of description should be indented.
         *args: Variable length argument list.
         **kwargs: Arbitrary keyword arguments.
@@ -345,12 +345,12 @@ def module_level_function(param1, param2=None, *args, **kwargs):
         bool: True if successful, False otherwise.
 
         The return type is optional and may be specified at the beginning of
-        the ``Returns`` section followed by a colon.
+        the \`\`Returns\`\` section followed by a colon.
 
-        The ``Returns`` section may span multiple lines and paragraphs.
+        The \`\`Returns\`\` section may span multiple lines and paragraphs.
         Following lines should be indented to match the first line.
 
-        The ``Returns`` section supports any reStructuredText formatting,
+        The \`\`Returns\`\` section supports any reStructuredText formatting,
         including literal blocks::
 
             {
@@ -359,9 +359,9 @@ def module_level_function(param1, param2=None, *args, **kwargs):
             }
 
     Raises:
-        AttributeError: The ``Raises`` section is a list of all exceptions
+        AttributeError: The \`\`Raises\`\` section is a list of all exceptions
             that are relevant to the interface.
-        ValueError: If `param2` is equal to `param1`.
+        ValueError: If \`param2\` is equal to \`param1\`.
 
     """
     if param1 == param2:
@@ -372,13 +372,13 @@ endsnippet
 # Generator: defgen {{{1
 snippet defgen "Generator" b
 def example_generator(n):
-    """Generators have a ``Yields`` section instead of a ``Returns`` section.
+    """Generators have a \`\`Yields\`\` section instead of a \`\`Returns\`\` section.
 
     Args:
-        n (int): The upper limit of the range to generate, from 0 to `n` - 1.
+        n (int): The upper limit of the range to generate, from 0 to \`n\` - 1.
 
     Yields:
-        int: The next number in the range of 0 to `n` - 1.
+        int: The next number in the range of 0 to \`n\` - 1.
 
     Examples:
         Examples should be written in doctest format, and should illustrate how
@@ -404,11 +404,11 @@ class ExampleError(Exception):
     convention to document the __init__ method and be consistent with it.
 
     Note:
-        Do not include the `self` parameter in the ``Args`` section.
+        Do not include the \`self\` parameter in the \`\`Args\`\` section.
 
     Args:
         msg (str): Human readable string describing the exception.
-        code (:obj:`int`, optional): Error code.
+        code (:obj:\`int\`, optional): Error code.
 
     Attributes:
         msg (str): Human readable string describing the exception.
@@ -427,16 +427,16 @@ class ExampleClass(object):
     """The summary line for a class docstring should fit on one line.
 
     If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function's ``Args`` section. Alternatively, attributes may be documented
+    in an \`\`Attributes\`\` section and follow the same formatting as a
+    function's \`\`Args\`\` section. Alternatively, attributes may be documented
     inline with the attribute's declaration (see __init__ method below).
 
-    Properties created with the ``@property`` decorator should be documented
+    Properties created with the \`\`@property\`\` decorator should be documented
     in the property's getter method.
 
     Attributes:
-        attr1 (str): Description of `attr1`.
-        attr2 (:obj:`int`, optional): Description of `attr2`.
+        attr1 (str): Description of \`attr1\`.
+        attr2 (:obj:\`int\`, optional): Description of \`attr2\`.
 
     """
 
@@ -450,13 +450,13 @@ class ExampleClass(object):
         convention to document the __init__ method and be consistent with it.
 
         Note:
-            Do not include the `self` parameter in the ``Args`` section.
+            Do not include the \`self\` parameter in the \`\`Args\`\` section.
 
         Args:
-            param1 (str): Description of `param1`.
-            param2 (:obj:`int`, optional): Description of `param2`. Multiple
+            param1 (str): Description of \`param1\`.
+            param2 (:obj:\`int\`, optional): Description of \`param2\`. Multiple
                 lines are supported.
-            param3 (:obj:`list` of :obj:`str`): Description of `param3`.
+            param3 (:obj:\`list\` of :obj:\`str\`): Description of \`param3\`.
 
         """
         self.attr1 = param1
@@ -480,7 +480,7 @@ def readonly_property(self):
 
 @property
 def readwrite_property(self):
-    """:obj:`list` of :obj:`str`: Properties with both a getter and setter
+    """:obj:\`list\` of :obj:\`str\`: Properties with both a getter and setter
     should only be documented in their getter method.
 
     If the setter method contains notable behavior, it should be
@@ -502,7 +502,7 @@ def __special__(self):
     Special members are any methods or attributes that start with and
     end with a double underscore. Any special member with a docstring
     will be included in the output, if
-    ``napoleon_include_special_with_doc`` is set to True.
+    \`\`napoleon_include_special_with_doc\`\` is set to True.
 
     This behavior can be enabled by changing the following setting in
     Sphinx's conf.py::
@@ -540,8 +540,16 @@ endsnippet
 
 # INFO: Spinx snippets {{{1
 
-snippet #link "Link snippet" b
-`${1:Python}${2: <http://www.python.org/>}`_
+snippet #link "Link snippet"
+\`${1:Python}${2: <http://www.python.org/>}\`_
+endsnippet
+
+snippet #link_to_class "Link to class document" b
+:class:\`~module.cls\`
+endsnippet
+
+snippet #link_to_function "Link to function document" b
+:fun:\\`~module.class.fun\\`
 endsnippet
 
 snippet #code "Code" b
@@ -659,11 +667,11 @@ snippet #cite "Citation" b
 endsnippet
 
 snippet #substitution "Description" b
-simplerr depends on the `Jinja`_ template engine and the `Werkzeug`_ WSGI
+simplerr depends on the \`Jinja\`_ template engine and the \`Werkzeug\`_ WSGI
 toolkit. The documentation for these libraries can be found at:
 
-- `Jinja documentation <http://jinja.pocoo.org/docs>`_
-- `Werkzeug documentation <http://werkzeug.pocoo.org/docs>`_
+- \`Jinja documentation <http://jinja.pocoo.org/docs>\`_
+- \`Werkzeug documentation <http://werkzeug.pocoo.org/docs>\`_
 
 .. _Jinja: https://www.palletsprojects.com/p/jinja/
 .. _Werkzeug: https://www.palletsprojects.com/p/werkzeug/
@@ -681,10 +689,3 @@ snippet #heading3 "Sub-Sub-Heading (sub-sub-section)" b
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 endsnippet
 
-snippet #link_to_class "Link to class document" b
-:class:`~module.cls`
-endsnippet
-
-snippet #link_to_function "Link to function document" b
-:fun:`~module.class.fun`
-endsnippet
