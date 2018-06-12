@@ -149,6 +149,11 @@ export PYTHONSTARTUP=~/.pythonrc
 export DEVBOX='HARVEY'
 export PATH=/usr/local/bin:/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
 
+# MACPORTS:: https://guide.macports.org/chunked/installing.shell.html
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+export MANPATH=/opt/local/share/man:$MANPATH
+
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 

@@ -1,0 +1,121 @@
+snippet hello_with_built "Self building template" b
+#if 0
+set -x
+
+SOURCE=\$0
+OUT="\${SOURCE/\.c/}"
+
+echo "source: $SOURCE, out $OUT"
+
+cc "$SOURCE" -std=c89 -Wall -o "$OUT" && "$OUT" $*
+exit
+#endif
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define max_contacts 10
+#define buf_size 200
+
+#define DBG
+
+typedef struct contact {
+        char* name;
+        char* phone;
+        int phonei;
+} contact;
+
+
+int main(int argc, const char *argv[]) {
+    /* Lets get the arguments passed */
+    printf("Total arguments: %d \n", argc);
+
+    while( argc > 1 ) {
+        printf("Param %s\n", argv[argc-1]);
+        argc--;
+    }
+
+
+    /* Basic struct operations */
+    contact contacts[max_contacts];
+    contacts[0].name = "John Doe";
+    contacts[1].name = "Zed Ex";
+
+    for(int i=0; i < max_contacts; i++) {
+        contacts[i].name = malloc(buf_size);
+
+
+        snprintf(contacts[i].name, buf_size, "Contact %d", i);
+    }
+
+
+    for(int x=0; x < max_contacts; x++) {
+        printf("At number: %d\n", x);
+        printf("Contact %s, phone s\n", contacts[x].name);
+    }
+
+    return 0;
+}
+endsnippet
+
+snippet singletone "Example singlton object" b
+/* Source: http://www.stephenmeier.net/2014/08/17/sdl-2-0-tutorial-01-the-game-window/ */
+#define SCREEN_w 640
+#define SCREEN_H 480
+#define SCREEN_SCALE 1
+#define SCREEN_NAME "Prototype"
+
+void game_init(void);
+void game_quit(void);
+
+struct {
+    /* define "attributes" */
+    sdl_bool running;
+
+    struct {
+        unsigned int w;
+        unsigned int h;
+        const char* name;
+        sdl_window* window;
+        sdl_renderer* renderer;
+    } screen;
+
+    struct {
+        unsigned int n;
+        sdl_surface** spritesheet;
+    } gfx;
+
+    /* define "methods" */
+    void (*init)(void);
+    void (*quit)(void);
+} game = {
+    sdl_false,
+    {
+        screen_scale*screen_w,
+        screen_scale*screen_h,
+        screen_name,
+        null, null
+    },
+    {0, null},
+    game_init,
+    game_quit
+};
+
+
+void game_init(void) {
+    /* implementation here */
+}
+
+void game_quit(void) {
+    /* implementation here */
+}
+
+int main() {
+    game.init();
+
+    game.quit();
+
+    return 0;
+}
+endsnippet

@@ -125,7 +125,16 @@ let g:rooter_silent_chdir = 1
 
 " ================ NERDTree and Tagbar =============="{{{2
 "
-nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
+nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+
+" function Sidebars()
+"   echo "Hello"
+"   NERDTreeToggle
+" endfunction
+" nmap <C-\> :call Sidebars()
+
+
+" nmap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>:TagbarToggle<CR>
 
 nnoremap <silent> <leader>t :TagbarToggle<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>:NERDTreeMirror<CR>
@@ -397,7 +406,8 @@ set smarttab
 set expandtab
 
 set shiftwidth=2 tabstop=2 softtabstop=2
-autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4 foldmethod=indent
+autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4 " foldmethod=indent
+autocmd filetype python setlocal foldmethod=indent
 
 
 
@@ -495,8 +505,8 @@ set modelines=5
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
-        \ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d fdm=%s %set :",
+        \ &tabstop, &shiftwidth, &textwidth, &foldmethod, &expandtab ? '' : 'no')
   let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
   call append(line("$"), l:modeline)
 endfunction
@@ -543,12 +553,13 @@ nnoremap <Leader>. :setlocal spell! spelllang=en_us<CR>
 
 " ================ Folds ============================"{{{2
 "
-set foldmethod=indent   "fold based on indent
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
 set fillchars+=fold:\·
+
+nmap <space> za
 
 function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
@@ -656,7 +667,10 @@ nnoremap <S-Tab> :bprevious<CR>
 " ( (_ | U |\_ \ | ( o ) \_/ | ( (_ | \_/ || o )
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
-command! -nargs=+ Figlet :r!figlet -f eftifont <args>
+command! -nargs=+ FigletEf :r!figlet -f eftifont <args>
+command! -nargs=+ FigletSmall :r!figlet -f small <args>
+command! -nargs=+ FigletDrPepper :r!figlet -f drpepper <args>
+command! -nargs=+ Figlet :r!figlet <args>
 command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
 command! -nargs=* ItermTitle silent execute '!echo -e "\033];<args>\007";export DISABLE_AUTO_TITLE="true"' | redraw!
 
