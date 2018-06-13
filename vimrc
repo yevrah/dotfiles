@@ -628,7 +628,9 @@ nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
 
 " ================ buffer shortcuts ================="{{{2
 "
-nnoremap <leader>q :bd!<CR>
+
+" Move to next buffer and delete current one
+nnoremap <leader>q :bn<CR>:bd#<CR>
 
 
 " Prevent preview windows from being on buffer list
