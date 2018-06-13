@@ -289,7 +289,9 @@ nnoremap <silent> ,dp :diffput<CR>
 " let g:syntastic_quiet_messages={'level': 'warnings'} " Don't care about warnings
 " let g:syntastic_enable_perl_checker=0 " Perl checker
 
-call neomake#configure#automake('rw', 200)
+if has('mac')
+  call neomake#configure#automake('rw', 200)
+endif
 
 " ================ SASS Config ======================"{{{2
 "
