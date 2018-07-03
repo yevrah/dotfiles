@@ -5,14 +5,16 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/harvey/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 autoload -U colors
 colors
 
 # Show System Info - use neofect as it's aster
 if hash neofetch 2>/dev/null; then
   neofetch
-else
+fi
+
+if hash screenfetch 2>/dev/null; then
   screenfetch
 fi
 
@@ -128,8 +130,9 @@ source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # Z - easy path changing
-
-. `brew --prefix`/etc/profile.d/z.sh
+if hash brew 2>/dev/null; then
+  . `brew --prefix`/etc/profile.d/z.sh
+fi
 
 
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
