@@ -14,7 +14,7 @@ if hash neofetch 2>/dev/null; then
   neofetch
 fi
 
-if hash screenfetch 2>/dev/null; then
+elif hash screenfetch 2>/dev/null; then
   screenfetch
 fi
 
