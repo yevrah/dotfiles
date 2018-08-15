@@ -1,5 +1,4 @@
-" ################ HEADER ########################### {{{1
-set nocompatible              " be iMproved, required
+
 filetype off                  " required
 
 " ################ VUNDLE SECTION ################### {{{1
@@ -462,6 +461,13 @@ set sidescroll=16
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+
+" Don't use Ex mode; use Q for console mode
+map Q q:
+set cmdwinheight=12 " larger console window
+
+
 
 " ================ Split Windows ===================="{{{2
 "
