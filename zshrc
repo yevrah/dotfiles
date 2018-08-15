@@ -12,8 +12,6 @@ colors
 # Show System Info - use neofect as it's aster
 if hash neofetch 2>/dev/null; then
   neofetch
-fi
-
 elif hash screenfetch 2>/dev/null; then
   screenfetch
 fi
