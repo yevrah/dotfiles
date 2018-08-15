@@ -70,7 +70,7 @@ Plugin 'airblade/vim-gitgutter.git'
 
 " PLUGINS: Python Related
 " Plugin 'lambdalisue/vim-pyenv'
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'davidhalter/jedi-vim'
 
 " PLUGINS: Review these plugins on local {{{2
 if has('mac')
@@ -78,6 +78,7 @@ Plugin 'plytophogy/vim-virtualenv'
 Plugin 'gbigwood/Clippo'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'nelstrom/vim-markdown-folding'
+"Plugin 'gabrielelana/vim-markdown'
 Plugin 'vim-voom/VOoM'
 Plugin 'Raimondi/delimitMate'
 Plugin 'vim-scripts/DrawIt'
@@ -90,6 +91,9 @@ endif
 
 " PLUGINS: Needing to be loaded last
 Plugin 'ryanoasis/vim-devicons'           " Dev icons
+
+" PLUGINS: Distraction free
+Plugin 'junegunn/goyo.vim'
 
 " ================ End Vundle Section =============== {{{2
 call vundle#end()
@@ -208,6 +212,7 @@ map <leader>c <c-_><c-_>
 "
 let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
 let g:startify_session_dir='~/.vim/session'
+let g:startify_session_persistence = 1 " Automatically save sessions one exit
 
 let g:startify_list_order=[
     \ ['   My sessions:'],
@@ -421,8 +426,10 @@ let mapleader=","
 
 " line numbers
 set number      " Numbers on left
+
 " set relativenumber
-nnoremap rr :set relativenumber!<CR>
+nnoremap ,n :set relativenumber!<CR>
+nnoremap ,rr <CR>
 
 set ignorecase  " Ignore case
 set smartcase
@@ -463,6 +470,11 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=1024
+
+" Opens docstring window at bottom for jedi
+set splitbelow
 " ================ Split Windows ===================="{{{2
 "
 
@@ -495,6 +507,7 @@ set directory=~/.vim/swaps
 " ================ Font Settings ===================="{{{2
 "
 set encoding=utf8
+
 set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete:h15
 set linespace=2
 
@@ -562,6 +575,7 @@ hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
 set fillchars+=fold:\·
 
 nmap <space> za
+nmap <leader><space> zR
 
 function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
@@ -648,6 +662,9 @@ autocmd FileType qf  map <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
 nnoremap <Tab> :bnext<CR>
 nnoremap <S-Tab> :bprevious<CR>
 
+" Encryption
+
+set cm=blowfish2
 
 " ================ Custom Colors ===================="{{{2
 "                    __ _  _   _  ___ __
