@@ -148,7 +148,7 @@ function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 
 
-export PYTHONSTARTUP=~/.pythonrc
+# export PYTHONSTARTUP=~/.pythonrc
 export DEVBOX='HARVEY'
 export PATH=/usr/local/bin:/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
 

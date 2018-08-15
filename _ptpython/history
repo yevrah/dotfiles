@@ -552,3 +552,423 @@
 
 # 2018-05-31 15:20:43.259211
 +item[2]
+
+# 2018-06-15 14:39:32.736774
++main_list = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]]
+
+# 2018-06-15 14:39:41.289043
++main_list[0]
+
+# 2018-06-15 14:40:25.211919
++dict = {}
+
+# 2018-06-15 14:40:37.419866
++dict[(1,2)] = '123'
+
+# 2018-06-15 14:40:40.196200
++dict
+
+# 2018-06-15 14:40:49.251488
++dict[(1,2)]
+
+# 2018-06-15 14:42:37.983613
++newd = {(i[0], i[1]) : i for i in main_list}
+
+# 2018-06-15 14:42:39.463906
++newd
+
+# 2018-06-15 14:43:02.396895
++main_list = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]]
+
+# 2018-06-15 14:43:07.301799
++newd = {(i[0], i[1]) : i for i in main_list}
+
+# 2018-06-15 14:43:25.655100
++newd[(0,1)]
+
+# 2018-06-15 14:44:06.116229
++newd.get( (0,1) )
+
+# 2018-06-15 14:44:12.627840
++newd.get( (4,5) )
+
+# 2018-06-15 14:44:24.844061
++newd.get( (5,5) )
+
+# 2018-06-15 14:44:36.210465
++b = newd.get( (5,5) )
+
+# 2018-06-15 14:44:37.282344
++b
+
+# 2018-06-15 14:49:21.956120
++index_list
+
+# 2018-06-15 14:49:25.767564
++newd
+
+# 2018-06-15 14:52:17.673506
++main_list = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]]
+
+# 2018-06-15 14:53:01.095828
++main_list = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [0,1,4,4]]
+
+# 2018-06-15 14:53:08.238911
++newd = {(i[0], i[1]) : i for i in main_list }
+
+# 2018-06-15 14:53:09.943581
++newd
+
+# 2018-06-15 14:53:50.980344
++t()
+
+# 2018-07-19 09:52:40.634487
++import chess.pgn
+
+# 2018-07-19 09:53:32.666904
++exit
+
+# 2018-07-19 09:54:03.111368
++import chess
+
+# 2018-07-19 10:00:59.121000
++import chess.pgn
+
+# 2018-07-19 10:01:38.084786
++pgn = open('db/lichess_db_standard_rated_2018-06.pgn')
+
+# 2018-07-19 10:01:59.603781
++first = chess.pgn.read_game(pgn)
+
+# 2018-07-19 10:02:02.198981
++first
+
+# 2018-07-19 10:02:13.708565
++first.headers
+
+# 2018-07-19 10:03:46.281609
++import csv
+
+# 2018-07-19 10:08:04.077275
++with open('summary.csv', 'w') as f:
++    fieldnames = ['Event', 'Date', 'ELO', 'Opening', 'Termination', 'Time Control']
++    writer = csv.DictWriter(f, fieldnames=fieldnames)
+
+# 2018-07-19 10:15:39.126975
++with open('summary.csv', 'w') as f:
++    fieldnames = ['Event', 'Date', 'ELO', 'Opening', 'Termination', 'Time Control']
++    writer = csv.DictWriter(f, fieldnames=fieldnames)
++    writer.writeheader()
++    writer.writerow({
++        'Event': first.headers['Event'],
++        'Date': first.headers['Date'],
++        'ELO':first.headers['BlackElo'],
++        'Opening': first.headers['Opening'],
++        'Termination': first.headers['Termination'],
++        'Time Control': first.headers['TimeControl']
++    })
+
+# 2018-07-19 10:19:20.511049
++with open('summary.csv', 'w') as f:
++    fieldnames = ['Event', 'Date', 'ELO', 'Opening', 'Termination', 'Time Control']
++    writer = csv.DictWriter(f, fieldnames=fieldnames)
++    writer.writeheader()
++    
++    while first:
++        writer.writerow({
++            'Event': first.headers['Event'],
++            'Date': first.headers['Date'],
++            'ELO':first.headers['BlackElo'],
++            'Opening': first.headers['Opening'],
++            'Termination': first.headers['Termination'],
++            'Time Control': first.headers['TimeControl']
++        })
++        first = chess.pgn.read_game(pgn)
+
+# 2018-07-19 10:32:19.375664
++with open('summary.csv', 'w') as f:
++    fieldnames = ['Event', 'Date', 'ELO', 'Opening', 'Termination', 'Time Control']
++    writer = csv.DictWriter(f, fieldnames=fieldnames)
++    writer.writeheader()
++    
++    while first:
++        writer.writerow({
++            'Event': first.headers['Event'],
++            'Date': first.headers['Date'],
++            'ELO':first.headers['BlackElo'],
++            'Opening': first.headers['Opening'],
++            'Termination': first.headers['Termination'],
++            'Time Control': first.headers['TimeControl']
++        })
++        first = chess.pgn.read_game(pgn)
++        print(first.headers['Opening'])
+
+# 2018-07-19 10:32:21.144645
++first
+
+# 2018-07-19 10:32:26.849447
++first.headers
+
+# 2018-07-20 09:20:56.016079
++import chess.pgn
+
+# 2018-07-20 09:21:16.786182
++game = open('pgn-samples/polgar.pgn')
+
+# 2018-07-20 09:21:18.741050
++game
+
+# 2018-07-20 09:22:47.302531
++game.tell
+
+# 2018-07-20 09:22:50.110548
++game.tell()
+
+# 2018-07-20 09:23:25.724599
++data = chess.pgn.read_game(game)
+
+# 2018-07-20 09:23:28.693025
++game.tell()
+
+# 2018-07-20 09:24:28.328684
++import os
+
+# 2018-07-20 09:24:57.120396
++os.path.getsize("pgn-samples/polgar.pgn")
+
+# 2018-07-20 16:47:28.346880
++import pandas as pd
+
+# 2018-07-20 16:49:52.224343
++data = pd.read_csv('summary-1000.csv')
+
+# 2018-07-20 16:49:59.843027
++data
+
+# 2018-07-20 16:50:37.688187
++df.head(5)
+
+# 2018-07-20 16:50:43.912119
++data.head(5)
+
+# 2018-07-20 16:51:40.341633
++data['id']
+
+# 2018-07-20 16:51:48.763687
++data['id'].dtypes
+
+# 2018-07-20 16:51:58.164759
++data.head(5)
+
+# 2018-07-20 16:52:13.921142
++data['Date'].dttypes
+
+# 2018-07-20 16:52:17.525778
++data['Date'].dtypes
+
+# 2018-07-20 16:52:34.691910
++data['Event'].dtypes
+
+# 2018-07-21 13:16:25.888062
++exit
+
+# 2018-07-24 15:38:05.668283
++1+2
+
+# 2018-07-24 15:38:13.208106
++2**3
+
+# 2018-07-24 15:38:16.512319
++2**4
+
+# 2018-07-24 15:38:33.414864
++for i in range(10):
++    2**i
+
+# 2018-07-24 15:38:40.832193
++for i in range(10):
++    print(2**i)
+
+# 2018-07-24 15:38:50.999370
++for i in range(20):
++    print(2**i)
+
+# 2018-07-24 15:40:07.500688
++for i in range(20):
++    print("{:,}".format(2**i))
+
+# 2018-07-24 15:40:25.075116
++exec("1+2")
+
+# 2018-07-24 15:40:29.251052
++exec("a=10")
+
+# 2018-07-24 15:40:30.633438
++a
+
+# 2018-07-24 15:40:41.107578
++sys.path
+
+# 2018-08-03 16:32:57.696966
++import dropbox
+
+# 2018-08-03 16:35:21.178846
++dbx = dropbox.Dropbox('eUoL80gptB0AAAAAAAAB2ygvKhlrXukXX1yDBCrQff52MrRRTx_HPYPM_Kz_Ubpt')
+
+# 2018-08-03 16:35:24.281891
++dbx
+
+# 2018-08-03 16:35:38.865243
++dbx.users_get_current_account()
+
+# 2018-08-03 16:36:16.904849
++for entry in dbx.files_list_folder('').entries:
++    print(entry.name)
+
+# 2018-08-03 16:37:36.437432
++dbx.files_upload("test.txt", 'hello.txt')
+
+# 2018-08-03 16:38:43.154814
++dbx.files_upload("test.txt", '/Users/harvey/dev/dropbox-integration.com/hello.txt')
+
+# 2018-08-03 16:39:31.753555
++dbx.files_upload('/Users/harvey/dev/dropbox-integration.com/hello.txt')
+
+# 2018-08-03 16:40:32.709813
++dbx.files_upload('hello.txt', 'hello.txt')
+
+# 2018-08-03 16:40:58.541029
++dbx.files_upload('hello.txt', '/hello.txt')
+
+# 2018-08-03 16:41:09.700654
++dbx.files_upload('hello', '/hello.txt')
+
+# 2018-08-03 16:41:16.212897
++dbx.files_upload(b'hello', '/hello.txt')
+
+# 2018-08-03 16:42:37.449555
++dbx.files_upload(b'hello', '/finalised/hello.txt')
+
+# 2018-08-09 09:09:13.770878
++import random, string
+
+# 2018-08-09 09:10:09.104072
++"".join([random.choice(string.ascii_letters + string.digits) for i in range(8)])
+
+# 2018-08-09 09:10:12.976313
++"".join([random.choice(string.ascii_letters + string.digits) for i in range(30)])
+
+# 2018-08-09 09:10:53.723120
++ch= "█"
++def col(sz):
++    mn,mx=min(sz),max(sz)
++    df = (mx-mn)//8
++    bkt = [(el-mn)//df for el in sz]
++    hrz = [f"{b}{c}" for b,c in
++            [(ch*(el+1)," "*(8-el))  for el in bkt]
++        ]
++    return "\n".join([" ".join(el) for el in list(map(list, zip(*hrz)))[::-1]])
+
+# 2018-08-09 09:11:02.726593
++series = [random.randint(10, 99) for _ in range(25)]
+
+# 2018-08-09 09:11:08.381665
++print(col(series))
+
+# 2018-08-09 09:13:38.115162
++top
+
+# 2018-08-09 09:16:59.455736
++cler
+
+# 2018-08-09 09:17:01.129230
++clear
+
+# 2018-08-09 13:20:22.758204
++def hello(msg: str) -> str:
++    return msg + '-iam-a-string'
+
+# 2018-08-09 13:20:32.664069
++hello("one")
+
+# 2018-08-14 09:58:39.863538
++from mailmerge import MailMerge
+
+# 2018-08-14 09:59:10.908810
++exit
+
+# 2018-08-14 10:01:30.959707
++from mailmerge import MailMerge
+
+# 2018-08-14 10:02:20.168662
++template = 'test-01.docx'
+
+# 2018-08-14 10:02:33.663296
++document = MailMerge(template)
+
+# 2018-08-14 10:02:41.548327
++document.get_merge_fields()
+
+# 2018-08-14 10:03:20.700117
++document.merge(business='Hello Kitty')
+
+# 2018-08-14 10:04:22.781311
++document.write('test-01-output.docx')
+
+# 2018-08-14 10:07:41.998291
++document = MailMerge(template)
+
+# 2018-08-14 10:07:44.492694
++document.merge(business='Hello Kitty')
+
+# 2018-08-14 10:07:48.572402
++document.get_merge_fields()
+
+# 2018-08-14 10:08:33.332259
++document = MailMerge(template)
+
+# 2018-08-14 10:08:35.155020
++document.get_merge_fields()
+
+# 2018-08-14 10:10:27.341209
++document.merge(business='Hello Kitty')
+
+# 2018-08-14 10:14:02.716267
++document.merge_rows('fname', [{'fname':'John', 'sname':'Doe', 'phone':123}, {'fname':'Jane', 'sname':'Doeson', 'phone':345}])
+
+# 2018-08-14 10:14:20.790183
++document.merge_rows('fname', [{'fname':'John', 'sname':'Doe', 'phone':'123'}, {'fname':'Jane', 'sname':'Doeson', 'phone':'345'}])
+
+# 2018-08-14 10:14:32.839891
++document.write('test-01-output-02.docx')
+
+# 2018-08-14 10:15:55.241646
++names= [{'fname':'John', 'sname':'Doe', 'phone':'123'}, {'fname':'Jane', 'sname':'Doeson', 'phone':'345'}]
+
+# 2018-08-14 10:16:00.122784
++document = MailMerge(template)
+
+# 2018-08-14 10:16:48.495272
++document.merge(business='Test Business 01')
+
+# 2018-08-14 10:17:09.255831
++document.merge_rows('fname', names)
+
+# 2018-08-14 10:17:16.241999
++document.write('test-01-output-03.docx')
+
+# 2018-08-14 11:37:08.781659
++document = MailMerge(template)
+
+# 2018-08-14 11:37:20.223126
++document.get_merge_fields()
+
+# 2018-08-14 11:37:28.847389
++document = MailMerge(template)
+
+# 2018-08-14 11:37:30.149425
++document.get_merge_fields()
+
+# 2018-08-14 15:09:51.094892
++def hello():
++    return "hi"
