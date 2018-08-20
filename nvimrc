@@ -23,7 +23,15 @@
 "   $ sudo yum install epel-release
 "   $ yum install python-pip
 "   $ pip install neovim
-
+"
+" Installing Vim-Plug
+" ===================
+"
+" Simply run the following command
+"
+"   $ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+"   $   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"
 
 " ################ PRE-FLIGHT CHECKS ################ {{{1
 "
@@ -31,7 +39,14 @@ call system('mkdir -p ~/.nvim/backups/' )   " Backups folder
 call system('mkdir -p ~/.nvim/undos/' )     " Undo folder
 call system('mkdir -p ~/.nvim/swaps/' )     " Swap files
 call system('mkdir -p ~/.nvim/session/' )   " Session files
-call system('~/.config/nvim/plugged/')      " Plugin folder
+call system('mkdir -p ~/.config/nvim/autoload/' )   " Session files
+call system('mkdir -p ~/.config/nvim/plugged/')      " Plugin folder
+
+" Install vim plug
+if !filereadable("~/.config/nvim/autoload/plug.vim")
+    call system('curl -fLo ~/.config/nvim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+endif
 
 " https://www.circuidipity.com/neovim/
 " https://coderoncode.com/tools/2017/04/16/vim-the-perfect-ide.html
