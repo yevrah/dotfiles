@@ -495,6 +495,11 @@ set hlsearch
 set incsearch
 nnoremap // :nohlsearch<CR>
 
+" Solarized default: hi CursorLine termbg=0 guibg=Grey40
+hi CursorLine cterm=NONE ctermbg=darkblue ctermfg=white guibg=darkblue ctermfg=white
+
+
+
 
 " ================ Persistent Undo =================="{{{2
 "
