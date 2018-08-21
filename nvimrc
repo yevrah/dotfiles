@@ -54,7 +54,6 @@ endif
 
 " ################ PLUG SECTION   ################### {{{1
 "
-
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'haishanh/night-owl.vim'
@@ -68,6 +67,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'junegunn/vim-easy-align'
 
 " Nerd Tree Relate
 Plug 'scrooloose/nerdtree'
@@ -87,6 +87,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 Plug 'vim-voom/VOoM'
 
 Plug 'bling/vim-bufferline'
@@ -107,8 +108,9 @@ call plug#end()
 "
 
 filetype off                    " Do not fire file events
-syntax enable
+syntax enable                   " Enable syntax highlighting
 let mapleader=','               " Remap leader
+colorscheme afterglow
 
 set nocompatible                " Disable compatibility to old-time vi
 set termguicolors               " Allow colorschemes to set colors
@@ -160,16 +162,20 @@ set listchars=tab:𝄀\ ,trail:·,
 " Aim to stay on home row
 inoremap ;a <Esc>
 
-nnoremap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-nnoremap // :nohlsearch<CR>
+nnoremap \\         :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nnoremap //         :nohlsearch<CR>
 nnoremap <leader>f  :FZF<CR>
 nnoremap <leader>p  :so %<CR>:PlugInstall<CR>
 nnoremap <leader>yr :YRShow<CR>
-nnoremap <leader>s :set invspell<CR>
+nnoremap <leader>s  :set invspell<CR>
+
+" Easy Align
+xnoremap ga <Plug>(EasyAlign)
+nnoremap ga <Plug>(EasyAlign)
 
 " Fold/Unfold using space
-nmap <space> za
-nmap <leader><space> zR
+nnoremap <space> za
+nnoremap <leader><space> zR
 
 " Keep selection after indent
 vnoremap < <gv
@@ -249,9 +255,8 @@ function! ChangeTheme(increment)
 endfunction
 
 
-nmap <leader>cn :call ChangeTheme(1)<CR>
-nmap <leader>cp :call ChangeTheme(-1)<CR>
-colorscheme afterglow
+nnoremap <leader>cn :call ChangeTheme(1)<CR>
+nnoremap <leader>cp :call ChangeTheme(-1)<CR>
 
 
 " ================ startify setup ==================="{{{2
@@ -386,7 +391,7 @@ autocmd FileType markdown
 "                   else returns a normal TAB
 
 imap <expr><TAB>
- \ pumvisible() ? "\<CR>" :
+ \ pumvisible() ? "\<CR><TAB>" :
  \ neosnippet#expandable_or_jumpable() ?
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
