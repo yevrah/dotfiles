@@ -7,6 +7,14 @@
 " a primary target of python. Other languages are also support and easily
 " plugged in via necomplete, or language servers.
 "
+" Linking this dotfile
+" ====================
+"
+" Make sure to link to this file before running neovim.
+"
+"   $ mkdir -p .config/nvim
+"   $ ln -s $HOME/dotfiles/nvimrc $HOME/.config/nvim/init.vim
+"
 " Building Neovim on Redhat 6
 " ===========================
 "
@@ -24,32 +32,24 @@
 "   $ yum install python-pip
 "   $ pip install neovim
 "
-" Installing Vim-Plug
-" ===================
 "
-" Simply run the following command
-"
-"   $ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-"   $   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"
+
 
 " ################ PRE-FLIGHT CHECKS ################ {{{1
 "
-call system('mkdir -p ~/.nvim/backups/' )   " Backups folder
-call system('mkdir -p ~/.nvim/undos/' )     " Undo folder
-call system('mkdir -p ~/.nvim/swaps/' )     " Swap files
-call system('mkdir -p ~/.nvim/session/' )   " Session files
-call system('mkdir -p ~/.config/nvim/autoload/' )   " Session files
-call system('mkdir -p ~/.config/nvim/plugged/')      " Plugin folder
+call system('mkdir -p ~/.config/nvim/backups/' )    " backups folder
+call system('mkdir -p ~/.config/nvim/undos/' )      " undo folder
+call system('mkdir -p ~/.config/nvim/swaps/' )      " swap files
+call system('mkdir -p ~/.config/nvim/session/' )    " session files
+call system('mkdir -p ~/.config/nvim/autoload/' )   " session files
+call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
-" Install vim plug
+" Install vim plug if not already
 if !filereadable("~/.config/nvim/autoload/plug.vim")
-    call system('curl -fLo ~/.config/nvim/autoload/plug.vim
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    call system('curl -fLconfig/o ~/.config/nvim/autoload/plug.vim
+        \ https://raw.gitconfig/hubusercontent.com/junegunn/vim-plug/master/plug.vim')
 endif
 
-" https://www.circuidipity.com/neovim/
-" https://coderoncode.com/tools/2017/04/16/vim-the-perfect-ide.html
 
 
 " ################ PLUG SECTION   ################### {{{1
@@ -103,8 +103,9 @@ call plug#end()
 "
 
 
-" ================ Sane Defaults ===================="{{{2
+" ================ sane defaults ===================="{{{2
 "
+
 filetype off                    " Do not fire file events
 syntax enable
 let mapleader=','               " Remap leader
@@ -127,45 +128,57 @@ set linebreak                   " Dont break words when wrapping
 set cmdwinheight=12             " larger console window
 set splitbelow                  " Split predictably below
 set splitright                  " Split redictably right
+
 set undofile                    " Use undo files
 set backup                      " Use backups
-set undodir=~/.nvim/undos       " And set location
-set backupdir=~/.nvim/backups   " keep backups at this dir
-set directory=~/.nvim/swaps     " Keeo swapfiles here
+set undodir=~/.config/nvim/undos       " And set location
+set backupdir=~/.config/nvim/backups   " keep backups at this dir
+set directory=~/.config/nvim/swaps     " Keeo swapfiles here
 
-" set cryptmethod=blowfish2     " Set stronger default encryption
+set modeline                    " use modelines
+set modelines=5                 " check 5 lines at begginning/end of file
 
-"set hlsearch               " highlight search results
-"set wildmode=longest,list  " get bash-like tab completions
+set foldnestmax=3               " deepest fold is 3 levels
+set nofoldenable                " dont fold by default
+set foldmethod=marker           " use marker foldmethod
+set fillchars+=fold:\·          " fill character for folds
+
+set wildmenu                    " Command menu
+set wildmode=longest,full       " Make repeated presses cycle between all matching choices 
+set fileignorecase              " better command line completion
+set wildignorecase              " better command line completion
+set wildignore+=*~,.git         " Ingore backup files & git directories
+
+set list                        " show unwanted whitespace characters, tab, etc
+set listchars=tab:𝄀\ ,trail:·,
+   \extends:→,precedes:←,nbsp:¬
 
 
-
-" ================ Hidden Characters ================"{{{2
-"
-
-" Make tabs, non-breaking spaces and trailing white space visible
-set list
-" Use a Musical Symbol Single Barline (0x1d100) to show a Tab, a Middle
-" Dot (0x00B7) for trailing spaces, and the negation symbol (0x00AC) for
-" non-breaking spaces
-set listchars=tab:𝄀\ ,trail:·,extends:→,precedes:←,nbsp:¬
-
-" ================ Sane Simple Keymappings =========="{{{2
+" ================ sane simple keymappings =========="{{{2
 "
 
 " Aim to stay on home row
 inoremap ;a <Esc>
-
 
 nnoremap \\ :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 nnoremap // :nohlsearch<CR>
 nnoremap <leader>f  :FZF<CR>
 nnoremap <leader>p  :so %<CR>:PlugInstall<CR>
 nnoremap <leader>yr :YRShow<CR>
+nnoremap <leader>s :set invspell<CR>
+
+" Fold/Unfold using space
+nmap <space> za
+nmap <leader><space> zR
 
 " Keep selection after indent
 vnoremap < <gv
 vnoremap > >gv
+
+" Buffer helpers, delete, tab to next, shift-tab to previous
+nnoremap <leader>q :bn<CR>:bd#<CR>
+nnoremap <Tab> :bnext<CR>
+nnoremap <S-Tab> :bprevious<CR>
 
 " ================ move lines and blocks ============"{{{2
 "
@@ -180,7 +193,7 @@ inoremap <C-k> <ESC>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-" ================ Tab shortcuts ===================="{{{2
+" ================ tab shortcuts ===================="{{{2
 "
 nnoremap <silent> tt :tabnew<cr>   " Create Tab
 nnoremap <silent> -- :tabp<cr>     " Previous tab
@@ -210,24 +223,42 @@ nnoremap <silent> ss <C-w>s " Split hori.
 " nnoremap <C-H> <C-W><C-H>
 
 
-" color scheme: tir_black
+
+" ================ theme switching =================="{{{2
+"
+let g:favourite_themes = ['afterglow', 'night-owl', 'tir_black',
+    \ 'flattened_dark', 'wombat256mod', 'twilight256', 'tender', 'palenight']
+
+let g:current_theme  = -1
+
+function! ChangeTheme(increment)
+    let l:length = len(g:favourite_themes)
+    let g:current_theme += a:increment
+
+    if g:current_theme > l:length - 1
+        let g:current_theme = 0
+    endif
+
+    if g:current_theme < 0
+        let g:current_theme = l:length - 1
+    endif
+
+    let l:theme = g:favourite_themes[g:current_theme]
+    execute 'colorscheme ' . l:theme
+    " echo 'THEME CHANGED: ' . l:theme
+endfunction
+
+
+nmap <leader>cn :call ChangeTheme(1)<CR>
+nmap <leader>cp :call ChangeTheme(-1)<CR>
 colorscheme afterglow
 
-nmap <leader>c1 :colorscheme afterglow<CR>
-nmap <leader>c2 :colorscheme night-owl<CR>
-nmap <leader>c3 :colorscheme tir_black<CR>
-nmap <leader>c4 :colorscheme flattened_dark<CR>
-nmap <leader>c5 :colorscheme wombat256mod<CR>
-nmap <leader>c6 :colorscheme twilight256<CR>
-nmap <leader>c7 :colorscheme tender<CR>
-nmap <leader>c8 :colorscheme palenight<CR>
 
-
-" ================ startify setpshortcuts ==========="{{{2
+" ================ startify setup ==================="{{{2
 "
 
 "let g:ctrlp_reuse_window  = 'startify' " Alow ctrlp to use startify window
-let g:startify_session_dir='~/.nvim/session'
+let g:startify_session_dir='~/.config/nvim/session'
 let g:startify_session_persistence = 1 " Automatically save sessions one exit
 
 let g:startify_list_order=[
@@ -260,8 +291,6 @@ let g:startify_bookmarks = [
 
 " ================ modelines ========================"{{{2
 "
-set modeline
-set modelines=5
 
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
@@ -279,14 +308,7 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
 " ================ folds ============================"{{{2
 "
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
-set foldmethod=marker
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
-set fillchars+=fold:\·
-
-nmap <space> za
-nmap <leader><space> zR
 
 function! NeatFoldText()
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
@@ -300,89 +322,40 @@ function! NeatFoldText()
 endfunction
 set foldtext=NeatFoldText()
 
-" ================ emenu - experimental ============="{{{2
+
+" ================ buffer interactions =============="{{{2
 "
-
-" YOU CAN MANUALLY TRIGGER MENU COMPLETION BY INVOKING TAB COMPLETION ON THE
-" :EMENU COMMAND, BY DOING :EMENU<SPACE><TAB>
-
-" Enable smart command line completion on <Tab> (enable listing all possible
-" choices, and navigating the results with <Up>, <Down>, <Left>, <Right>, and
-" <Enter>)
-set wildmenu
-
-" Make repeated presses cycle between all matching choices " better command line completion
-	set wildmode=longest,full
-	set fileignorecase
-	set wildignorecase
-
-	" Ingore backup files & git directories
-	set wildignore+=*~,.git
-
-" Load the default menus (this would happen automatically in gvim, but not in
-" terminal vim)
-" TODO: Replace with custom menu
-" source $VIMRUNTIME/menu.vim
-
-
-" ================ buffer shortcuts ================="{{{2
-"
-
-" Move to next buffer and delete current one
-nnoremap <leader>q :bn<CR>:bd#<CR>
-
 
 " Prevent preview windows from being on buffer list
 " autocmd BufNew * if FileType qf | setlocal nobuflisted | endif
 autocmd FileType qf setlocal nobuflisted
 
 " If in particular window, just tab to main
-"
 autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer - right
 autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer - left
 autocmd FileType qf  map <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
 
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
 
 
-" ================ EXMPERIMENTAL ===================="{{{2
+" ================ ag - silver searcher ============="{{{2
 "
-
-"
-" EXPLERIMENTAL
-"
-
-
-" toggle spelling
-nnoremap <leader>s :set invspell<CR>
-
-
-
-" bind K to grep word under cursor
-nnoremap F :FZF<CR>
-
-
-"
-" USE AG: The silver searcher
-"
-
 " https://robots.thoughtbot.com/faster-grepping-in-vim
 
-" The Silver Searcher
+" The Silver Searcher, if available
+"  1. bind to :grep syntax
+"  2. create new :Ag syntax
 if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor
+    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
 
-" bind K to grep word under cursor
+" bind K to grep word under cursor - useful even if Ag not installed
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-" bind \ (backward slash) to grep shortcut
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
-let g:jedi#show_call_signatures = "2"
 
+" ================ EXMPERIMENTAL ===================="{{{1
+"
 
 
 
@@ -393,7 +366,11 @@ let g:jedi#show_call_signatures = "2"
 "
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 3
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory='~/dotfiles/NeoSnips'
+let g:jedi#show_call_signatures = "2"
 
+inoremap <expr><C-n>  deoplete#mappings#manual_complete()
 autocmd FileType markdown
        \ call deoplete#custom#buffer_option('auto_complete', v:false)
 
@@ -402,14 +379,14 @@ autocmd FileType markdown
 " Map expression when a tab is hit:
 "           checks if the completion popup is visible
 "           if yes 
-"               then it cycles to next item
+"               tab just exits out, use <C-n>, <C-p> as normal
 "           else 
 "               if expandable_or_jumpable
 "                   then expands_or_jumps
 "                   else returns a normal TAB
 
 imap <expr><TAB>
- \ pumvisible() ? "\<C-n>" :
+ \ pumvisible() ? "\<CR>" :
  \ neosnippet#expandable_or_jumpable() ?
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
