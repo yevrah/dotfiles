@@ -26,10 +26,25 @@
 "   $ make CMAKE_BUILD_TYPE=Release
 "   $ sudo make install
 "
-" Additional, add the python bindings
+" Install IUS Community Packages
+" ==============================
+" IUS is a community project that provides RPM packages for newer versions of
+" select software for Enterprise Linux distributions.
 "
+"   $ curl 'https://setup.ius.io/' -o setup-ius.sh
+"
+" Additional, add the python bindings   - python2
+"
+"   $ sudo yum install epel-release                 # Extra Packages for Enterprise Linux)
+"   $ sudo yum upgrade python-setuptools
+"   $ sudo yum install python-pip python-wheel
+"   $ pip install neovim
+"
+" Add python 3
+"
+"   $ sudo yum install python-devel
 "   $ sudo yum install epel-release
-"   $ yum install python-pip
+"   $ sudo yum install python3 python3-wheel
 "   $ pip install neovim
 "
 "
@@ -37,6 +52,9 @@
 
 " ################ PRE-FLIGHT CHECKS ################ {{{1
 "
+
+let s:first_run=0
+
 call system('mkdir -p ~/.config/nvim/backups/' )    " backups folder
 call system('mkdir -p ~/.config/nvim/undos/' )      " undo folder
 call system('mkdir -p ~/.config/nvim/swaps/' )      " swap files
@@ -46,8 +64,13 @@ call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
 " Install vim plug if not already
 if !filereadable("~/.config/nvim/autoload/plug.vim")
-    call system('curl -fLconfig/o ~/.config/nvim/autoload/plug.vim
-        \ https://raw.gitconfig/hubusercontent.com/junegunn/vim-plug/master/plug.vim')
+    call system('curl -fLo ~/.config/nvim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+
+    " ok, lets source this and flag the first run, we'll do a plugin install
+    " afterwards
+    let s:first_run=1
+    so '~/.config/nvim/autoload/plug.vim'
 endif
 
 
@@ -95,6 +118,9 @@ Plug 'bling/vim-bufferline'
 " Initialize plugin system
 call plug#end()
 
+if s:first_run
+    execute ':PlugInstall'
+endif
 
 " ################ START VIM SETTINGS ############### {{{1
 "  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __
