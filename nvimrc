@@ -55,6 +55,7 @@
 
 let s:first_run=0
 
+
 call system('mkdir -p ~/.config/nvim/backups/' )    " backups folder
 call system('mkdir -p ~/.config/nvim/undos/' )      " undo folder
 call system('mkdir -p ~/.config/nvim/swaps/' )      " swap files
@@ -63,14 +64,10 @@ call system('mkdir -p ~/.config/nvim/autoload/' )   " session files
 call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
 " Install vim plug if not already
-if !filereadable("~/.config/nvim/autoload/plug.vim")
+if glob("~/.config/nvim/autoload/plug.vim") ==# ""
+    echom "Instally plug.vim, restart and run :PlugInstall"
     call system('curl -fLo ~/.config/nvim/autoload/plug.vim
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-
-    " ok, lets source this and flag the first run, we'll do a plugin install
-    " afterwards
-    let s:first_run=1
-    so '~/.config/nvim/autoload/plug.vim'
 endif
 
 
@@ -113,14 +110,13 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'vim-voom/VOoM'
 
-Plug 'bling/vim-bufferline'
+Plug 'pacha/vem-tabline'
+" Plug 'bling/vim-bufferline'
+
+Plug 'dhruvasagar/vim-table-mode'
 
 " Initialize plugin system
 call plug#end()
-
-if s:first_run
-    execute ':PlugInstall'
-endif
 
 " ################ START VIM SETTINGS ############### {{{1
 "  _ _  _  _   _    __  ___  ___  ___  _  _  _  __  __
@@ -357,15 +353,18 @@ set foldtext=NeatFoldText()
 " ================ buffer interactions =============="{{{2
 "
 
-" Prevent preview windows from being on buffer list
-" autocmd BufNew * if FileType qf | setlocal nobuflisted | endif
-autocmd FileType qf setlocal nobuflisted
+augroup startup_buffer
+    autocmd!
 
-" If in particular window, just tab to main
-autocmd FileType nerdtree  map <buffer> <Tab> <c-w>l " Tab out to main buffer - right
-autocmd FileType tagbar  map <buffer> <Tab> <c-w>h " Tab out to main buffer - left
-autocmd FileType qf  map <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
+    " Prevent preview windows from being on buffer list
+    " autocmd BufNew * if FileType qf | setlocal nobuflisted | endif
+    autocmd FileType qf setlocal nobuflisted
 
+    " If in particular window, just tab to main
+    autocmd FileType nerdtree  noremap <buffer> <Tab> <c-w>l " Tab out to main buffer - right
+    autocmd FileType tagbar  noremap <buffer> <Tab> <c-w>h " Tab out to main buffer - left
+    autocmd FileType qf  noremap <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
+augroup END 
 
 
 " ================ ag - silver searcher ============="{{{2
@@ -388,7 +387,36 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 " ================ EXMPERIMENTAL ===================="{{{1
 "
 
+" ================ lightline setup =================="{{{2
+"
 
+" Tabline disabled from litghline as we use vem-tabline
+let g:lightline = {}
+let g:lightline.enable = {
+            \ 'statusline': 1,
+            \ 'tabline': 0
+            \ }
+
+" ================ table mode setup ================="{{{2
+"
+
+" You can use the following to quickly enable / disable table mode in insert
+" mode by using || or __ 
+"
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 
 " ================ deoplete setup ==================="{{{2
 "
@@ -402,8 +430,12 @@ let g:neosnippet#snippets_directory='~/dotfiles/NeoSnips'
 let g:jedi#show_call_signatures = "2"
 
 inoremap <expr><C-n>  deoplete#mappings#manual_complete()
-autocmd FileType markdown
-       \ call deoplete#custom#buffer_option('auto_complete', v:false)
+
+augroup startup_deoplete
+    autocmd!
+    autocmd FileType markdown
+           \ call deoplete#custom#buffer_option('auto_complete', v:false)
+augroup END
 
 " Src: https://computableverse.com/blog/my-terminal-setup<Paste>
 " SuperTab like snippets' behavior.
@@ -417,7 +449,7 @@ autocmd FileType markdown
 "                   else returns a normal TAB
 
 imap <expr><TAB>
- \ pumvisible() ? "\<CR><TAB>" :
+ \ pumvisible() ? "\<CR>" :
  \ neosnippet#expandable_or_jumpable() ?
  \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
@@ -431,14 +463,6 @@ imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
 smap <silent><CR> <Plug>(neosnippet_jump_or_expand)
 
 
-
-
-
-
-
-
-
-
 " Vim Color Debugging
 
 " Identify the syntax highlighting group used at the cursor
@@ -446,7 +470,6 @@ smap <silent><CR> <Plug>(neosnippet_jump_or_expand)
 nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 
 
 
@@ -460,6 +483,7 @@ command! -nargs=+ FigletEf :r!figlet -f eftifont <args>
 command! -nargs=+ FigletSmall :r!figlet -f small <args>
 command! -nargs=+ FigletDrPepper :r!figlet -f drpepper <args>
 command! -nargs=+ Figlet :r!figlet <args>
+
 command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
 
 command! -nargs=* ItermTitle silent execute '!echo -e "\033];<args>\007";export DISABLE_AUTO_TITLE="true"' | redraw!
