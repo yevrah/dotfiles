@@ -503,4 +503,9 @@ command! Write :!sudo tee %
 " Helpers for Simplerr
 command! RunServer execute "term python manage.py runserver --site=website"
 
+
+" Apache Helpers
+command! ApacheRestart execute "!sudo apachectl restart"
+command! ApacheConf execute "!sudo httpd -S"
+
 " vim: set ts=4 sw=4 tw=78 fdm=marker et :
