@@ -53,14 +53,11 @@
 " ################ PRE-FLIGHT CHECKS ################ {{{1
 "
 
-let s:first_run=0
-
-
 call system('mkdir -p ~/.config/nvim/backups/' )    " backups folder
 call system('mkdir -p ~/.config/nvim/undos/' )      " undo folder
 call system('mkdir -p ~/.config/nvim/swaps/' )      " swap files
 call system('mkdir -p ~/.config/nvim/session/' )    " session files
-call system('mkdir -p ~/.config/nvim/autoload/' )   " session files
+call system('mkdir -p ~/.config/nvim/autoload/' )   " autoload folder
 call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
 " Install vim plug if not already
@@ -71,11 +68,11 @@ if glob("~/.config/nvim/autoload/plug.vim") ==# ""
 endif
 
 
-
 " ################ PLUG SECTION   ################### {{{1
 "
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'chriskempson/base16-vim'
 Plug 'haishanh/night-owl.vim'
 Plug 'danilo-augusto/vim-afterglow'
 Plug 'romainl/flattened'           " Actually a better solarized
@@ -83,14 +80,20 @@ Plug 'vim-scripts/wombat256.vim'
 Plug 'vim-scripts/twilight256.vim'
 Plug 'jacoborus/tender.vim'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'xero/sourcerer.vim'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'rakr/vim-one'
 
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'dhruvasagar/vim-table-mode'
 
-" Nerd Tree Relate
+" Navigation related
 Plug 'scrooloose/nerdtree'
+Plug 'vim-voom/VOoM'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Code Completion
 Plug 'davidhalter/jedi-vim'
@@ -99,21 +102,12 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
-
-" File search and find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
 " Visual Improvements
-Plug 'itchyny/lightline.vim'
+Plug 'pacha/vem-tabline'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'vim-voom/VOoM'
 
-Plug 'pacha/vem-tabline'
-" Plug 'bling/vim-bufferline'
-
-Plug 'dhruvasagar/vim-table-mode'
 
 " Initialize plugin system
 call plug#end()
@@ -177,6 +171,7 @@ set list                        " show unwanted whitespace characters, tab, etc
 set listchars=tab:𝄀\ ,trail:·,
    \extends:→,precedes:←,nbsp:¬
 
+set updatetime=750              " some items hook into this and udpate accordingly
 
 " ================ sane simple keymappings =========="{{{2
 "
@@ -191,9 +186,11 @@ nnoremap <leader>p  :so %<CR>:PlugInstall<CR>
 nnoremap <leader>yr :YRShow<CR>
 nnoremap <leader>s  :set invspell<CR>
 
-" Easy Align
-xnoremap ga <Plug>(EasyAlign)
-nnoremap ga <Plug>(EasyAlign)
+" Easy Align - tes
+"   - other
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " Fold/Unfold using space
 nnoremap <space> za
@@ -205,8 +202,8 @@ vnoremap > >gv
 
 " Buffer helpers, delete, tab to next, shift-tab to previous
 nnoremap <leader>q :bn<CR>:bd#<CR>
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+nnoremap <silent> <Tab> :bnext<CR>
+nnoremap <silent> <S-Tab> :bprevious<CR>
 
 " ================ move lines and blocks ============"{{{2
 "
@@ -383,19 +380,84 @@ endif
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 
+" ================ status line ======================"{{{2
+"
+" https://gist.github.com/meskarune/57b613907ebd1df67eb7bdb83c6e6641
 
-" ================ EXMPERIMENTAL ===================="{{{1
+" status bar colors
+augroup start_statusline
+    autocmd!
+    au InsertEnter * hi statusline guifg=black guibg=#d7afff ctermfg=black ctermbg=magenta
+    au InsertLeave * hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+
+    " Insired by https://github.com/bling/vim-bufferline/blob/master/autoload/bufferline.vim
+    " autocmd BufWinEnter,WinEnter,InsertLeave,VimResized * echo ' ' . expand('%:p')
+
+    " This depends on udpatetime value
+    autocmd CursorHold * echo ' ' . expand('%:p')
+augroup END
+
+" https://www.nkantar.com/blog/my-vim-statusline
+function! PasteMode()
+    if &paste == 1 | return "│ PASTE" | else
+    return ""
+endfunction
+
+hi statusline guifg=black guibg=#8fbfdc ctermfg=black ctermbg=cyan
+hi User1 ctermfg=007 ctermbg=239 guibg=#4e4e4e guifg=#adadad
+hi User2 ctermfg=007 ctermbg=236 guibg=#303030 guifg=#adadad
+hi User3 ctermfg=236 ctermbg=236 guibg=#303030 guifg=#303030
+hi User4 ctermfg=239 ctermbg=239 guibg=#4e4e4e guifg=#4e4e4e
+
+" Status line
+" default: set statusline=%f\ %h%w%m%r\ %=%(%l,%c%V\ %=\ %P%)
+
+" Status Line Custom
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'Normal·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ nr2char(22): 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '^S' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'V·Replace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal'
+    \}
+
+set laststatus=2
+set noshowmode
+set statusline=
+" set statusline+=%0*\ %n\                                 " Buffer number
+" set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
+" set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %Y\                                 " FileType
+set statusline+=%3*│                                     " Separator
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
+set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
+set statusline+=%=                                       " Right Side
+set statusline+=%1*\ COL\ %02v\                          " Colomn number
+set statusline+=%1*│                                     " Separator
+set statusline+=%1*\ LINE\ %02l/%L\                      " Line number / total lines, percentage of document
+set statusline+=%1*│                                     " Separator
+set statusline+=%1*\ %3p%%\                              " Line number / total lines, percentage of document
+set statusline+=%0*\ %{toupper(get(g:currentmode,mode(),char2nr(mode())))}\  " The current mode
+set statusline+=%0*%{toupper(PasteMode())}\  " The current mode
+
+
+" ################ EXMPERIMENTAL ####################"{{{1
 "
 
-" ================ lightline setup =================="{{{2
-"
-
-" Tabline disabled from litghline as we use vem-tabline
-let g:lightline = {}
-let g:lightline.enable = {
-            \ 'statusline': 1,
-            \ 'tabline': 0
-            \ }
 
 " ================ table mode setup ================="{{{2
 "
@@ -417,6 +479,9 @@ inoreabbrev <expr> <bar><bar>
 inoreabbrev <expr> __
           \ <SID>isAtStartOfLine('__') ?
           \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+
+let g:table_mode_corner='|'
 
 " ================ deoplete setup ==================="{{{2
 "
