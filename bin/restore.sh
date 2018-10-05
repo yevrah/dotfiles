@@ -25,9 +25,14 @@ echo "Link nvimrc config"
 mkdir -p ~/.config/nvim
 rm -f ~/.config/nvim/init.vim
 ln -s ~/dotfiles/nvimrc ~/.config/nvim/init.vim
+pip3.7 install neovim
 
 echo "Link oh-my-zsh config"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# AUTO INSTALL: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Manual install taken from https://github.com/robbyrussell/oh-my-zsh#manual-installation
+git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+chsh -s /bin/zsh
+
 rm -f ~/.zshrc
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
