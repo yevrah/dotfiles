@@ -1,0 +1,222 @@
+snippet hello_with_built "Self building template"
+	#if 0
+	#set -x
+	
+	SOURCE=\$0
+	OUT="\${SOURCE/\.c/}"
+	
+	echo "source: $SOURCE, out $OUT"
+    cc "$SOURCE" -std=c89 -Wall -o "$OUT" && "$OUT" $*
+
+    read -n1 -r -p "Press any key to continue..." key
+	
+    # To make a static lib - create *.o file
+    # cc "$SOURCE" -std=c89 -Wall -c
+
+    # To make a shared lib (dynamic lib) - create a *.dylib (*.so in linux)
+    # cc -shared -fpic $SOURCE -o lib$OUT.dylib
+
+    # Below sections taken from:
+    # http://nickdesaulniers.github.io/blog/2016/11/20/static-and-dynamic-libraries/
+    # http://nickdesaulniers.github.io/blog/2016/08/13/object-files-and-symbols/
+
+    # To turn static lib to dynamic - create *.a file
+    # ar -rv lib$OUT.a $OUT.o
+
+    echo "----- SYMBOL TABLE ------------------------------------------------"
+    nm $OUT
+    
+    echo "----- DYNAMIC LIBS ------------------------------------------------"
+    otool -L $OUT
+
+    echo "----- OBJECT ANALYSIS ---------------------------------------------"
+    otool -tV $OUT
+
+	exit
+	#endif
+	
+	#include <stdio.h>
+	#include <string.h>
+	#include <stdlib.h>
+	
+	#define max_contacts 10
+	#define buf_size 200
+	
+	#define DBG
+	
+	typedef struct contact {
+	        char* name;
+	        char* phone;
+	        int phonei;
+	} contact;
+	
+	
+	int main(int argc, const char *argv[]) {
+	    /* Lets get the arguments passed */
+	    printf("Total arguments: %d \n", argc);
+	
+	    while( argc > 1 ) {
+	        printf("Param %s\n", argv[argc-1]);
+	        argc--;
+	    }
+	
+	
+	    /* Basic struct operations */
+	    contact contacts[max_contacts];
+	    contacts[0].name = "John Doe";
+	    contacts[1].name = "Zed Ex";
+	
+	    for(int i=0; i < max_contacts; i++) {
+	        contacts[i].name = malloc(buf_size);
+	
+	
+	        snprintf(contacts[i].name, buf_size, "Contact %d", i);
+	    }
+	
+	
+	    for(int x=0; x < max_contacts; x++) {
+	        printf("At number: %d\n", x);
+	        printf("Contact %s, phone s\n", contacts[x].name);
+	    }
+	
+	    return 0;
+	}
+	
+
+snippet singletone "Example singlton object"
+	/* Source: http://www.stephenmeier.net/2014/08/17/sdl-2-0-tutorial-01-the-game-window/ */
+	#define SCREEN_w 640
+	#define SCREEN_H 480
+	#define SCREEN_SCALE 1
+	#define SCREEN_NAME "Prototype"
+	
+	void game_init(void);
+	void game_quit(void);
+	
+	struct {
+	    /* define "attributes" */
+	    sdl_bool running;
+	
+	    struct {
+	        unsigned int w;
+	        unsigned int h;
+	        const char* name;
+	        sdl_window* window;
+	        sdl_renderer* renderer;
+	    } screen;
+	
+	    struct {
+	        unsigned int n;
+	        sdl_surface** spritesheet;
+	    } gfx;
+	
+	    /* define "methods" */
+	    void (*init)(void);
+	    void (*quit)(void);
+	} game = {
+	    sdl_false,
+	    {
+	        screen_scale*screen_w,
+	        screen_scale*screen_h,
+	        screen_name,
+	        null, null
+	    },
+	    {0, null},
+	    game_init,
+	    game_quit
+	};
+	
+	
+	void game_init(void) {
+	    /* implementation here */
+	}
+	
+	void game_quit(void) {
+	    /* implementation here */
+	}
+	
+	int main() {
+	    game.init();
+	
+	    game.quit();
+	
+	    return 0;
+	}
+
+snippet malloc "Simple malloc allocation"
+	${1:int} *${2:p} = ($1*) malloc ( sizeof($1) * ${3:n} );
+	
+	// ... do stuff
+    ${0}
+	
+	free($2);
+
+snippet     mallocsafe "Create pointer to memory, uses safe proxy"
+	// Do not use the allocated pointer for doing stuff. Do not even use it to
+	// access memory. Always copy it first, and use only the copy in your code.
+	// And I’m speaking about copying the pointer not the array!
+	//
+	// Thus you are safe from [accidentally] changing the pointer and returning
+	// the wrong address over to free. You can freely play with the p_copy
+	// pointer, like in the example above.
+	int ${1:pointername}_length = 20;
+	${2:int} *_$1 = ($2*) malloc ( sizeof($2) * $1_length);
+    int *$1 = _$1;
+
+    // do your stuff with $1, not with _$1!  e.g.:
+    while ($1_length--) { 
+        *$1++ = $1_length; 
+        ${0}
+    }
+
+    // free
+    free (_$1);
+
+snippet     mallocfree_wrapper "Custom malloc and free proxies"
+	// Allocate few extra bytes more than asked, and store the size in the
+	// extra bytes, so that you could know the size later on, in MyFree
+	// function.
+	//
+	// Be aware that if malloc returns blocks with greater alignment than
+	// sizeof(int) then this returns unaligned memory, and that int is
+	// permitted to be smaller than size_t anyway. For a quick hack on a
+	// particular platform, just use whatever integer type seems reasonable
+	// with that in mind, which of course might well be int
+	//
+	// See: https://stackoverflow.com/questions/8259817/how-to-track-malloc-and-free
+	unsigned long int usedMemory = 0;
+	
+	void *MyMalloc(int size)
+	{
+	  char *buffer = (char *) malloc(size + sizeof(int)); //allocate sizeof(int) extra bytes 
+	  if ( buffer == NULL) {
+	      return NULL; // no memory!
+	  }
+	
+	  usedMemory += size ;
+	  int *sizeBox = (int*)buffer;
+	  *sizeBox = size; //store the size in first sizeof(int) bytes!
+	  return buffer + sizeof(int); //return buffer after sizeof(int) bytes!
+	}
+	
+	void MyRealloc(void *pointer)
+	{
+	   if (pointer == NULL)
+	       return; //no free
+	
+	   char *buffer = (char*)pointer - sizeof(int); //get the start of the buffer
+	   int *sizeBox = (int*)buffer;
+	   usedMemory -= *sizeBox;
+	   free(buffer);
+	}
+
+	void MyFree(void *pointer)
+	{
+	   if (pointer == NULL)
+	       return; //no free
+	
+	   char *buffer = (char*)pointer - sizeof(int); //get the start of the buffer
+	   int *sizeBox = (int*)buffer;
+	   usedMemory -= *sizeBox;
+	   free(buffer);
+	}

@@ -83,6 +83,7 @@ Plug 'drewtempelmeyer/palenight.vim'
 Plug 'xero/sourcerer.vim'
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'rakr/vim-one'
+Plug 'fxn/vim-monochrome'
 
 " General Improvements
 Plug 'tpope/vim-commentary'
@@ -132,7 +133,7 @@ call plug#end()
 filetype off                    " Do not fire file events
 syntax enable                   " Enable syntax highlighting
 let mapleader=','               " Remap leader
-colorscheme afterglow
+colorscheme afterglow           " Use afterglow theme
 
 set nocompatible                " Disable compatibility to old-time vi
 set termguicolors               " Allow colorschemes to set colors
@@ -192,9 +193,7 @@ nnoremap <leader>p  :so %<CR>:PlugInstall<CR>
 nnoremap <leader>yr :YRShow<CR>
 nnoremap <leader>s  :set invspell<CR>
 
-" Easy Align - tes
-"   - other
-
+" Easy Align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
@@ -207,9 +206,9 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Buffer helpers, delete, tab to next, shift-tab to previous
-nnoremap <leader>q :bn<CR>:bd#<CR>
-nnoremap <silent> <Tab> :bnext<CR>
-nnoremap <silent> <S-Tab> :bprevious<CR>
+nnoremap <leader>q        :bn<CR>:bd#<CR>
+nnoremap <silent><Tab>    :bnext<CR>
+nnoremap <silent><S-Tab>  :bprevious<CR>
 
 " ================ move lines and blocks ============"{{{2
 "
@@ -383,10 +382,10 @@ augroup END
 "  2. create new :Ag syntax
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
-    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 endif
 
 " bind K to grep word under cursor - useful even if Ag not installed
+command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 
@@ -527,6 +526,10 @@ augroup END
 "               if expandable_or_jumpable
 "                   then expands_or_jumps
 "                   else returns a normal TAB
+
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 imap <expr><TAB>
  \ pumvisible() ? "\<CR>" :
