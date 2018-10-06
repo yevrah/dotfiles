@@ -31,5 +31,9 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 rm -f ~/.zshrc
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
+echo "ZSH Plugins"
+cd ~/.oh-my-zsh && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+
+
 echo "Running mackup respore"
 mackup restore
