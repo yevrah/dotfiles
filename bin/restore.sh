@@ -39,5 +39,9 @@ chsh -s /bin/zsh
 rm -f ~/.zshrc
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
+echo "ZSH Plugins"
+cd ~/.oh-my-zsh && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+
+
 echo "Running mackup respore"
 mackup restore
