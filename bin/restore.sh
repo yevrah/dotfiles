@@ -4,6 +4,9 @@ echo "Linking mackup config"
 rm -f ~/mackup.cfg
 ln -s ~/dotfiles/mackup.cfg ~/.mackup.cfg
 
+rm -rf ~/.mackup
+ln -s ~/dotfiles/mackup ~/.mackup
+
 echo "Linking bash profile"
 rm -f ~/.bash_profile
 ln -s ~/dotfiles/bash_profile ~/.bash_profile

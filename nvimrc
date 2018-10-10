@@ -90,12 +90,12 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode'
-Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-surround'
 
 " Knowledge Managemen
-Plug 'vimwiki/vimwiki'
-Plug 'mattn/calendar-vim'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'vimwiki/vimwiki'
+" Plug 'mattn/calendar-vim'
 
 " Navigation related
 Plug 'scrooloose/nerdtree'

@@ -189,7 +189,9 @@ function find_env()
         #  2. Remove uncecessary information
         #  3. Pip sens out a single list, use column to conver to multiple columns of a width taking into account the logo
         #  4. Column outputs tabs, which breaks design, use expand to conver to spaces
-        packages=`pip list --format=legacy | sed -e 's/ (.*//g' | column -c $((COLUMNS-45)) | expand`
+        #
+        # OLD METHOD: packages=`pip list --format=legacy | sed -e 's/ (.*//g' | column -c $((COLUMNS-45)) | expand`
+        packages=`pip list --format freeze | sed -e 's/=.*//g' | column -c $((COLUMNS-45)) | expand`
 
         package_table=()
         while read -r line; do
