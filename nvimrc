@@ -454,6 +454,7 @@ set statusline+=%2*\ %Y\                                 " FileType
 set statusline+=%3*│                                     " Separator
 set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
 set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
+set statusline+=\ -\ %{expand('%:p')}                         " File Path
 set statusline+=%=                                       " Right Side
 set statusline+=%1*\ COL\ %02v\                          " Colomn number
 set statusline+=%1*│                                     " Separator
@@ -591,4 +592,6 @@ command! RunServer execute "term python manage.py runserver --site=website"
 command! ApacheRestart execute "!sudo apachectl restart"
 command! ApacheConf execute "!sudo httpd -S"
 
+" FindReplace Helper
+nnoremap fr :!perl -pi -e 's/foo/bar/g' *.py
 " vim: set ts=4 sw=4 tw=78 fdm=marker et :

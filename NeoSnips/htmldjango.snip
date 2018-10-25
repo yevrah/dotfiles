@@ -1,0 +1,16 @@
+extends html
+
+# You probably want to edit for html snips
+# /Users/harvey/dotfiles/NeoSnips/html.snip
+
+snippet     fastview
+abbr        Enable Drilling Down to Specific Element
+options     head
+
+	{% block footer %}
+	    <!-- Intentionally left blank -->
+	    <script> $('body').addClass('mini-navbar'); </script>	<!-- Hide Nav -->
+	    <script> $('#liability_modal').modal('show'); </script> <!-- Open Modal -->
+	{% endblock %}
+
+# vim: set ts=4 sw=4 tw=0 fdm=indent noet :

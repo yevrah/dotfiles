@@ -1,0 +1,210 @@
+
+
+# Angular 1 Snippets From: https://github.com/johnpapa/angular-styleguide/blob/master/a1/assets/vim-angular-snippets
+
+snippet ngcontroller
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}')
+	        .controller('${2:Controller}Controller', $2Controller);
+	
+	    /* @ngInject */
+	    function $2Controller(${3:dependencies}) {
+	        var vm = this;
+	        vm.title = '$2Controller';
+	
+	        activate();
+	
+	        ////////////////
+	
+	        function activate() {
+	        }
+	    }
+	})();
+
+snippet ngdirective
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}')
+	        .directive('${2:directive}', $2);
+	
+	    /* @ngInject */
+	    function $2(${3:dependencies}) {
+	        // Usage:
+	        //
+	        // Creates:
+	        //
+	        var directive = {
+	            bindToController: true,
+	            controller: ${4:Controller},
+	            controllerAs: '${5:vm}',
+	            link: link,
+	            restrict: 'A',
+	            scope: {
+	            }
+	        };
+	        return directive;
+	
+	        function link(scope, element, attrs) {
+	        }
+	    }
+	
+	    /* @ngInject */
+	    function $4() {
+	
+	    }
+	})();
+
+
+snippet ngfactory
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}')
+	        .factory('${2:factory}', $2);
+	
+	    /* @ngInject */
+	    function $2(${3:dependencies}) {
+	        var service = {
+	            ${4:func}: $4
+	        };
+	        return service;
+	
+	        ////////////////
+	
+	        function $4() {
+	        }
+	    }
+	})();
+
+snippet ngfilter
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}')
+	        .filter('${2:filter}', $2);
+	
+	    function $2() {
+	        return $2Filter;
+	
+	        ////////////////
+	        function $2Filter(${3:params}) {
+	            return $3;
+	        };
+	    }
+	
+	})();
+
+snippet ngmodule
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}', [
+	            '${2:dependencies}'
+	        ]);
+	})();
+
+
+snippet ngservice
+options head
+	(function() {
+	    'use strict';
+	
+	    angular
+	        .module('${1:module}')
+	        .service('${2:Service}', $2);
+	
+	    /* @ngInject */
+	    function $2(${3:dependencies}) {
+	        this.${4:func} = $4;
+	
+	        ////////////////
+	
+	        function $4() {
+	        }
+	    }
+	})();
+
+snippet nghttpsimple
+	$http({
+	  method: '${1:GET|POST|PUT|DELETE}',
+	  url: '/${2:someUrl}'
+	}).then(function successCallback(response) {
+		// this callback will be called asynchronously
+		// when the response is available
+		${0}
+	  }, function errorCallback(response) {
+		// called asynchronously if an error occurs
+		// or server returns response with an error status.
+		console.log(response);
+	});
+
+
+snippet nghttp
+	function ${1:getCustomer}(id) {
+	
+		return $http.${2:get|post|put|delete}('${3:/api/get/all}')
+			.then($1Complete)
+			.catch($1Failed);
+
+		function $1Complete(data, status, headers, config) {
+			return data.data;
+		}
+
+		function $1Failed(e) {
+			var newMessage = 'XHR Failed for $1 : $2 : $3';
+			if (e.data && e.data.description) {
+			  newMessage = newMessage + '\n' + e.data.description;
+			}
+			e.data.description = newMessage;
+			logger.error(newMessage);
+			return $q.reject(e);
+		}
+	}
+	${0}
+
+snippet doc_namespace
+	/**
+	* @namespace ${1:angular_module}.${2:Services|factories|Controller|Module}
+	*/
+
+snippet doc_module
+	/**
+	 * @class ${1:angular_module}.${2:MyModule}
+	 * @memberOf $1
+	 */
+
+snippet doc_service
+	/**
+	 * @function ${1:myService}
+	 * @memberOf ${2:angular_module}.${3:MyModule}
+	 *
+	 * @description ${4:Manages|Coordinates}
+	 */
+
+snippet doc_function
+	/**
+	 * @function
+	 *
+	 * @name ${1:vm}.${2:somefunction}
+	 * @memberOf ${3:angular_module}.${4:MyModule}.${5:MyController}
+	 *
+	 * @description ${6:Takes ... and transforms it into..}
+	 *
+	 * @example ${7}
+	 */
+
+# vim: set ts=4 sw=4 tw=0 fdm=marker noet :
+

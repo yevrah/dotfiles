@@ -1,0 +1,27 @@
+
+# 2018-10-11 09:23:04.916884
++import os; os.sys.path.append('/Users/harvey/dev/mystro.com/website')
+
+# 2018-10-11 09:27:51.302448
++from common.models import *
+
+# 2018-10-11 09:28:41.732297
++users = Individuals.select()
+
+# 2018-10-11 09:28:43.822423
++user
+
+# 2018-10-11 09:28:46.101418
++users
+
+# 2018-10-24 16:08:52.573740
++exit
+
+# 2018-10-24 16:09:27.813810
++from common.models.static import *
+
+# 2018-10-24 16:10:45.466529
++StaticAddBackTypes.select()
+
+# 2018-10-24 16:11:16.704866
++StaticAddressTypes.select()
