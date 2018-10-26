@@ -97,6 +97,10 @@ Plug 'tpope/vim-surround'
 " Plug 'vimwiki/vimwiki'
 " Plug 'mattn/calendar-vim'
 
+" Git plugins
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
 " Navigation related
 Plug 'scrooloose/nerdtree'
 Plug 'vim-voom/VOoM'
@@ -563,10 +567,10 @@ nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
 " ( (_ | U |\_ \ | ( o ) \_/ | ( (_ | \_/ || o )
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
-command! -nargs=+ FigletEf :r!figlet -f eftifont <args>
-command! -nargs=+ FigletSmall :r!figlet -f small <args>
-command! -nargs=+ FigletDrPepper :r!figlet -f drpepper <args>
-command! -nargs=+ Figlet :r!figlet <args>
+command! -nargs=+ FigletEf          :r!figlet -f eftifont <args>
+command! -nargs=+ FigletSmall       :r!figlet -f small <args>
+command! -nargs=+ FigletDrPepper    :r!figlet -f drpepper <args>
+command! -nargs=+ Figlet            :r!figlet <args>
 
 command! -nargs=+ Gitlazy :!pwd;git add -A;git commit -am '<args>';git pull;git push
 
@@ -589,9 +593,10 @@ command! RunServer execute "term python manage.py runserver --site=website"
 
 
 " Apache Helpers
-command! ApacheRestart execute "!sudo apachectl restart"
+command! ApacheRestart execute "!sudo apachectl graceful restart"
 command! ApacheConf execute "!sudo httpd -S"
 
 " FindReplace Helper
 nnoremap fr :!perl -pi -e 's/foo/bar/g' *.py
+
 " vim: set ts=4 sw=4 tw=78 fdm=marker et :
