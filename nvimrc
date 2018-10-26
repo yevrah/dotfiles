@@ -568,7 +568,7 @@ command! -nargs=+ FigletSmall :r!figlet -f small <args>
 command! -nargs=+ FigletDrPepper :r!figlet -f drpepper <args>
 command! -nargs=+ Figlet :r!figlet <args>
 
-command! -nargs=+ Gitlazy :!pwd;git add .;git commit -am '<args>';git push
+command! -nargs=+ Gitlazy :!pwd;git add -A;git commit -am '<args>';git pull;git push
 
 command! -nargs=* ItermTitle silent execute '!echo -e "\033];<args>\007";export DISABLE_AUTO_TITLE="true"' | redraw!
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
