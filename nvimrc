@@ -454,19 +454,23 @@ set statusline=
 " set statusline+=%0*\ %n\                                 " Buffer number
 " set statusline+=%1*\ %<%F%m%r%h%w\                       " File path, modified, readonly, helpfile, preview
 " set statusline+=%3*│                                     " Separator
-set statusline+=%2*\ %Y\                                 " FileType
-set statusline+=%3*│                                     " Separator
-set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''}     " Encoding
-set statusline+=\ (%{&ff})                               " FileFormat (dos/unix..)
-set statusline+=\ -\ %{expand('%:p')}                         " File Path
-set statusline+=%=                                       " Right Side
-set statusline+=%1*\ COL\ %02v\                          " Colomn number
-set statusline+=%1*│                                     " Separator
-set statusline+=%1*\ LINE\ %02l/%L\                      " Line number / total lines, percentage of document
-set statusline+=%1*│                                     " Separator
-set statusline+=%1*\ %3p%%\                              " Line number / total lines, percentage of document
+set statusline+=%2*\ %Y\                             " FileType
+set statusline+=│                                    " Separator
+set statusline+=%2*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+set statusline+=\ │\                                 " Separator
+set statusline+=%{&ff}                               " FileFormat (dos/unix..)
+set statusline+=\ │\                                 " Separator
+set statusline+=%{FugitiveHead()}                    " Git status
+set statusline+=\ │\                                 " Separator
+set statusline+=\ %{expand('%:p')}                   " File Path
+set statusline+=%=                                   " Right Side
+set statusline+=%1*\ COL\ %02v\                      " Colomn number
+set statusline+=%1*│                                 " Separator
+set statusline+=%1*\ LINE\ %02l/%L\                  " Line number / total lines, percentage of document
+set statusline+=%1*│                                 " Separator
+set statusline+=%1*\ %3p%%\                          " Line number / total lines, percentage of document
 set statusline+=%0*\ %{toupper(get(g:currentmode,mode(),char2nr(mode())))}\  " The current mode
-set statusline+=%0*%{toupper(PasteMode())}\  " The current mode
+set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 
 
 " ################ EXMPERIMENTAL ####################"{{{1
