@@ -85,12 +85,30 @@ Plug 'bluz71/vim-moonfly-colors'
 Plug 'rakr/vim-one'
 Plug 'fxn/vim-monochrome'
 
+
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-surround'
+
+Plug 'rhysd/vim-grammarous'
+
+" -------------------------------------------- REACT
+" https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
+" lint - https://drivy.engineering/setting-up-vim-for-react/
+" install locally
+" yarn add eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
+" install globaly: npm i -g eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
+"//--------------------------------------------
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'w0rp/ale'
+Plug 'prettier/vim-prettier'
+Plug 'ternjs/tern_for_vim'
+
+Plug 'moll/vim-node'
 
 " Knowledge Managemen
 " Plug 'plasticboy/vim-markdown'
@@ -256,7 +274,12 @@ nnoremap <silent> ss <C-w>s " Split hori.
 " nnoremap <C-L> <C-W><C-L>
 " nnoremap <C-H> <C-W><C-H>
 
-
+" ================ indenting by file types =========="{{{2
+"
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType ruby setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2
 
 " ================ theme switching =================="{{{2
 "
@@ -391,6 +414,9 @@ endif
 " bind K to grep word under cursor - useful even if Ag not installed
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" find todos and fixmes
+nnoremap <leader>t :Ag '"(FIXME)\|(TODO)"'<cr>
 
 
 " ================ status line ======================"{{{2
@@ -564,6 +590,21 @@ nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
+"
+" Markdown Helpers
+"
+
+" Create file under cursor
+nnoremap <leader>gf :e <cfile><cr>
+nnoremap <leader>gb :!open -a "Google Chrome" %
+
+
+" 
+" Ale config
+"
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 
 " ================ additional Vim Commands =========="{{{2
 "   __  _ _  __  ___ _  _   _    __  _   _  __
@@ -588,13 +629,11 @@ command! PyrunI execute "!python -i %"
 " You can yse `=` or `gq` to format python code using pep8
 " autocmd filetype python setlocal equalprg=yapf formatprg=yapf
 command! AutoPep8  execute "!yapf %"
-
 command! Write :!sudo tee %
 
 
 " Helpers for Simplerr
 command! RunServer execute "term python manage.py runserver --site=website"
-
 
 " Apache Helpers
 command! ApacheRestart execute "!sudo apachectl graceful restart"

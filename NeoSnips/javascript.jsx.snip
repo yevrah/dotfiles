@@ -1,0 +1,160 @@
+snippet fold
+	//====================| ${0}                                |=================={{{1
+
+snippet fold2
+	//--------------------| ${0}                                |------------------{{{2
+
+snippet     rjs_comp_class
+abbr        rjcc
+	class ${1:componentName} extends Component {
+		
+	  constructor(props) {
+		super(props)
+		this.state = {};
+	  }
+	
+	  render() {
+		return (
+		  <div>
+			${0}
+		  </div>
+		);
+	  }
+	}
+	export default $1
+
+
+snippet rjs_generic_change
+	handleChange = (event) => {
+		// Usage <input type="text" name="email" onChange={this.handleChange} value={this.state.email} />
+		this.setState({[event.target.name]: event.target.value })
+	}
+
+snippet rdx_create_store
+	import { createStore, combineReducers } from 'redux'
+	const rootReducer = combineReducers({reducer1, reducer2})
+    const initialState = {}
+	const store = createStore ( rootReducer, initialState )
+	console.log( store.getState() )
+		
+	
+
+snippet rdx_component
+	import React, { Component } from 'react';
+	import { connect } from 'react-redux';
+	import {bindActionCreators} from "redux";
+
+	import {action1, action2} from "myActions";
+
+	class ${1:componentName} extends Component {
+		
+	  constructor(props) {
+		super(props)
+		this.state = {};
+	  }
+	
+	  render({counter, someComponentValue, firstAction, secondAction}) {
+		return (
+		  <div>
+			<div>Counter: {counter}</div>
+			<div>Other: {someComponentValue}</div>
+			<button onClick={firstAction}>First Button</button>
+			<button onClick={seconfAction}>Second Button</button>
+
+			${0}
+		  </div>
+		);
+	  }
+	}
+
+	const mapStateToProps = (state, ownProps) => ({
+	  someitem: state.counter,
+	  someComponentValue: state.things[ownProps.someIdProp],
+	});
+
+	const mapDispatchToProps = (dispatch) => ({
+	  firstAction: () => dispatch(action1()),
+	  secondAction: bindActionCreators(action1, dispatch),
+	});
+
+	export default connect(mapStateToProps, mapDispatchToProps)($1);
+
+snippet rdx_map_state_to_props
+	const mapStateToProps= state => ({
+			${0}
+		  });
+
+snippet rdx_map_dispatch_to_props
+	const mapDispatchToProps = (dispatch) => ({
+        ${0}
+      });
+
+snippet rdx_action_const
+	export const ${1:constName} = '$1';
+
+snippet rdx_action_creator
+	export const ${1:actionName} = (action) => ({
+		type: type,
+		payload: action.payload
+	});
+
+snippet rdx_reducer
+	export default (state = { }, action) => {
+	  switch (action.type) {
+		  case typeName:
+			return { ...state }
+		  default:
+			return state
+		  }
+	}
+
+snippet rdx_saga
+	export function* ${1:workerName}Saga() {
+
+    }
+
+snippet rdx_fetch_promise
+	fetchData = (url) => (dispatch) => {
+	  dispatch({ type: 'FETCH_REQUEST' })
+	  fetch(url)
+		.then((data) => dispatch({ type: 'FETCH_DONE', data })
+		.catch((error) => dispatch({ type: 'FETCH_ERROR', error })
+	})
+
+	// Manual dispatch
+	store.dispatch(fetchData('/posts'))
+	// That's actually shorthand for:
+	fetchData('/posts')(store.dispatch)
+
+snippet rdx_provilder_app
+	import { Provider } from 'react-redux'
+	React.render(
+	  <Provider store={store}>
+		<App />
+	  </Provider>, mountNode)
+
+
+snippet rdx_middleware
+
+	// Middleware signature
+	const logger = store => dispatch => action { dispatch(action) }
+	const logger = store => {
+	  // This function runs on createStore().
+	  // It returns a decorator for dispatch().
+
+	  return dispatch => {
+		// Runs on createStore(), too.
+		// It returns a new dispatch() function
+
+		return action => {
+		  // Runs on every dispatch()
+		}
+	  }
+	}
+
+	// Apply Middleware
+	const enhancer = applyMiddleware(logger, thunk, ...)
+	const store = createStore(reducer, {}, enhancer)
+
+
+# vim: set ts=4 sw=4 tw=0 fdm=marker noet :

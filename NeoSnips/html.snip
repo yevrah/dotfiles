@@ -260,4 +260,68 @@ snippet hello_mystro
 		</body>
 	</html>
 
+snippet hello_rjs
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>${1:ReactJS BoilerPlate}</title>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+			<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+			<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+			<style>
+				* {
+					font-family: 'Courier New';
+					font-size: 12px;
+					color: #888;
+				}
+
+				h1, h2, h3, h4 {
+					font-size: 14px;
+					color: #333;
+					display: block;
+				}
+
+				h1 {
+					background-color: #eee;
+				}
+
+			</style>
+
+		</head>
+
+		<body>
+
+			<!-- Target Container -->
+			<h1>$1</h1>
+			<div id="react-container"></div>
+
+			<a name="bottom"></a>
+			<script type="text/babel">
+				const comp = React.createElement('p', null, 'ReactJS Component');
+				ReactDOM.render(
+						comp, 
+						document.getElementById('react-container')
+				);
+
+			</script>
+		</body>
+	</html>
+
+
+snippet     ng_select
+abbr        ngs
+	<select class="form-control"
+		ng-model="${1:vm.current.item}">
+		<option ng-repeat="item in ${2:vm.list}"
+				value="{{ item.${3:value} }}">
+			{{item.${4:description} }}
+		</option>
+	</select>
+
+
 # vim: set ts=4 sw=4 tw=0 fdm=indent noet :
