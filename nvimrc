@@ -411,12 +411,14 @@ if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 endif
 
-" bind K to grep word under cursor - useful even if Ag not installed
+" Create Ag command
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+
+" bind K to grep word under cursor - useful even if Ag not installed
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " find todos and fixmes
-nnoremap <leader>t :Ag '"(FIXME)\|(TODO)"'<cr>
+nnoremap <leader>t :Ag '(FIXME)\\\|(TODO)'<cr>
 
 
 " ================ status line ======================"{{{2
