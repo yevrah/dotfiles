@@ -641,7 +641,7 @@ command! RunServer execute "term python manage.py runserver --site=website"
 command! ApacheRestart execute "!sudo apachectl graceful restart"
 command! ApacheConf execute "!sudo httpd -S"
 
-" FindReplace Helper
-nnoremap fr :!perl -pi -e 's/foo/bar/g' *.py
+" Find Replace Helper
+nnoremap <leader>fr :!find . -type f \| xargs perl -pi -e 's/<C-R><C-W>/newwordhere/g'
 
 " vim: set ts=4 sw=4 tw=78 fdm=marker et :
