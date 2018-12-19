@@ -93,7 +93,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-surround'
 
-Plug 'rhysd/vim-grammarous'
 
 " -------------------------------------------- REACT
 " https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
@@ -408,14 +407,15 @@ augroup END
 "  1. bind to :grep syntax
 "  2. create new :Ag syntax
 if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m   " file:line:column:message
 endif
 
 " Create Ag command
 command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
 " bind K to grep word under cursor - useful even if Ag not installed
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " find todos and fixmes
 nnoremap <leader>t :Ag '(FIXME)\\\|(TODO)'<cr>
