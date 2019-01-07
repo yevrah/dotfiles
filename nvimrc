@@ -154,7 +154,7 @@ call plug#end()
 filetype off                    " Do not fire file events
 syntax enable                   " Enable syntax highlighting
 let mapleader=','               " Remap leader
-colorscheme afterglow           " Use afterglow theme
+colorscheme base16-github       " Use afterglow theme
 
 set nocompatible                " Disable compatibility to old-time vi
 set termguicolors               " Allow colorschemes to set colors

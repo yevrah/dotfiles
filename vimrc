@@ -14,7 +14,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'             " Vundle plugin manager
 
 " PLUGINS: Vim UI {{{2
-Plugin 'altercation/vim-colors-solarized' " Solarized colaour theme
+Plugin 'altercation/vim-colors-solarized' " Solarized colour theme
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
