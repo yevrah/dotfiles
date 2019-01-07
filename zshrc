@@ -18,20 +18,11 @@ plugins=(git npm z yarn pip)
 # Loads color aliases
 autoload -U colors && colors
 
-
-# Show System Info - use neofect as it's aster
-if hash neofetch 2>/dev/null; then
-  neofetch
-elif hash screenfetch 2>/dev/null; then
-  screenfetch
-fi
-
-
 # Extras
 source $ZSH/oh-my-zsh.sh
+source $ZSH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source $DOTFILES/zshrc-motd.zsh
 source $DOTFILES/zshrc-theme.zsh
 source $DOTFILES/zshrc_aliases.zsh
 source $DOTFILES/zshrc_env_plugin.zsh
-
-
-

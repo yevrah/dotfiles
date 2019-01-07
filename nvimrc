@@ -60,6 +60,17 @@ call system('mkdir -p ~/.config/nvim/session/' )    " session files
 call system('mkdir -p ~/.config/nvim/autoload/' )   " autoload folder
 call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
+
+" figure out the system python for neovim.
+if exists("$VIRTUAL_ENV")
+    let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
+    let g:python_host_prog=substitute(system("which -a python | head -n2 | tail -n1"), "\n", '', 'g')
+else
+    let g:python3_host_prog=substitute(system("which python3"), "\n", '', 'g')
+    let g:python_host_prog=substitute(system("which python3"), "\n", '', 'g')
+endif
+
+
 " Install vim plug if not already
 if glob("~/.config/nvim/autoload/plug.vim") ==# ""
     echom "Instally plug.vim, restart and run :PlugInstall"
@@ -227,7 +238,30 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Buffer helpers, delete, tab to next, shift-tab to previous
-nnoremap <leader>q        :bn<CR>:bd#<CR>
+function! ExitCurrent()
+    " TODO:check buffer is deletabled, more then one exists (if last, call
+    " startify)
+
+    try
+        execute 'bn'
+    catch /.*/
+
+    endtry
+
+    try
+        execute 'bd#'
+    catch /.*/
+
+    endtry
+
+    try
+        execute 'close'
+    catch /.*/
+
+    endtry
+endfunction
+
+nnoremap <leader>q        :call ExitCurrent()<CR>
 nnoremap <silent><Tab>    :bnext<CR>
 nnoremap <silent><S-Tab>  :bprevious<CR>
 
@@ -599,7 +633,6 @@ nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
 " Create file under cursor
 nnoremap <leader>gf :e <cfile><cr>
 nnoremap <leader>gb :!open -a "Google Chrome" %
-
 
 " 
 " Ale config

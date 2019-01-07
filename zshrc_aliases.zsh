@@ -1,24 +1,31 @@
 
-#    mcd   : create and cd into folder
-#
-#    ofd   : open cwd in finder window
-#    pfd   : Return the path of the frontmost Finder window
-#    pfs   : Return the current Finder selection
-#    cdf   : cd to the current Finder directory
-#    pushdf: pushd to the current Finder directory
-#
-#    tab   : new iterm tab
-#    tabv  : vertical split
-#    tabh  : horizontal split
-#
-#    quick-look  : Quick-Look a specified file
-#    man-preview : Open a specified man page in Preview app
-#    showfiles   : Show hidden files
-#    hidefiles   : Hide the hidden files
-#    itunes      : Control iTunes. Use itunes -h for usage details
-#    spotify     : Control Spotify and search by artist, album, track…
-#    rmdsstore   : Remove .DS_Store files recursively in a directory
+function ahelp {
+    cat <<EOF
 
+        documented aliases
+        -------------------------------------------------------------------
+        mcd         : create and cd into folder
+    
+        ofd         : open cwd in finder window
+        pfd         : Return the path of the frontmost Finder window
+        pfs         : Return the current Finder selection
+        cdf         : cd to the current Finder directory
+        pushdf      : pushd to the current Finder directory
+    
+        tab         : new iterm tab
+        tabv        : vertical split
+        tabh        : horizontal split
+    
+        quick-look  : Quick-Look a specified file
+        man-preview : Open a specified man page in Preview app
+        showfiles   : Show hidden files
+        hidefiles   : Hide the hidden files
+        itunes      : Control iTunes. Use itunes -h for usage details
+        rmdsstore   : Remove .DS_Store files recursively in a directory
+        -------------------------------------------------------------------
+
+EOF
+}
 # My aliases {{{1
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 

@@ -1,33 +1,7 @@
 # Basic terminal setup
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
-
-
-# Tell grep to highlight matches
 export GREP_OPTIONS='--color=auto'
-
-# Brew Alias'
-
-alias vim="/usr/local/bin/vim"
-
-# get mysql working
-# export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:/usr/local/mysql/lib/"
-
-export PATH=/Users/harvey/dev/bin:/usr/local/mysql/bin:$PATH
-
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
-
-#export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
-export PYTHONSTARTUP=~/.pythonrc
-export DYLD_LIBRARY_PATH=/usr/local/mysql/lib/
-
-
-export PATH="/Users/harvey/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 
 # Set the prompt: See http://blog.twistedcode.org/2008/03/customizing-your-bash-prompt.html
 # 
@@ -128,7 +102,6 @@ export PS1="\$(be_get_branch "$2")${PS1}";
 
 
 # Let the cow have the last word
-
 fortune | cowsay
 
 
@@ -168,9 +141,3 @@ bind 'set show-all-if-ambiguous on'
 
 # When autocompleting for cd or rmdir, list only directories as choices.
 complete -d cd rmdir
-
-
-
-
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
