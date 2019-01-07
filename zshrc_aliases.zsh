@@ -2,7 +2,7 @@
 function ahelp {
     cat <<EOF
 
-        documented aliases
+        documented aliases and functions
         -------------------------------------------------------------------
         mcd         : create and cd into folder
     
