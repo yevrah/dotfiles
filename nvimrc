@@ -83,26 +83,19 @@ endif
 "
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'chriskempson/base16-vim'
-Plug 'haishanh/night-owl.vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'romainl/flattened'           " Actually a better solarized
-Plug 'vim-scripts/wombat256.vim'
-Plug 'vim-scripts/twilight256.vim'
-Plug 'jacoborus/tender.vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'xero/sourcerer.vim'
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'rakr/vim-one'
-Plug 'fxn/vim-monochrome'
-
+Plug 'chriskempson/base16-vim'          " My prefered light theme - base16-github
+Plug 'danilo-augusto/vim-afterglow'     " My preferred dark theme
+Plug 'romainl/flattened'                " Actually a better solarized
+Plug 'drewtempelmeyer/palenight.vim'    " Also a good dark scheme
+Plug 'reedes/vim-colors-pencil'         " Ai Writer theme - good light and dark options
+Plug 'pbrisbin/vim-colors-off'          " Monochrome with both light and dark
 
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'junegunn/vim-easy-align'
-Plug 'dhruvasagar/vim-table-mode'
 Plug 'tpope/vim-surround'
+Plug 'w0rp/ale'
 
 
 " -------------------------------------------- REACT
@@ -114,24 +107,15 @@ Plug 'tpope/vim-surround'
 "//--------------------------------------------
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
-Plug 'w0rp/ale'
 Plug 'prettier/vim-prettier'
 Plug 'ternjs/tern_for_vim'
-
 Plug 'moll/vim-node'
-
-" Knowledge Managemen
-" Plug 'plasticboy/vim-markdown'
-" Plug 'vimwiki/vimwiki'
-" Plug 'mattn/calendar-vim'
 
 " Git plugins
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 
 " Navigation related
 Plug 'scrooloose/nerdtree'
-Plug 'vim-voom/VOoM'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Code Completion
@@ -145,7 +129,6 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'pacha/vem-tabline'
 Plug 'mhinz/vim-startify'
 Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
 
 
 " Initialize plugin system
@@ -161,7 +144,6 @@ call plug#end()
 
 " ================ sane defaults ===================="{{{2
 "
-
 filetype off                    " Do not fire file events
 syntax enable                   " Enable syntax highlighting
 let mapleader=','               " Remap leader
@@ -210,18 +192,13 @@ set list                        " show unwanted whitespace characters, tab, etc
 set listchars=tab:𝄀\ ,trail:·,
    \extends:→,precedes:←,nbsp:¬
 
-set updatetime=750              " some items hook into this and udpate accordingly
-
 " ================ sane simple keymappings =========="{{{2
 "
 
 " Aim to stay on home row
-inoremap ;a <Esc>
-
 nnoremap \\         :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 nnoremap //         :nohlsearch<CR>
 nnoremap <leader>f  :FZF<CR>
-nnoremap <leader>p  :so %<CR>:PlugInstall<CR>
 nnoremap <leader>yr :YRShow<CR>
 nnoremap <leader>s  :set invspell<CR>
 
@@ -239,26 +216,9 @@ vnoremap > >gv
 
 " Buffer helpers, delete, tab to next, shift-tab to previous
 function! ExitCurrent()
-    " TODO:check buffer is deletabled, more then one exists (if last, call
-    " startify)
-
-    try
-        execute 'bn'
-    catch /.*/
-
-    endtry
-
-    try
-        execute 'bd#'
-    catch /.*/
-
-    endtry
-
-    try
-        execute 'close'
-    catch /.*/
-
-    endtry
+    execute 'silent! bn!'
+    execute 'silent! bd#!'
+    execute 'silent! close!'
 endfunction
 
 nnoremap <leader>q        :call ExitCurrent()<CR>
@@ -302,10 +262,11 @@ nnoremap <silent> vv <C-w>v " Split vert.
 nnoremap <silent> ss <C-w>s " Split hori.
 
 " These clash with moving line blocks
-" nnoremap <C-J> <C-W><C-J> " Instead of ctrl-w then j, it’s just ctrl-j:
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
+" in order Alt-J, Alt-K, Alt L, and Alt-H
+nnoremap ∆ <C-W><C-J> " Alt-J - move to downward window split
+nnoremap ˚ <C-W><C-K> " Alt-K - move up
+nnoremap ¬ <C-W><C-L> " Alt-L - move right
+nnoremap ˙ <C-W><C-H> " Alt-H - move left
 
 " ================ indenting by file types =========="{{{2
 "
@@ -313,35 +274,6 @@ autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd FileType ruby setlocal ts=2 sts=2 sw=2
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType javascript.jsx setlocal ts=2 sts=2 sw=2
-
-" ================ theme switching =================="{{{2
-"
-let g:favourite_themes = ['afterglow', 'night-owl', 'tir_black',
-    \ 'flattened_dark', 'wombat256mod', 'twilight256', 'tender', 'palenight']
-
-let g:current_theme  = -1
-
-function! ChangeTheme(increment)
-    let l:length = len(g:favourite_themes)
-    let g:current_theme += a:increment
-
-    if g:current_theme > l:length - 1
-        let g:current_theme = 0
-    endif
-
-    if g:current_theme < 0
-        let g:current_theme = l:length - 1
-    endif
-
-    let l:theme = g:favourite_themes[g:current_theme]
-    execute 'colorscheme ' . l:theme
-    " echo 'THEME CHANGED: ' . l:theme
-endfunction
-
-
-nnoremap <leader>cn :call ChangeTheme(1)<CR>
-nnoremap <leader>cp :call ChangeTheme(-1)<CR>
-
 
 " ================ startify setup ==================="{{{2
 "
@@ -538,36 +470,6 @@ set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 " ################ EXMPERIMENTAL ####################"{{{1
 "
 
-" ================ vim wiki locations ==============="{{{2
-"
-
-let g:vimwiki_list = [{'path': '~/dev/yevrah.github.io/vimwiki/',
-            \ 'syntax': 'markdown', 'ext': '.md'}]
-
-" ================ table mode setup ================="{{{2
-"
-
-" You can use the following to quickly enable / disable table mode in insert
-" mode by using || or __ 
-"
-function! s:isAtStartOfLine(mapping)
-  let text_before_cursor = getline('.')[0 : col('.')-1]
-  let mapping_pattern = '\V' . escape(a:mapping, '\')
-  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
-  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
-endfunction
-
-inoreabbrev <expr> <bar><bar>
-          \ <SID>isAtStartOfLine('\|\|') ?
-          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
-
-inoreabbrev <expr> __
-          \ <SID>isAtStartOfLine('__') ?
-          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
-
-
-let g:table_mode_corner='|'
-
 " ================ deoplete setup ==================="{{{2
 "
 
@@ -597,10 +499,6 @@ augroup END
 "               if expandable_or_jumpable
 "                   then expands_or_jumps
 "                   else returns a normal TAB
-
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 imap <expr><TAB>
  \ pumvisible() ? "\<CR>" :
@@ -634,7 +532,7 @@ nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> tra
 nnoremap <leader>gf :e <cfile><cr>
 nnoremap <leader>gb :!open -a "Google Chrome" %
 
-" 
+"
 " Ale config
 "
 let g:ale_sign_error = '●' " Less aggressive than the default '>>'
@@ -647,32 +545,24 @@ let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 " ( (_ | U |\_ \ | ( o ) \_/ | ( (_ | \_/ || o )
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
-command! -nargs=+ FigletEf          :r!figlet -f eftifont <args>
-command! -nargs=+ FigletSmall       :r!figlet -f small <args>
-command! -nargs=+ FigletDrPepper    :r!figlet -f drpepper <args>
+
+command! -nargs=+ FigletSmall       :r!figlet -f drpepper <args>
 command! -nargs=+ Figlet            :r!figlet <args>
 
 command! -nargs=+ Gitlazy :!pwd;git add -A;git commit -am '<args>';git pull;git push
 
-command! -nargs=* ItermTitle silent execute '!echo -e "\033];<args>\007";export DISABLE_AUTO_TITLE="true"' | redraw!
+command! -nargs=* Title execute 'set titlestring=<args>' | execute 'set title'
 command! Trim :%s/\s*$//g | nohlsearch | exe "normal! g'\""
 
 command! Pyrun execute "!python %"
 command! PyrunI execute "!python -i %"
-
-" Run yapf when = is pressed to format python - https://github.com/mindriot101/vim-yapf
-" You can yse `=` or `gq` to format python code using pep8
-" autocmd filetype python setlocal equalprg=yapf formatprg=yapf
 command! AutoPep8  execute "!yapf %"
+
 command! Write :!sudo tee %
 
+command! Mono :colorscheme off | set background=light
+command! KillAll :bufdo bd
 
-" Helpers for Simplerr
-command! RunServer execute "term python manage.py runserver --site=website"
-
-" Apache Helpers
-command! ApacheRestart execute "!sudo apachectl graceful restart"
-command! ApacheConf execute "!sudo httpd -S"
 
 " Find Replace Helper
 nnoremap <leader>fr :!find . -type f \| xargs perl -pi -e 's/<C-R><C-W>/newwordhere/g'

@@ -27,6 +27,7 @@ function ahelp {
 EOF
 }
 # My aliases {{{1
+alias l="ls -lahF"
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 
