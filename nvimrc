@@ -217,7 +217,7 @@ vnoremap > >gv
 " Buffer helpers, delete, tab to next, shift-tab to previous
 function! ExitCurrent()
     execute 'silent! bn!'
-    execute 'silent! bd#!'
+    execute 'silent! bd!#'
     execute 'silent! close!'
 endfunction
 
