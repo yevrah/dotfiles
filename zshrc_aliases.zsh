@@ -1,10 +1,18 @@
 
+# alias help
 function ahelp {
     cat <<EOF
 
         documented aliases and functions
         -------------------------------------------------------------------
         mcd         : create and cd into folder
+
+        :q          : run 'exit' command
+        :e          : open neovim and edit file if available
+        :tab        : new tab in iterm
+        :split      : split iterm window
+        :vsplit     : vertical split iterm window
+        :h          : man shortcut
     
         ofd         : open cwd in finder window
         pfd         : Return the path of the frontmost Finder window
@@ -29,6 +37,20 @@ EOF
 # My aliases {{{1
 alias l="ls -lahF"
 function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+# Show/hide hidden files in the Finder
+alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# vim like aliases - why not!
+alias :q=exit
+alias :e=nvim
+alias :tab=tab
+alias :split=tabh
+alias :vsplit=tabv
+alias :h=man
+alias :help=man
+
 
 
 # Based on osx zsh plugins {{{1
@@ -306,9 +328,6 @@ EOF
 	osascript -e "tell application \"iTunes\" to $opt"
 }
 
-# Show/hide hidden files in the Finder
-alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Remove .DS_Store files recursively in a directory, default .
 function rmdsstore() {
