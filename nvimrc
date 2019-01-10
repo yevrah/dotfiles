@@ -4,8 +4,8 @@
 " =======
 "
 " This neovim config aims to provide a function development environment, with
-" a primary target of python. Other languages are also support and easily
-" plugged in via necomplete, or language servers.
+" a primary target of python, node and html. Other languages are also support
+" and easily plugged in via necomplete, or language servers.
 "
 " Linking this dotfile
 " ====================
@@ -28,7 +28,8 @@ call system('mkdir -p ~/.config/nvim/autoload/' )   " autoload folder
 call system('mkdir -p ~/.config/nvim/plugged/')     " plugin folder
 
 
-" figure out the system python for neovim.
+" figure out the system python for neovim - we assume that the neovim python
+" server has been installed globally.
 if exists("$VIRTUAL_ENV")
     let g:python3_host_prog=substitute(system("which -a python3 | head -n2 | tail -n1"), "\n", '', 'g')
     let g:python_host_prog=substitute(system("which -a python | head -n2 | tail -n1"), "\n", '', 'g')
@@ -40,7 +41,7 @@ endif
 
 " Install vim plug if not already
 if glob("~/.config/nvim/autoload/plug.vim") ==# ""
-    echom "Instally plug.vim, restart and run :PlugInstall"
+    echom "Install plug.vim, restart and run :PlugInstall"
     call system('curl -fLo ~/.config/nvim/autoload/plug.vim
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 endif
@@ -72,8 +73,10 @@ Plug 'w0rp/ale'
 " yarn add eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
 " install globaly: npm i -g eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
 "//--------------------------------------------
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+
+" ReactJS and Node plugins
+Plug 'pangloss/vim-javascript'  " javascript syntax highlighting 
+Plug 'mxw/vim-jsx'              " jsx syntx
 Plug 'prettier/vim-prettier'
 Plug 'ternjs/tern_for_vim'
 Plug 'moll/vim-node'
@@ -185,6 +188,7 @@ vnoremap > >gv
 function! ExitCurrent()
     " go to next buffer, delete alt (previous) buffer, and close window if
     " possible.
+    execute 'silent! w!'
     execute 'silent! bn!'
     execute 'silent! bd!#'
     execute 'silent! close!'
@@ -514,7 +518,7 @@ let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 " ( (_ | U |\_ \ | ( o ) \_/ | ( (_ | \_/ || o )
 "  \__||___||__/ |_|\_/|_| |_|  \__||_| |_||__/
 "
-
+:
 command! -nargs=+ FigletSmall       :r!figlet -f drpepper <args>
 command! -nargs=+ Figlet            :r!figlet <args>
 

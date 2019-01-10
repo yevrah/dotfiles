@@ -13,6 +13,8 @@ function ahelp {
         :split      : split iterm window
         :vsplit     : vertical split iterm window
         :h          : man shortcut
+        :find       : find file and open files (using fzf) and open in $EDITOR
+        :findw      : fine executable (using which) and open in $EDITOR
     
         ofd         : open cwd in finder window
         pfd         : Return the path of the frontmost Finder window
@@ -36,7 +38,7 @@ EOF
 }
 # My aliases {{{1
 alias l="ls -lahF"
-function mcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+alias mcd=mkdir_and_cd
 
 # Show/hide hidden files in the Finder
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -50,8 +52,24 @@ alias :split=tabh
 alias :vsplit=tabv
 alias :h=man
 alias :help=man
+alias :find=editor_find
+alias :findw=nvim_which
 
 
+# alias helpers
+function editor_which() {
+    eval $EDITOR $(which $1)
+}
+
+function editor_find() {
+    if [[ -n "$1" ]]; then
+        eval "find . -iname '*$1*' -exec $EDITOR {} +"
+    else
+        eval "$EDITOR $(fzf)"
+    fi
+}
+
+function mkdir_and_cd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 # Based on osx zsh plugins {{{1
 
