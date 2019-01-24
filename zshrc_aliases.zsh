@@ -12,7 +12,7 @@ function ahelp {
         :tab        : new tab in iterm
         :split      : split iterm window
         :vsplit     : vertical split iterm window
-        :h          : man shortcut
+        :h, :help   : man shortcut
         :find       : find file and open files (using fzf) and open in $EDITOR
         :findw      : fine executable (using which) and open in $EDITOR
 
