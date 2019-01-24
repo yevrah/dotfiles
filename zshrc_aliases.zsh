@@ -15,17 +15,17 @@ function ahelp {
         :h          : man shortcut
         :find       : find file and open files (using fzf) and open in $EDITOR
         :findw      : fine executable (using which) and open in $EDITOR
-    
+
         ofd         : open cwd in finder window
         pfd         : Return the path of the frontmost Finder window
         pfs         : Return the current Finder selection
         cdf         : cd to the current Finder directory
         pushdf      : pushd to the current Finder directory
-    
+
         tab         : new iterm tab
         tabv        : vertical split
         tabh        : horizontal split
-    
+
         quick-look  : Quick-Look a specified file
         man-preview : Open a specified man page in Preview app
         showfiles   : Show hidden files
@@ -53,7 +53,7 @@ alias :vsplit=tabv
 alias :h=man
 alias :help=man
 alias :find=editor_find
-alias :findw=nvim_which
+alias :findw=editor_which
 
 
 # alias helpers
