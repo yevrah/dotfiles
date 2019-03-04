@@ -8,11 +8,11 @@ function ahelp {
         mcd         : create and cd into folder
 
         :q          : run 'exit' command
-        :e          : open neovim and edit file if available
+        :e          : open neovim and edit file if available, eg `:e /etc/my.cnf`
         :tab        : new tab in iterm
         :split      : split iterm window
         :vsplit     : vertical split iterm window
-        :h, :help   : man shortcut
+        :h, :help   : man shortcut, eg `:h find`
         :find       : find file and open files (using fzf) and open in $EDITOR
         :findw      : fine executable (using which) and open in $EDITOR
 
