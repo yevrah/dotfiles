@@ -78,8 +78,12 @@ Plug 'w0rp/ale'
 Plug 'pangloss/vim-javascript'  " javascript syntax highlighting 
 Plug 'mxw/vim-jsx'              " jsx syntx
 Plug 'prettier/vim-prettier'
-Plug 'ternjs/tern_for_vim'
 Plug 'moll/vim-node'
+Plug 'carlitux/deoplete-ternjs' 
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+
+" Tags autogeneration and management
+Plug 'ludovicchabant/vim-gutentags'
 
 " Git plugins
 Plug 'tpope/vim-fugitive'
@@ -428,6 +432,8 @@ set statusline+=\ │\                                 " Separator
 set statusline+=%{&ff}                               " FileFormat (dos/unix..)
 set statusline+=\ │\                                 " Separator
 set statusline+=%{FugitiveHead()}                    " Git status
+set statusline+=\ │\                                 " Separator
+set statusline+=%{gutentags#statusline()}
 set statusline+=\ │\                                 " Separator
 set statusline+=\ %{expand('%:p')}                   " File Path
 set statusline+=%=                                   " Right Side

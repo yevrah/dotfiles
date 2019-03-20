@@ -1,5 +1,5 @@
-# Defaults
 export ZSH=$HOME/.oh-my-zsh
+# Defaults
 
 export PATH=$HOME/dotfiles/bin/:$PATH
 export DOTFILES=$HOME/dotfiles
@@ -26,3 +26,15 @@ source $DOTFILES/zshrc-motd.zsh
 source $DOTFILES/zshrc-theme.zsh
 source $DOTFILES/zshrc_aliases.zsh
 source $DOTFILES/zshrc_env_plugin.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/javierwoodhouser/dev/athena/athena-svc/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/javierwoodhouser/dev/athena/athena-svc/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/javierwoodhouser/dev/athena/athena-svc/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/javierwoodhouser/dev/athena/athena-svc/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/javierwoodhouser/dev/athena/athena-svc/src/services/otpV2/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/javierwoodhouser/dev/athena/athena-svc/src/services/otpV2/node_modules/tabtab/.completions/slss.zsh
