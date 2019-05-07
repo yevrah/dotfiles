@@ -4,6 +4,171 @@ snippet fold
 snippet fold2
 	//--------------------| ${0}                                |------------------{{{2
 
+snippet log
+	const __ = (...log) => console.log('👉 👉 ', ...log)
+
+
+# Athena Force {{{1
+snippet athena_entiity "Athena force entity"
+	const { BaseEntity } = require('@athenamortgages/athena-force')
+
+	class ${1:Entity} extends BaseEntity {
+	  constructor (options) {
+		super({ ...options, entity: '$1__c, plural: '$1'' })
+	  }
+	}
+
+module.exports = Payee
+
+# Jest													{{{1
+
+snippet jest_describe "jest test structure"
+	describe('as a user i want to...${0}', () => {
+		beforeAll(() => {
+		  /* Runs before all tests */
+		})
+		afterAll(() => {
+		  /* Runs after all tests */
+		})
+		beforeEach(() => {
+		  /* Runs before each test */
+		})
+		afterEach(() => {
+		  /* Runs after each test */
+		})
+		
+		test('make each pony pink', () => {
+		  const actual = fn(['Alice', 'Bob', 'Eve'])
+		  expect(actual).toEqual(['Pink Alice', 'Pink Bob', 'Pink Eve'])
+		})
+	})
+
+snippet jest_is_tobe "strict equality ==="
+	it( 'does ${1:1+1} equals ${2:2}', () => {
+		expect( $1 ).toBe( $2 )
+	})${0}
+
+snippet jest_is_equal "checks the equality of properties or elements"
+	it( 'does ${1:1+1} equals ${2:2}', () => {
+		expect( $1 ).toEqual( $2 )
+	})${0}
+
+snippet jest_is_null "true when null value"
+	it( 'does ${1:null} is null', () => {
+		expect( $1 ).toBeNull()
+	})${0}
+
+snippet jest_is_defined "true when defined"
+	it( 'does ${1:abc} exist', () => {
+		expect( $1 ).toBeDefined()
+	})${0}
+
+snippet jest_is_undefined "true when undefined"
+	it( 'does ${1:abc} not exist', () => {
+		expect( $1 ).toBeUndefined()
+	})${0}
+
+snippet jest_is_truthy "true if would pass if statement"
+	it( 'does ${1:true} make truthy statement', () => {
+		expect( $1 ).toBeTruthy()
+	})${0}
+
+snippet jest_is_falsey "true if would fail if statement"
+	it( 'does ${1:false} make falsy statement', () => {
+		expect( $1 ).toBeFalsy()
+	})${0}
+
+snippet jest_is_closeto "true if foat is close to"
+	it( 'does ${1:1.001} roughly equal ${2:1}', () => {
+		expect( $1 ).toBeCloseTo( $2 )
+	})${0}
+
+
+snippet jest_is_greater "greater than"
+	it( 'does equate to ${1:1+1} > ${2:2}', () => {
+		expect( $1 ).toBeGreaterThan( $2 )
+	})${0}
+
+snippet jest_is_greaterequal "greater than or equal"
+	it( 'does equate to ${1:1+1} > ${2:2}', () => {
+		expect( $1 ).toBeGreaterThanOrEqual( $2 )
+	})${0}
+
+
+snippet jest_is_less "less than"
+	it( 'does equate to ${1:1+1} < ${2:2}', () => {
+		expect( $1 ).toBeLessThan( $2 )
+	})${0}
+
+snippet jest_is_less_equal "less than or equal"
+	it( 'does equate to ${1:1+1} < ${2:2}', () => {
+		expect( $1 ).toBeLessThanOrEqual( $2 )
+	})${0}
+
+snippet jest_is_regex "regex match"
+	it( 'does ${1:/cat/} match ${2:"cat in the hat"}', () => {
+		expect( $1 ).toMatch( $2 )
+	})${0}
+
+
+snippet jest_is_in_array "array contains elemnent from set"
+	it( 'does ${1:["cat", "dog"]} contain any [${2:"cat", "bird"}]', () => {
+		expect( $1 ).toContain( $2 )
+	})${0}
+
+snippet jest_is_in_string "array contains elemnent from set"
+	it( 'does ${1:"cat"} contain any [${2:"at", "rd"}]', () => {
+		expect( $1 ).toContain( $2 )
+	})${0}
+
+
+snippet jest_have_length "checks the length of an array"
+	it( 'does ${1:[1,2,3]} have ${2:3} items', () => {
+		expect( $1 ).toHaveLength( $2 )
+	})${0}
+
+snippet jest_have_property "checks the property in object"
+	it( 'does ${1:abc} have ${2:def} with value ${3:123}', () => {
+		expect( $1 ).toHaveProperty( $2, $3 )
+	})${0}
+
+
+snippet jest_throws "checks the fn for exceptions"
+	it( 'does ${1:fn(null)} throw error ${2:/abc/}', () => {
+		expect( $1 ).toThrow( $2 )
+	})${0}
+
+snippet jest_is_instance_of "checks the instance type"
+	it( 'does ${1:abc} match instance of ${2:Object|Class|Function}', () => {
+		expect( $1 ).toBeInstanceOf( $2 )
+	})${0}
+
+snippet jest_spy "spy on module"
+	// Spy on the module: ${1:mymodule} and function ${2:log}
+	const $1 = require('$1')
+
+	it('does $1 $2 function checks', () => {
+	  const spy = jest.spyOn($1, '$2')
+	  const result = $1.log(10000, 10)
+	
+	  expect($1.$2).toHaveBeenCalled()
+	  expect($1.$2).toHaveBeenCalledWith(10000, 10)
+	})
+
+snippet jest_mock "mock a module"
+	// Mock on the module: ${1:mymodule} and function ${2:log}
+	const $1 = require('$1')
+	
+	$1.$2 = jest.fn(() => 'test')
+	test('The $1 $2 function', () => {
+	  const result = $1.$2(10000, 10)
+	  expect(result).toBe('test')
+	  expect($1.$2).toHaveBeenCalled()
+	  expect($1.$2).toHaveBeenCalledWith(10000, 10)
+	})
+
+# ReactJs												{{{1
+
 snippet     rjs_comp_class
 abbr        rjcc
 	class ${1:componentName} extends Component {
@@ -30,6 +195,7 @@ snippet rjs_generic_change
 		this.setState({[event.target.name]: event.target.value })
 	}
 
+# React Redux													{{{1
 snippet rdx_create_store
 	import { createStore, combineReducers } from 'redux'
 	const rootReducer = combineReducers({reducer1, reducer2})

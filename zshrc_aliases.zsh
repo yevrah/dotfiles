@@ -6,6 +6,7 @@ function ahelp {
         documented aliases and functions
         -------------------------------------------------------------------
         mcd         : create and cd into folder
+        ws          : create a static webserver
 
         :q          : run 'exit' command
         :e          : open neovim and edit file if available, eg `:e /etc/my.cnf`
@@ -36,9 +37,16 @@ function ahelp {
 
 EOF
 }
+
 # My aliases {{{1
 alias l="ls -lahF"
 alias mcd=mkdir_and_cd
+
+# Binds to port '0' which is a shortcut which asks the kernel to allocate a port from it's ip_local_port_range
+# alias ws="python2.7 -m SimpleHTTPServer 0"
+alias ws="python3 -m http.server 0"
+
+
 
 # Show/hide hidden files in the Finder
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"

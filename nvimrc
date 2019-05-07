@@ -1,4 +1,4 @@
-" ################ INFORMATION ###################### {{{1
+ " ################ INFORMATION ###################### {{{1
 "
 " Summary
 " =======
@@ -61,8 +61,8 @@ Plug 'pbrisbin/vim-colors-off'          " Monochrome with both light and dark
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'tpope/vim-surround'
+""Plug 'junegunn/vim-easy-align'
+""Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 
 
@@ -76,11 +76,11 @@ Plug 'w0rp/ale'
 
 " ReactJS and Node plugins
 Plug 'pangloss/vim-javascript'  " javascript syntax highlighting 
-Plug 'mxw/vim-jsx'              " jsx syntx
+Plug 'mxw/vim-jsx'              " jsx syntax
 Plug 'prettier/vim-prettier'
-Plug 'moll/vim-node'
-Plug 'carlitux/deoplete-ternjs' 
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+""Plug 'moll/vim-node'
+""Plug 'carlitux/deoplete-ternjs' 
+""Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 
 " Tags autogeneration and management
 Plug 'ludovicchabant/vim-gutentags'
@@ -91,18 +91,19 @@ Plug 'tpope/vim-fugitive'
 " Navigation related
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Code Completion
-Plug 'davidhalter/jedi-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+"" Plug 'davidhalter/jedi-vim'
+"" Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 
 " Visual Improvements
 Plug 'pacha/vem-tabline'
 Plug 'mhinz/vim-startify'
-Plug 'junegunn/goyo.vim'
+"" Plug 'junegunn/goyo.vim'
 
 
 " Initialize plugin system
@@ -179,6 +180,10 @@ nnoremap <leader>s  :set invspell<CR>
 " Easy Align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" Delete comments '//## ...' comments, used normally when annotating files.
+nnoremap <leader>cc :g/^\s*\/\/##/d<CR>
+
 
 " Fold/Unfold using space
 nnoremap <space> za
@@ -344,24 +349,15 @@ augroup END
 
 " ================ ag - silver searcher ============="{{{2
 "
-" https://robots.thoughtbot.com/faster-grepping-in-vim
-
-" The Silver Searcher, if available
-"  1. bind to :grep syntax
-"  2. create new :Ag syntax
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-    set grepformat^=%f:%l:%c:%m   " file:line:column:message
-endif
-
-" Create Ag command
-command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 
 " bind K to grep word under cursor - useful even if Ag not installed
-nnoremap K :silent! grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ag <C-R><C-W><CR>
 
-" find todos and fixmes
-nnoremap <leader>t :Ag '(FIXME)\\\|(TODO)'<cr>
+" bind K to grep word under cursor - useful even if Ag not installed
+noremap T :call fzf#vim#tags(expand('<cword>'))<CR>
+
+" " find todos and fixmes
+nnoremap <leader>t :Ag 'FIXME\|TODO'<CR>
 
 
 " ================ status line ======================"{{{2
