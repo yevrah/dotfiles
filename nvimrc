@@ -64,7 +64,8 @@ Plug 'vim-scripts/YankRing.vim'
 ""Plug 'junegunn/vim-easy-align'
 ""Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 
 " -------------------------------------------- REACT
 " https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
@@ -75,11 +76,11 @@ Plug 'w0rp/ale'
 "//--------------------------------------------
 
 " ReactJS and Node plugins
-Plug 'pangloss/vim-javascript'  " javascript syntax highlighting 
+Plug 'pangloss/vim-javascript'  " javascript syntax highlighting
 Plug 'mxw/vim-jsx'              " jsx syntax
 Plug 'prettier/vim-prettier'
 ""Plug 'moll/vim-node'
-""Plug 'carlitux/deoplete-ternjs' 
+""Plug 'carlitux/deoplete-ternjs'
 ""Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 
 " Tags autogeneration and management
@@ -158,7 +159,7 @@ set foldmethod=marker           " use marker foldmethod
 set fillchars+=fold:\·          " fill character for folds
 
 set wildmenu                    " Command menu
-set wildmode=longest,full       " Make repeated presses cycle between all matching choices 
+set wildmode=longest,full       " Make repeated presses cycle between all matching choices
 set fileignorecase              " better command line completion
 set wildignorecase              " better command line completion
 set wildignore+=*~,.git         " Ingore backup files & git directories
@@ -200,7 +201,7 @@ function! ExitCurrent()
     execute 'silent! w!'
     execute 'silent! bn!'
     execute 'silent! bd!#'
-    execute 'silent! close!'
+    " execute 'silent! close!'
 endfunction
 
 nnoremap <leader>q        :call ExitCurrent()<CR>
@@ -344,7 +345,7 @@ augroup startup_buffer
     autocmd FileType nerdtree  noremap <buffer> <Tab> <c-w>l " Tab out to main buffer - right
     autocmd FileType tagbar  noremap <buffer> <Tab> <c-w>h " Tab out to main buffer - left
     autocmd FileType qf  noremap <buffer> <Tab> <c-w>k " Tab out to main buffer - Up
-augroup END 
+augroup END
 
 
 " ================ ag - silver searcher ============="{{{2
@@ -468,9 +469,9 @@ augroup END
 " SuperTab like snippets' behavior.
 " Map expression when a tab is hit:
 "           checks if the completion popup is visible
-"           if yes 
+"           if yes
 "               tab just exits out, use <C-n>, <C-p> as normal
-"           else 
+"           else
 "               if expandable_or_jumpable
 "                   then expands_or_jumps
 "                   else returns a normal TAB
@@ -510,9 +511,42 @@ nnoremap <leader>gb :!open -a "Google Chrome" %
 "
 " Ale config
 "
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
+
+nmap <silent> [c <Plug>(ale_previous_wrap)
+nmap <silent> ]c <Plug>(ale_next_wrap)
+
+" Sign column, custom text and always on
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_sign_column_always = 1
+
+" let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+" let g:ale_sign_warning = '.'
+"
+" Ale linters and fixers, needs additionl support if you want to use - perform
+" the following:
+"
+"   pip install black
 let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+
+
+let g:ale_linters = {
+            \     'javascript': ['eslint', 'tsserver'],
+            \     'typescript': ['eslint', 'tsserver'],
+            \     'python': ['flake8', 'mypy', 'pyls']
+            \ }
+
+" Fix files automatically on save
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+            \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+            \    'javascript': ['eslint'],
+            \    'typescript': ['eslint', 'tsserver'],
+            \    'python': ['black'],
+            \    'css': ['prettier']
+            \ }
 
 " ================ additional Vim Commands =========="{{{2
 "   __  _ _  __  ___ _  _   _    __  _   _  __

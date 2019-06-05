@@ -23,6 +23,13 @@ function ahelp {
         cdf         : cd to the current Finder directory
         pushdf      : pushd to the current Finder directory
 
+        dr          : remove - all containers (ps -aq)
+        ds          : stop   - all containes
+        di          : list   - all images
+        dri         : remove - all images
+        dsr         : clean  - stop and remove all containers
+        dcup        : start  - start docker compose stack
+
         tab         : new iterm tab
         tabv        : vertical split
         tabh        : horizontal split
@@ -51,6 +58,17 @@ alias ws="python3 -m http.server 0"
 # Show/hide hidden files in the Finder
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# docker helpers
+alias dr='docker rm $(docker ps -aq)'
+alias ds='docker stop $(docker ps -aq)'
+
+alias di='docker images'
+alias dri='docker rmi $(docker images -q)'
+
+alias dsr='ds && dr'
+alias dps='docker ps -a'
+alias dcup='docker-compose up'
 
 # vim like aliases - why not!
 alias :q=exit

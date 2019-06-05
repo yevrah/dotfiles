@@ -7,6 +7,10 @@ snippet fold2
 snippet log
 	const __ = (...log) => console.log('👉 👉 ', ...log)
 
+# Start shell script
+snippet #!
+	#!/usr/bin/env node
+	${0}
 
 # Athena Force {{{1
 snippet athena_entiity "Athena force entity"
@@ -18,7 +22,7 @@ snippet athena_entiity "Athena force entity"
 	  }
 	}
 
-module.exports = Payee
+	module.exports = Payee
 
 # Jest													{{{1
 
@@ -36,7 +40,7 @@ snippet jest_describe "jest test structure"
 		afterEach(() => {
 		  /* Runs after each test */
 		})
-		
+
 		test('make each pony pink', () => {
 		  const actual = fn(['Alice', 'Bob', 'Eve'])
 		  expect(actual).toEqual(['Pink Alice', 'Pink Bob', 'Pink Eve'])
@@ -150,7 +154,7 @@ snippet jest_spy "spy on module"
 	it('does $1 $2 function checks', () => {
 	  const spy = jest.spyOn($1, '$2')
 	  const result = $1.log(10000, 10)
-	
+
 	  expect($1.$2).toHaveBeenCalled()
 	  expect($1.$2).toHaveBeenCalledWith(10000, 10)
 	})
@@ -158,7 +162,7 @@ snippet jest_spy "spy on module"
 snippet jest_mock "mock a module"
 	// Mock on the module: ${1:mymodule} and function ${2:log}
 	const $1 = require('$1')
-	
+
 	$1.$2 = jest.fn(() => 'test')
 	test('The $1 $2 function', () => {
 	  const result = $1.$2(10000, 10)
@@ -172,12 +176,12 @@ snippet jest_mock "mock a module"
 snippet     rjs_comp_class
 abbr        rjcc
 	class ${1:componentName} extends Component {
-		
+
 	  constructor(props) {
 		super(props)
 		this.state = {};
 	  }
-	
+
 	  render() {
 		return (
 		  <div>
@@ -202,8 +206,8 @@ snippet rdx_create_store
     const initialState = {}
 	const store = createStore ( rootReducer, initialState )
 	console.log( store.getState() )
-		
-	
+
+
 
 snippet rdx_component
 	import React, { Component } from 'react';
@@ -213,12 +217,12 @@ snippet rdx_component
 	import {action1, action2} from "myActions";
 
 	class ${1:componentName} extends Component {
-		
+
 	  constructor(props) {
 		super(props)
 		this.state = {};
 	  }
-	
+
 	  render({counter, someComponentValue, firstAction, secondAction}) {
 		return (
 		  <div>

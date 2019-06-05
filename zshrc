@@ -8,12 +8,14 @@ export EDITOR='nvim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 export DEVBOX='HARVEY'
 
+
 DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
-# Plugins
-plugins=(git npm z yarn pip)
+# Plugins - Install with
+#  k: $ git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
+plugins=(git npm z yarn pip k)
 
 # Loads color aliases
 autoload -U colors && colors
