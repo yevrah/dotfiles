@@ -8,14 +8,14 @@ function ahelp {
         mcd         : create and cd into folder
         ws          : create a static webserver
 
-        :q          : run 'exit' command
-        :e          : open neovim and edit file if available, eg `:e /etc/my.cnf`
+        :q          : run exit command
+        :e          : open neovim and edit file if available, eg \`:e /etc/my.cnf\`
         :tab        : new tab in iterm
         :split      : split iterm window
         :vsplit     : vertical split iterm window
-        :h, :help   : man shortcut, eg `:h find`
-        :find       : find file and open files (using fzf) and open in $EDITOR
-        :findw      : fine executable (using which) and open in $EDITOR
+        :h, :help   : man shortcut, eg \`:h find\`
+        :find       : find file and open files (using fzf) and open in \$EDITOR
+        :findw      : fine executable (using which) and open in \$EDITOR
 
         ofd         : open cwd in finder window
         pfd         : Return the path of the frontmost Finder window
@@ -23,6 +23,7 @@ function ahelp {
         cdf         : cd to the current Finder directory
         pushdf      : pushd to the current Finder directory
 
+        dps         : list all containes
         dr          : remove - all containers (ps -aq)
         ds          : stop   - all containes
         di          : list   - all images
@@ -41,7 +42,6 @@ function ahelp {
         itunes      : Control iTunes. Use itunes -h for usage details
         rmdsstore   : Remove .DS_Store files recursively in a directory
         -------------------------------------------------------------------
-
 EOF
 }
 
@@ -60,6 +60,7 @@ alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true &&
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # docker helpers
+alias dps='docker ps -aq'
 alias dr='docker rm $(docker ps -aq)'
 alias ds='docker stop $(docker ps -aq)'
 
