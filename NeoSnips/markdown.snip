@@ -1,0 +1,44 @@
+snippet     jiraticket
+abbr        jt
+options     head
+	*Background/Rationale*
+
+	bq. A very short description of why we need the change and what it is. Someone should be able to read this and know what the ticket is for.bq.
+
+	We ask customers for the purpose of their cash out funds for responsible lending reasons.....
+
+	*User stories*
+	bq. Written in the format of: "As a ___ I want to ___ so that_". Should be clear, concise and contain all of the changes required bq.
+
+	* As a customer I want to see my financial year end statements so that I can process my tax
+	* As an investor I want me returns clearly identified on my statement for accurate tax reporting
+
+	{panel:bgColor=#deebff}
+
+	*Acceptance criteria*
+	bq. The specific technical change that is required and must be met for definition of done, example below bq.
+
+	* A new field in SF in the ... object
+	* A new lambda private api at ....
+	* A new field in home hub on the ... page
+
+	{panel}
+
+	*E2E dependencies*
+
+	bq. Outlining the technical or functional dependencies that this change may have including where there could be a knock on impact, where additional testing is required or where teams will need to collaborate bq.
+
+	* Data type for this field needs to be the same to ensure application submit does not fail
+	* Ensure that all file assets can be accessed after the infrastructure change
+
+	*Resources*
+
+	bq. Confluence or Design System links to find the required artefacts if relevant bq.
+
+	*Definition of done*
+
+	bq. Changes by story but this should form a template. It should be updated by the PM, SM and whoever picks up the ticket as they complete each of the DoD items they are responsible for. All items must be complete, for the work to be done.bq.
+
+	||Criteria                                ||  Owner                                     || Done      ||
+	|User Story complete           |  [~andrew@athena.com.au]   |  *Done*   |
+	|Unit tests passed                |  Gecko & Vulcan developers . | pending  ||

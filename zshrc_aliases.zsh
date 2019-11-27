@@ -28,8 +28,10 @@ function ahelp {
         ds          : stop   - all containes
         di          : list   - all images
         dri         : remove - all images
+        dsc         : system clean and prune
         dsr         : clean  - stop and remove all containers
         dcup        : start  - start docker compose stack
+        dlsn        : disable time machine local snapshots to improve docker disk usage
 
         tab         : new iterm tab
         tabv        : vertical split
@@ -63,6 +65,7 @@ alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false &
 alias dps='docker ps -aq'
 alias dr='docker rm $(docker ps -aq)'
 alias ds='docker stop $(docker ps -aq)'
+alias dsc='docker system prune -a; docker system prune --volumes'
 
 alias di='docker images'
 alias dri='docker rmi $(docker images -q)'
@@ -70,6 +73,7 @@ alias dri='docker rmi $(docker images -q)'
 alias dsr='ds && dr'
 alias dps='docker ps -a'
 alias dcup='docker-compose up'
+alias dlsn='sudo tmutil disable localsnapshot'
 
 # vim like aliases - why not!
 alias :q=exit
