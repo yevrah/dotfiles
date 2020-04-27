@@ -8,6 +8,7 @@ export EDITOR='nvim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 export DEVBOX='HARVEY'
 
+export PATH="/usr/local/opt/node@12/bin:$PATH"
 
 DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="true"

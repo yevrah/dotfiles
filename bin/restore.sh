@@ -36,7 +36,7 @@ echo "Link oh-my-zsh config"
 # git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 # chsh -s /bin/zsh
 
-mv ~/.zshrc ~/.zshrc_old
+# mv ~/.zshrc ~/.zshrc_old
 ln -s ~/dotfiles/zshrc ~/.zshrc
 
 # echo "ZSH Plugins"
