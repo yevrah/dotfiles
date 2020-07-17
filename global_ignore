@@ -7,6 +7,9 @@
 #   git config --global core.excludesfile $HOME/.global_ignore
 #
 
+.secret
+.secrets
+build-env/
 
 # Python, src https://github.com/github/gitignore/blob/master/Python.gitignore  {{{1
 #  ____        _   _                 
