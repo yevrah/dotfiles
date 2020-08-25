@@ -9,16 +9,16 @@
 
 echo "Linking bash profile"
 mv ~/.bash_profile ~/.bash_profile_old
-ln -s ~/dotfiles/bash_profile ~/.bash_profile
+ln -s ~/Documents/dotfiles/bash_profile ~/.bash_profile
 
 echo "Linking ctags config"
 rm -f ~/.ctags
-ln -s ~/dotfiles/ctags ~/.ctags
+ln -s ~/Documents/dotfiles/ctags ~/.ctags
 
 echo "Linking global ignore and running git-congig setup"
 # rm -f ~/.global_ignore
-# ln -s ~/dotfiles/global_ignore ~/.global_ignore
-git config --global core.excludesfile $HOME/dotfiles/_global_ignore
+# ln -s ~/Documents/dotfiles/global_ignore ~/.global_ignore
+git config --global core.excludesfile $HOME/Documents/dotfiles/_global_ignore
 git config --global user.name "Javier Woodhouse"
 git config --global user.email yevrah@gmail.com
 git config --global core.editor nvim
@@ -27,7 +27,7 @@ git config credential.helper store
 echo "Link nvimrc config"
 mkdir -p ~/.config/nvim
 rm -f ~/.config/nvim/init.vim
-ln -s ~/dotfiles/nvimrc ~/.config/nvim/init.vim
+ln -s ~/Documents/dotfiles/nvimrc ~/.config/nvim/init.vim
 pip3.7 install neovim
 
 echo "Link oh-my-zsh config"
@@ -37,7 +37,7 @@ echo "Link oh-my-zsh config"
 # chsh -s /bin/zsh
 
 mv ~/.zshrc ~/.zshrc_old
-ln -s ~/dotfiles/zshrc ~/.zshrc
+ln -s ~/Documents/dotfiles/zshrc ~/.zshrc
 
 # echo "ZSH Plugins"
 # cd ~/.oh-my-zsh && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git

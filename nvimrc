@@ -290,10 +290,10 @@ let g:startify_session_before_save = [
 \ ]
 
 let g:startify_bookmarks = [
-      \ { 'v': '~/dotfiles/vimrc' },
-      \ { 'n': '~/dotfiles/nvimrc' },
-      \ { 'z': '~/dotfiles/zshrc' },
-      \ { 'p': '~/dotfiles/pythonrc.py' },
+      \ { 'v': '~/Documents/dotfiles/vimrc' },
+      \ { 'n': '~/Documents/dotfiles/nvimrc' },
+      \ { 'z': '~/Documents/dotfiles/zshrc' },
+      \ { 'p': '~/Documents/dotfiles/pythonrc.py' },
       \ ]
 
 
@@ -454,7 +454,7 @@ set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_start_length = 3
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/dotfiles/NeoSnips'
+let g:neosnippet#snippets_directory='~/Documents/dotfiles/NeoSnips'
 let g:jedi#show_call_signatures = "2"
 
 inoremap <expr><C-n>  deoplete#mappings#manual_complete()
