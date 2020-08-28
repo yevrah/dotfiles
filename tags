@@ -119,6 +119,7 @@ grey_colour	vim-custom-code/plugins/color_devicons_alt.vim	/^    fun! s:grey_col
 grey_level	vim-custom-code/plugins/color_devicons_alt.vim	/^    fun! s:grey_level(n)$/;"	f
 grey_number	vim-custom-code/plugins/color_devicons_alt.vim	/^    fun! s:grey_number(x)$/;"	f
 has	bin/neofetch	/^    has() { type -p "$1" >\/dev\/null && manager="$_"; }$/;"	f
+hget	zshrc_aliases.zsh	/^hget() { \/usr\/local\/bin\/hget $1 --markdown }$/;"	f
 image_backend	bin/neofetch	/^image_backend() {$/;"	f
 info	bin/neofetch	/^info() {$/;"	f
 infoDisplay	bin/screenfetch	/^infoDisplay () {$/;"	f

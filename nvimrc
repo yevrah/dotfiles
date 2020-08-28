@@ -15,10 +15,8 @@
 "   $ mkdir -p .config/nvim
 "   $ ln -s $HOME/dotfiles/nvimrc $HOME/.config/nvim/init.vim
 "
-
 " ################ PRE-FLIGHT CHECKS ################ {{{1
 "
-
 " we need these folders to exist
 call system('mkdir -p ~/.config/nvim/backups/' )    " backups folder
 call system('mkdir -p ~/.config/nvim/undos/' )      " undo folder
@@ -51,37 +49,20 @@ endif
 "
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'chriskempson/base16-vim'          " My prefered light theme - base16-github
 Plug 'danilo-augusto/vim-afterglow'     " My preferred dark theme
-Plug 'romainl/flattened'                " Actually a better solarized
-Plug 'drewtempelmeyer/palenight.vim'    " Also a good dark scheme
-Plug 'reedes/vim-colors-pencil'         " Ai Writer theme - good light and dark options
 Plug 'pbrisbin/vim-colors-off'          " Monochrome with both light and dark
 
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
-""Plug 'junegunn/vim-easy-align'
-""Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'junegunn/vim-easy-align'
 
-" -------------------------------------------- REACT
-" https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
-" lint - https://drivy.engineering/setting-up-vim-for-react/
-" install locally
-" yarn add eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
-" install globaly: npm i -g eslint babel-eslint eslint-plugin-react prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-import stylelint eslint-config-airbnb eslint-plugin-jsx-a11y
-"//--------------------------------------------
+" Snippets
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" ReactJS and Node plugins
-Plug 'pangloss/vim-javascript'  " javascript syntax highlighting
-Plug 'mxw/vim-jsx'              " jsx syntax
-Plug 'prettier/vim-prettier'
-""Plug 'moll/vim-node'
-""Plug 'carlitux/deoplete-ternjs'
-""Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 " Tags autogeneration and management
 Plug 'ludovicchabant/vim-gutentags'
@@ -94,17 +75,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Code Completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"" Plug 'davidhalter/jedi-vim'
-"" Plug 'zchee/deoplete-jedi'
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
-
 " Visual Improvements
 Plug 'pacha/vem-tabline'
 Plug 'mhinz/vim-startify'
-"" Plug 'junegunn/goyo.vim'
 
 
 " Initialize plugin system
@@ -123,9 +96,10 @@ call plug#end()
 filetype off                    " Do not fire file events
 syntax enable                   " Enable syntax highlighting
 let mapleader=','               " Remap leader
-colorscheme base16-github       " Use afterglow theme
+colorscheme afterglow            " Use afterglow theme
 
 set nocompatible                " Disable compatibility to old-time vi
+set completeopt=menu            " Don't show preview pane on complete options
 set termguicolors               " Allow colorschemes to set colors
 set showmatch                   " Show matching brackets.
 set smartcase
@@ -184,7 +158,6 @@ nmap ga <Plug>(EasyAlign)
 
 " Delete comments '//## ...' comments, used normally when annotating files.
 nnoremap <leader>cc :g/^\s*\/\/##/d<CR>
-
 
 " Fold/Unfold using space
 nnoremap <space> za
@@ -448,56 +421,15 @@ set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 
 " ================ deoplete setup ==================="{{{2
 "
-
-" MORE CONFIG HERE: https://github.com/rafi/vim-config/blob/master/config/plugins/deoplete.vim
-"
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_start_length = 3
+let g:deoplete#disable_auto_complete = 1
+inoremap <expr> <C-n>  deoplete#manual_complete()
+
 let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/Documents/dotfiles/NeoSnips'
-let g:jedi#show_call_signatures = "2"
-
-inoremap <expr><C-n>  deoplete#mappings#manual_complete()
-
-augroup startup_deoplete
-    autocmd!
-    autocmd FileType markdown
-           \ call deoplete#custom#buffer_option('auto_complete', v:false)
-augroup END
-
-" Src: https://computableverse.com/blog/my-terminal-setup<Paste>
-" SuperTab like snippets' behavior.
-" Map expression when a tab is hit:
-"           checks if the completion popup is visible
-"           if yes
-"               tab just exits out, use <C-n>, <C-p> as normal
-"           else
-"               if expandable_or_jumpable
-"                   then expands_or_jumps
-"                   else returns a normal TAB
-
-imap <expr><TAB>
- \ pumvisible() ? "\<CR>" :
- \ neosnippet#expandable_or_jumpable() ?
- \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
- \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-" Expands or completes the selected snippet/item in the popup menu
-imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() .
-      \ "\<Plug>(neosnippet_jump_or_expand)" : "\<CR>"
-
-smap <silent><CR> <Plug>(neosnippet_jump_or_expand)
-
-
-" Vim Color Debugging
-
-" Identify the syntax highlighting group used at the cursor
-" http://vim.wikia.com/wiki/Identify_the_syntax_highlighting_group_used_at_the_cursor
-nnoremap zz :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+let g:neosnippet#snippets_directory='~/dotfiles/NeoSnips'
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+xmap <C-s> <Plug>(neosnippet_expand_target)
 
 
 "

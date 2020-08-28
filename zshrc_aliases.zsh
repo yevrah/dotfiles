@@ -37,6 +37,8 @@ function ahelp {
         tabv        : vertical split
         tabh        : horizontal split
 
+        whois-grep  : Check if domain is available, eg 'whois-grep google.com' (wg for short)
+
         quick-look  : Quick-Look a specified file
         man-preview : Open a specified man page in Preview app
         showfiles   : Show hidden files
@@ -51,11 +53,19 @@ EOF
 alias l="ls -lahF"
 alias mcd=mkdir_and_cd
 
+# Download page as markdown: https://github.com/bevacqua/hget
+hget() { /usr/local/bin/hget $1 --markdown }
+
 # Binds to port '0' which is a shortcut which asks the kernel to allocate a port from it's ip_local_port_range
 # alias ws="python2.7 -m SimpleHTTPServer 0"
 alias ws="python3 -m http.server 0"
 
+# Check domain available
+whois-grep () {
+    whois $1 | if ! grep "No match"; then; echo "Domain $1 found" >&2; fi
+}
 
+alias wg=whois-grep
 
 # Show/hide hidden files in the Finder
 alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
