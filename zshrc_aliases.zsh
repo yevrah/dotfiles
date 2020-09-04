@@ -38,6 +38,7 @@ function ahelp {
         tabh        : horizontal split
 
         whois-grep  : Check if domain is available, eg 'whois-grep google.com' (wg for short)
+        npm-do      : run locally installed npm binary
 
         quick-look  : Quick-Look a specified file
         man-preview : Open a specified man page in Preview app
@@ -55,6 +56,7 @@ alias mcd=mkdir_and_cd
 
 # Download page as markdown: https://github.com/bevacqua/hget
 hget() { /usr/local/bin/hget $1 --markdown }
+npm-do() { eval "$(npm bin)/$@" }
 
 # Binds to port '0' which is a shortcut which asks the kernel to allocate a port from it's ip_local_port_range
 # alias ws="python2.7 -m SimpleHTTPServer 0"
