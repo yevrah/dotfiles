@@ -10,6 +10,9 @@ export DEVBOX='HARVEY'
 
 export PATH="/usr/local/opt/node@12/bin:$PATH"
 
+# Add sublime support
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
 DISABLE_AUTO_UPDATE="true"
 ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"

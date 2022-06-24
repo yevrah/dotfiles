@@ -60,7 +60,7 @@ npm-do() { eval "$(npm bin)/$@" }
 
 # Binds to port '0' which is a shortcut which asks the kernel to allocate a port from it's ip_local_port_range
 # alias ws="python2.7 -m SimpleHTTPServer 0"
-alias ws="python3 -m http.server 0"
+alias ws=ws-with-cors
 
 # Check domain available
 whois-grep () {
@@ -393,4 +393,11 @@ EOF
 # Remove .DS_Store files recursively in a directory, default .
 function rmdsstore() {
 	find "${@:-.}" -type f -name .DS_Store -delete
+}
+
+
+# Create crypt file
+function x() {
+    touch $1
+    ccrypt -e "$1"
 }

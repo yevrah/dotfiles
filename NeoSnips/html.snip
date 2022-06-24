@@ -25,7 +25,7 @@ snippet bs4_ibox
 	        <h5>${1}</h5>
 	        <hr>
 	    </div>
-	
+
 	    <div class="ibox-content">
 	        <h1 class="no-margins">22 285,400</h1>
 	        <div class="stat-percent font-bold text-navy">20% <i class="fa fa-level-up"></i></div>
@@ -59,7 +59,7 @@ snippet bs4_ibox_with_tools
 
 	   <div class="ibox-content">
 	       <div>
-	
+
 	           <div class="float-right text-right">SOME</div>
 	           <h4>NYS report new data!
 	               <br>
@@ -122,10 +122,10 @@ snippet bs4_table
 
 snippet bs4_layout_modal
 	<!-- Open Modal Button -->
-	<a onclick="$('#$1').modal('show')" 
-	    data-target="#addentry" 
+	<a onclick="$('#$1').modal('show')"
+	    data-target="#addentry"
 	    class="btn btn-primary">Open Modal</a>
-	
+
 	<!-- Modal -->
 	<div id="${1:modalview}" class="modal inmodal" tabindex="-1" role="dialog">
 	    <div class="modal-dialog ${2:modal-lg}">
@@ -149,7 +149,7 @@ snippet bs4_layout_modal
 	                        <textarea class="form-control" rows="4"></textarea>
 	                    </div>
 	                </div>
-	
+
 	                <div class="LinePastPadding m-t-md">&nbsp;</div>
 	                <div class="clearfix">
 	                    <div class="pull-right m-t-sm">
@@ -170,7 +170,7 @@ snippet bs4_layout_modal
 
 snippet bs4_form_group
 	<div class="form-group">
-	    <label>${1}</label> 
+	    <label>${1}</label>
 	    <input type="${2:text}" placeholder="Enter $1" class="form-control">
 	</div>
 
@@ -185,11 +185,11 @@ snippet bs4_form_group_empty
 snippet bs4_form_row
 	<div class="form-row">
 		<div class="col">
-			<label>${1}</label> 
+			<label>${1}</label>
 			<input type="${2:text}" placeholder="Enter $1" class="form-control">
 		</div>
 		<div class="col">
-			<label>${3}</label> 
+			<label>${3}</label>
 			<input type="${4:text}" placeholder="Enter $3" class="form-control">
 		</div>
 	</div>
@@ -197,8 +197,8 @@ snippet bs4_form_row
 
 snippet bs4_form_inline_inputs
 	<div class="form-group">
-	    <label>${1}</label> 
-	
+	    <label>${1}</label>
+
 	    <div class="input-group">
 	        <input type="${2:text}" class="form-control" placeholder="${3:Start}"/>
 	        <span class="input-group-addon">-</span>
@@ -223,8 +223,8 @@ snippet bs4_input_select
 
 snippet bs4_input_phone
 	<div class="form-group">
-	    <label>${1} Phone</label> 
-	
+	    <label>${1} Phone</label>
+
 	    <div class="input-group">
 	        <input type="${2:text}" class="form-control" placeholder="${3:Area Code}"/>
 	        <span class="input-group-addon">-</span>
@@ -304,7 +304,7 @@ snippet hello_rjs
 			<script type="text/babel">
 				const comp = React.createElement('p', null, 'ReactJS Component');
 				ReactDOM.render(
-						comp, 
+						comp,
 						document.getElementById('react-container')
 				);
 

@@ -57,15 +57,17 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
+Plug 'masukomi/vim-markdown-folding'
 
 " Snippets
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
 
 " Tags autogeneration and management
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'preservim/tagbar'
+" Plug 'ludovicchabant/vim-gutentags'
 
 " Git plugins
 Plug 'tpope/vim-fugitive'
@@ -162,6 +164,9 @@ nnoremap <leader>cc :g/^\s*\/\/##/d<CR>
 " Fold/Unfold using space
 nnoremap <space> za
 nnoremap <leader><space> zR
+
+" No nested folding on markdown
+autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
 " Keep selection after indent
 vnoremap < <gv
@@ -403,7 +408,7 @@ set statusline+=%{&ff}                               " FileFormat (dos/unix..)
 set statusline+=\ │\                                 " Separator
 set statusline+=%{FugitiveHead()}                    " Git status
 set statusline+=\ │\                                 " Separator
-set statusline+=%{gutentags#statusline()}
+" set statusline+=%{gutentags#statusline()}
 set statusline+=\ │\                                 " Separator
 set statusline+=\ %{expand('%:p')}                   " File Path
 set statusline+=%=                                   " Right Side
@@ -416,20 +421,52 @@ set statusline+=%0*\ %{toupper(get(g:currentmode,mode(),char2nr(mode())))}\  " T
 set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 
 
-" ################ EXMPERIMENTAL ####################"{{{1
+" ################ EXPERIMENTAL ####################"{{{1
 "
+
+" Add suport for encrypted files
+augroup CPT
+au!
+au BufReadPre *.cpt set bin
+au BufReadPre *.cpt set viminfo=
+au BufReadPre *.cpt set noswapfile
+au BufReadPost *.cpt let $vimpass = inputsecret("Password: ")
+au BufReadPost *.cpt silent '[,']!ccrypt -cb -E vimpass
+au BufReadPost *.cpt set nobin
+au BufWritePre *.cpt set bin
+au BufWritePre *.cpt '[,']!ccrypt -e -E vimpass
+au BufWritePost *.cpt u
+au BufWritePost *.cpt set nobin
+augroup END
+
+" Add support for markdown files in tagbar.
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : '/Users/harvey/Documents/dotfiles/bin/markdown2ctags.py',
+    \ 'ctagsargs' : '-f - --sort=yes --sro=»',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '»',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 " ================ deoplete setup ==================="{{{2
 "
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
-inoremap <expr> <C-n>  deoplete#manual_complete()
 
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory='~/dotfiles/NeoSnips'
-imap <C-s> <Plug>(neosnippet_expand_or_jump)
-smap <C-s> <Plug>(neosnippet_expand_or_jump)
-xmap <C-s> <Plug>(neosnippet_expand_target)
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#disable_auto_complete = 1
+" inoremap <expr> <C-n>  deoplete#manual_complete()
+"
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#snippets_directory='~/Documents/dotfiles/NeoSnips'
+" imap <C-s> <Plug>(neosnippet_expand_or_jump)
+" smap <C-s> <Plug>(neosnippet_expand_or_jump)
+" xmap <C-s> <Plug>(neosnippet_expand_target)
 
 
 "
