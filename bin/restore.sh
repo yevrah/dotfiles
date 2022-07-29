@@ -15,7 +15,7 @@ echo "Linking ctags config"
 rm -f ~/.ctags
 ln -s ~/Documents/dotfiles/ctags ~/.ctags
 
-echo "Linking global ignore and running git-congig setup"
+echo "Linking global ignore and running git-config setup"
 # rm -f ~/.global_ignore
 # ln -s ~/Documents/dotfiles/global_ignore ~/.global_ignore
 git config --global core.excludesfile $HOME/Documents/dotfiles/_global_ignore
@@ -49,5 +49,5 @@ ln -s ~/dotfiles/zshrc ~/.zshrc
 # cd ~/.oh-my-zsh && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
 
 
-# echo "Running mackup respore"
+# echo "Running mackup restore"
 # mackup restore

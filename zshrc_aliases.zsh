@@ -7,6 +7,7 @@ function ahelp {
         -------------------------------------------------------------------
         mcd         : create and cd into folder
         ws          : create a static webserver
+        mt          : open marktext editor
 
         :q          : run exit command
         :e          : open neovim and edit file if available, eg \`:e /etc/my.cnf\`
@@ -53,10 +54,14 @@ EOF
 # My aliases {{{1
 alias l="ls -lahF"
 alias mcd=mkdir_and_cd
+alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
 
 # Download page as markdown: https://github.com/bevacqua/hget
 hget() { /usr/local/bin/hget $1 --markdown }
 npm-do() { eval "$(npm bin)/$@" }
+
+# Open Marktext Markdown Editor
+mt() {open -a /Applications/MarkText.app ./$1}
 
 # Binds to port '0' which is a shortcut which asks the kernel to allocate a port from it's ip_local_port_range
 # alias ws="python2.7 -m SimpleHTTPServer 0"
