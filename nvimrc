@@ -57,7 +57,13 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
-Plug 'masukomi/vim-markdown-folding'
+
+" Markdown experimens
+" Plug 'masukomi/vim-markdown-folding'
+" Plug 'SidOfc/mkdx'
+" Plug 'gabrielelana/vim-markdown'
+" Plug 'godlygeek/tabular'
+" Plug 'preservim/vim-markdown'
 
 " Snippets
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -162,11 +168,11 @@ nmap ga <Plug>(EasyAlign)
 nnoremap <leader>cc :g/^\s*\/\/##/d<CR>
 
 " Fold/Unfold using space
-nnoremap <space> za
+nnoremap <space> zA
 nnoremap <leader><space> zR
 
 " No nested folding on markdown
-autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
+" autocmd FileType markdown set foldexpr=NestedMarkdownFolds()
 
 " Keep selection after indent
 vnoremap < <gv
@@ -307,6 +313,48 @@ function! NeatFoldText()
   return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
+
+
+" Simplified Markdown Folds - no need for complex plugins
+" Thanks to
+" - https://gist.github.com/sjl/1038710
+" - https://stackoverflow.com/questions/3828606/vim-markdown-folding
+" - https://www.markdownguide.org/basic-syntax/
+
+function! MarkdownLevel()
+    " Headings using '#' symbols
+    if getline(v:lnum) =~ '^# .*$'
+        return ">1"
+    endif
+    if getline(v:lnum) =~ '^## .*$'
+        return ">2"
+    endif
+    if getline(v:lnum) =~ '^### .*$'
+        return ">3"
+    endif
+    if getline(v:lnum) =~ '^#### .*$'
+        return ">4"
+    endif
+    if getline(v:lnum) =~ '^##### .*$'
+        return ">5"
+    endif
+    if getline(v:lnum) =~ '^###### .*$'
+        return ">6"
+    endif
+
+    " Headings Using == and --
+    if getline(v:lnum+1) =~ '^==\+\s*'
+        return ">1"
+    endif
+    if getline(v:lnum+1) =~ '^--\+\s*'
+        return ">2"
+    endif
+
+
+    return "="
+endfunction
+au BufEnter *.md setlocal foldexpr=MarkdownLevel()
+au BufEnter *.md setlocal foldmethod=expr
 
 
 " ================ buffer interactions =============="{{{2

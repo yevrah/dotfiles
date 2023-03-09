@@ -1,7 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 # Defaults
 
-export PATH=$HOME/Documents/dotfiles/bin/:$PATH
+export PATH=$HOME/.kit/bin:~/.kenv/bin:$HOME/Documents/dotfiles/bin:$PATH
 export DOTFILES=$HOME/Documents/dotfiles
 
 export EDITOR='nvim'
@@ -35,6 +35,6 @@ source $DOTFILES/zshrc_env_plugin.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # pnpm
-export PNPM_HOME="/Users/harvey/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+# export PNPM_HOME="/Users/harvey/Library/pnpm"
+# export PATH="$PNPM_HOME:$PATH"
 # pnpm end

@@ -75,8 +75,8 @@ Plugin 'davidhalter/jedi-vim'
 if has('mac')
 Plugin 'plytophogy/vim-virtualenv'
 Plugin 'gbigwood/Clippo'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'nelstrom/vim-markdown-folding'
+" Plugin 'jtratner/vim-flavored-markdown'
+" Plugin 'nelstrom/vim-markdown-folding'
 "Plugin 'gabrielelana/vim-markdown'
 Plugin 'vim-voom/VOoM'
 Plugin 'Raimondi/delimitMate'
@@ -413,7 +413,9 @@ set expandtab
 
 set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd filetype c,asm,python setlocal shiftwidth=4 tabstop=4 softtabstop=4 " foldmethod=indent
-autocmd filetype python setlocal foldmethod=indent
+
+
+
 
 
 
@@ -583,6 +585,11 @@ nnoremap <Leader>. :setlocal spell! spelllang=en_us<CR>
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 set foldmethod=marker
+
+
+autocmd filetype python setlocal foldmethod=indent
+
+
 hi Folded term=bold cterm=NONE ctermfg=lightblue " ctermbg=NONE
 set fillchars+=fold:\·
 
@@ -722,5 +729,3 @@ command! Write :!sudo tee %
 
 " Helpers for Simplerr
 command! RunServer execute "term python manage.py runserver --site=website"
-
-
