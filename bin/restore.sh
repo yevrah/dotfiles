@@ -36,14 +36,14 @@ echo "Link oh-my-zsh config"
 # git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 # chsh -s /bin/zsh
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-compaudit | xargs chmod g-w,o-w
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# compaudit | xargs chmod g-w,o-w
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
 
 mv ~/.zshrc ~/.zshrc_old
-ln -s ~/dotfiles/zshrc ~/.zshrc
+ln -s ~/Documents/dotfiles/zshrc ~/.zshrc
 
 # echo "ZSH Plugins"
 # cd ~/.oh-my-zsh && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git

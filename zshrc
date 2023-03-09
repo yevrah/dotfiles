@@ -19,7 +19,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Plugins - Install with
 #  k: $ git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
-plugins=(git npm z yarn pip k zsh-syntax-highlighting)
+plugins=(git npm z yarn pip zsh-syntax-highlighting)
 
 # Loads color aliases
 autoload -U colors && colors
