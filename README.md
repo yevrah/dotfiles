@@ -8,4 +8,4 @@ The network isntall clones the dotfiles project to `~/dotfiles`, in addition to 
 
     curl -sS https://raw.githubusercontent.com/yevrah/dotfiles/master/install.sh | /bin/bash
 
-
+TODO: Add oh-my-zsh install
