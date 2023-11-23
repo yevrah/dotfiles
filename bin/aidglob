@@ -1,4 +1,12 @@
 #!/bin/bash
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
-aider --model gpt-4-1106-preview "$@"
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <file-glob> <command-string>"
+    exit 1
+fi
+
+file_glob="$1"
+command_str="$2"
+
+aider --model gpt-4-1106-preview --file-glob "$file_glob" --command "$command_str"
