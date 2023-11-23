@@ -1,0 +1,4 @@
+#!/bin/bash
+source /Users/harvey/Documents/dotfiles.private/config.sh
+
+aider --model gpt-4-1106-preview "$@"
