@@ -2,6 +2,8 @@
 # SRC: https://github.com/0xacx/chatGPT-shell-cli
 GLOBIGNORE="*"
 
+PATH=$PATH:/Users/harvey/.iterm2
+
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
 if [ $# -eq 0 ]; then

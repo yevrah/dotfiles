@@ -55,6 +55,7 @@ EOF
 alias l="ls -lahF"
 alias mcd=mkdir_and_cd
 alias pf="fzf --preview='less {}' --bind shift-up:preview-page-up,shift-down:preview-page-down"
+alias pyc="open -na \"PyCharm.app\" --args \"$@\""
 
 # Download page as markdown: https://github.com/bevacqua/hget
 hget() { /usr/local/bin/hget $1 --markdown }

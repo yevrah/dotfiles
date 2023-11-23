@@ -46,7 +46,7 @@ endif
 
 
 " ################ PLUG SECTION   ################### {{{1
-"
+
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'danilo-augusto/vim-afterglow'     " My preferred dark theme
@@ -55,7 +55,7 @@ Plug 'pbrisbin/vim-colors-off'          " Monochrome with both light and dark
 " General Improvements
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'w0rp/ale'
+""" Plug 'w0rp/ale'
 Plug 'junegunn/vim-easy-align'
 
 " Markdown experimens
@@ -87,6 +87,38 @@ Plug 'junegunn/fzf.vim'
 Plug 'pacha/vem-tabline'
 Plug 'mhinz/vim-startify'
 
+" Install individual language servers with
+"   :CocInstall coc-json coc-tsserver
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+
+" " Language Server!
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+"     \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+"     \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+"     \ 'python': ['/usr/local/bin/pyls'],
+"     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+"     \ }
+
+" " note that if you are using Plug mapping you should not use `noremap` mappings.
+" nmap <F5> <Plug>(lcn-menu)
+" " Or map each action separately
+" nmap <silent>K <Plug>(lcn-hover)
+" nmap <silent> gd <Plug>(lcn-definition)
+" nmap <silent> <F2> <Plug>(lcn-rename)
+
+
+
+
+
+" PHP Stuff
+""" Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 
 " Initialize plugin system
 call plug#end()
@@ -127,9 +159,17 @@ set splitbelow                  " Split predictably below
 set splitright                  " Split redictably right
 
 set undofile                    " Use undo files
-set backup                      " Use backups
-set undodir=~/.config/nvim/undos       " And set location
-set backupdir=~/.config/nvim/backups   " keep backups at this dir
+""" set backup                      " Use backups
+""" set undodir=~/.config/nvim/undos       " And set location
+""" set backupdir=~/.config/nvim/backups   " keep backups at this dir
+
+""" Settings for CoC - see docs https://github.com/neoclide/coc.nvim
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
+
 set directory=~/.config/nvim/swaps     " Keeo swapfiles here
 
 set modeline                    " use modelines
@@ -469,23 +509,111 @@ set statusline+=%0*\ %{toupper(get(g:currentmode,mode(),char2nr(mode())))}\  " T
 set statusline+=%0*%{toupper(PasteMode())}\          " The current mode
 
 
-" ################ EXPERIMENTAL ####################"{{{1
+" ================ coc nvim setup ==================="{{{2
+"
 "
 
-" Add suport for encrypted files
-augroup CPT
-au!
-au BufReadPre *.cpt set bin
-au BufReadPre *.cpt set viminfo=
-au BufReadPre *.cpt set noswapfile
-au BufReadPost *.cpt let $vimpass = inputsecret("Password: ")
-au BufReadPost *.cpt silent '[,']!ccrypt -cb -E vimpass
-au BufReadPost *.cpt set nobin
-au BufWritePre *.cpt set bin
-au BufWritePre *.cpt '[,']!ccrypt -e -E vimpass
-au BufWritePost *.cpt u
-au BufWritePost *.cpt set nobin
-augroup END
+" 'coc-git',
+" 'coc-angular',
+" 'coc-cmake',
+" 'coc-docker',
+" 'coc-explorer',
+" 'coc-fzf-preview',
+" 'coc-html'
+" 'coc-lightbulb',
+" 'coc-phpactor',
+" 'coc-prisma',
+" 'coc-pydocstring',
+" 'coc-snippets',
+let g:coc_global_extensions = [
+            \   'coc-json',
+            \   'coc-html',
+            \   'coc-css',
+            \   'coc-prettier',
+            \   'coc-pyright',
+            \   'coc-sh',
+            \   'coc-tsserver',
+            \   'coc-eslint',
+            \   'coc-pairs',
+            \   'coc-phpls',
+            \   'coc-phpactor']
+
+
+
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Command Palette
+command! -nargs=0 CC :CocCommand
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+command! -nargs=0 CCPrettier :CocCommand prettier.formatFile
+
+command! -nargs=0 Snippets :CocCommand snippets.editSnippets
+command! -nargs=0 CCSnippets :CocCommand snippets.editSnippets
+
+command! -nargs=0 Diagnostics :Diagnostics
+command! -nargs=0 CCDiagnostics :Diagnostics
+
+command! -nargs=0 CCRename :call CocActionAsync('rename')
+command! -nargs=0 CCRefactor :call CocActionAsync('refactor')
+
+command! -nargs=0 CCGoDefinition :call CocActionAsync('jumpDefinition')
+command! -nargs=0 CCGoImplementation :call CocActionAsync('jumpImplementation')
+command! -nargs=0 CCGoReferences :call CocActionAsync('jumpReferences')
+command! -nargs=0 CCGoDoc :call CocActionAsync('doHover')
+
+command! -nargs=0 CCDoFormat :call CocActionAsync('formatSelected')
+command! -nargs=0 CCDoFormatAll :call CocActionAsync('format')
+command! -nargs=0 CCDoOrganiseImports :call CocActionAsync('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 CCDoHideSuggestions :let b:coc_suggest_disable = 1<CR>
+
+""" Should use the below for the above
+"""
+""      function! ShowDocumentation()
+""        if CocAction('hasProvider', 'hover')
+""          call CocActionAsync('doHover')
+""        else
+""          call feedkeys('K', 'in')
+""        endif
+""      endfunction
+
+
+" Tab commpletions
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Disable autocomplete suggestions
+let b:coc_suggest_disable = 1
+
+" gd to go to definition
+nmap <silent> gd <Plug>(coc-definition)
+" gr to go to reference
+nmap <silent> gr <Plug>(coc-references)
+
+" Minor color tweak for type hints
+" hi CocInlayHint guibg=Red guifg=Blue ctermbg=Red ctermfg=Blue
+hi CocInlayHint guifg=Gray ctermfg=Gray
+
+" ################ EXPERIMENTAL ####################"{{{1
+"
 
 " Add support for markdown files in tagbar.
 let g:tagbar_type_markdown = {
@@ -503,19 +631,6 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
-" ================ deoplete setup ==================="{{{2
-"
-
-" let g:deoplete#enable_at_startup = 1
-" let g:deoplete#disable_auto_complete = 1
-" inoremap <expr> <C-n>  deoplete#manual_complete()
-"
-" let g:neosnippet#enable_snipmate_compatibility = 1
-" let g:neosnippet#snippets_directory='~/Documents/dotfiles/NeoSnips'
-" imap <C-s> <Plug>(neosnippet_expand_or_jump)
-" smap <C-s> <Plug>(neosnippet_expand_or_jump)
-" xmap <C-s> <Plug>(neosnippet_expand_target)
-
 
 "
 " Markdown Helpers
@@ -528,42 +643,64 @@ nnoremap <leader>gb :!open -a "Google Chrome" %
 "
 " Ale config
 "
+""" SWITCHED OFF TO TEST Coc
+""" nmap <silent> [c <Plug>(ale_previous_wrap)
+""" nmap <silent> ]c <Plug>(ale_next_wrap)
+"""
+""" " Sign column, custom text and always on
+""" highlight clear ALEErrorSign
+""" highlight clear ALEWarningSign
+""" let g:ale_sign_error = '❌'
+""" let g:ale_sign_warning = '⚠️'
+""" let g:ale_sign_column_always = 1
+"""
+""" " let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+""" " let g:ale_sign_warning = '.'
+""" "
+""" " Ale linters and fixers, needs additionl support if you want to use - perform
+""" " the following:
+""" "
+""" "   pip install black
+""" let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
+"""
+""" " PHP Ale setup
+""" " --------------
+""" " php gives us basic syntax checking. langserver provides completion and
+""" " go-to-definition functionality. phan checks types and warns for undefined
+""" " symbols.
+"""
+""" let g:ale_linters = {
+"""             \     'javascript': ['eslint', 'tsserver'],
+"""             \     'typescript': ['eslint', 'tsserver'],
+"""             \     'python': ['flake8', 'mypy', 'pyls'],
+"""             \     'php': ['php', 'phpactor', 'phan']
+"""             \ }
+"""
+""" " Fix files automatically on save
+""" let g:ale_fix_on_save = 1
+""" let g:ale_fixers = {
+"""             \    '*': ['remove_trailing_lines', 'trim_whitespace'],
+"""             \    'javascript': ['eslint'],
+"""             \    'typescript': ['eslint', 'tsserver'],
+"""             \    'python': ['black'],
+"""             \    'css': ['prettier']
+"""             \ }
 
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
 
-" Sign column, custom text and always on
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_sign_column_always = 1
-
-" let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-" let g:ale_sign_warning = '.'
+" Debug colorscheme
+" Showing highlight groups
+" This function will show what groups are being applied. Add to your ~/.vimrc,
+" place your cursor over the item in question, and press <leader>sz to output
+" the groups.
 "
-" Ale linters and fixers, needs additionl support if you want to use - perform
-" the following:
-"
-"   pip install black
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
-
-
-let g:ale_linters = {
-            \     'javascript': ['eslint', 'tsserver'],
-            \     'typescript': ['eslint', 'tsserver'],
-            \     'python': ['flake8', 'mypy', 'pyls']
-            \ }
-
-" Fix files automatically on save
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-            \    '*': ['remove_trailing_lines', 'trim_whitespace'],
-            \    'javascript': ['eslint'],
-            \    'typescript': ['eslint', 'tsserver'],
-            \    'python': ['black'],
-            \    'css': ['prettier']
-            \ }
+" @see https://jordanelver.co.uk/blog/2015/05/27/working-with-vim-colorschemes
+nmap <leader>sz :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
 " ================ additional Vim Commands =========="{{{2
 "   __  _ _  __  ___ _  _   _    __  _   _  __
@@ -593,4 +730,5 @@ command! KillAll :bufdo bd
 " Find Replace Helper
 nnoremap <leader>fr :!find . -type f \| xargs perl -pi -e 's/<C-R><C-W>/newwordhere/g'
 
+hi Conceal ctermfg=7 ctermbg=242 guifg=black guibg=DarkGrey
 " vim: set ts=4 sw=4 tw=78 fdm=marker et :

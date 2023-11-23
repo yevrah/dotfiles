@@ -32,3 +32,7 @@ source $DOTFILES/zshrc_aliases.zsh
 source $DOTFILES/zshrc_env_plugin.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
