@@ -1,0 +1,4 @@
+#!/bin/bash
+source /Users/harvey/Documents/dotfiles.private/config.sh
+
+aider "$@"
