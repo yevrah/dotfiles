@@ -1,4 +1,4 @@
 #!/bin/bash
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
-aider "$@"
+aider --model gpt-4 "$@"
