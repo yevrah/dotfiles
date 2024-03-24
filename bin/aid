@@ -1,10 +1,4 @@
 #!/bin/bash
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
-if [[ -n $(ls $1 2> /dev/null) ]]; then
-    for file in $1; do
-        aider --model gpt-4 "$2" "$file"
-    done
-else
-    aider --model gpt-4 "$@"
-fi
+aider --model gpt-4-1106-preview "$@"

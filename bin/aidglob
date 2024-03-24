@@ -1,4 +1,20 @@
 #!/bin/bash
+
+# Using Aider Chat: https://aider.chat/
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
-aider --model gpt-4-1106-preview "$@"
+# The $# special variable. Its value is the number of arguments. 
+if [ "$#" -lt 2 ]; then
+    echo "Usage: $0 <request-string> <files or file glob>"
+    exit 1
+fi
+
+request_str="$1"; shift
+file_glob="$1"
+
+echo "Processing Request: $request_str"
+
+for file in $@; do
+ aider --model gpt-4-1106-preview --message "$request_str" "$file"
+done
+
