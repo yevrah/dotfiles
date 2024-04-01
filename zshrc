@@ -1,38 +1,24 @@
-export ZSH=$HOME/.oh-my-zsh
-# Defaults
+# Fastfect niceeties
+fastfetch --load-config ./fastfect.jsonc
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
 export PATH=$HOME/Documents/dotfiles/bin:$PATH
-# Add sublime support
-export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
 export DOTFILES=$HOME/Documents/dotfiles
+export ZSH="$HOME/.oh-my-zsh"
 
-export EDITOR='nvim'
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-export DEVBOX='HARVEY'
 
-ZSH_THEME=robbyrussell
+plugins=(git npm z pip zsh-syntax-highlighting zsh-autosuggestions)
 
-DISABLE_AUTO_UPDATE="true"
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS="true"
-
-# Plugins - Install with
-#  k: $ git clone https://github.com/supercrabtree/k $ZSH_CUSTOM/plugins/k
-plugins=(git npm z yarn pip)
-
-# Loads color aliases
-autoload -U colors && colors
-
-# Extras
+ZSH_THEME="robbyrussell"
 source $ZSH/oh-my-zsh.sh
-
-source $DOTFILES/zshrc-motd.zsh
-source $DOTFILES/zshrc-theme.zsh
 source $DOTFILES/zshrc_aliases.zsh
-source $DOTFILES/zshrc_env_plugin.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source $HOME/powerlevel10k/powerlevel10k.zsh-theme
+source $HOME/.p10k.zsh
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"

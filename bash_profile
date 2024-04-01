@@ -142,4 +142,4 @@ bind 'set show-all-if-ambiguous on'
 # When autocompleting for cd or rmdir, list only directories as choices.
 complete -d cd rmdir
 
-export PATH="$HOME/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
