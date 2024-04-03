@@ -19,6 +19,7 @@ EOF
 fi
 
 git pull
+# git add -A
 git add -A -p
 git commit -m "$*"
 git push
