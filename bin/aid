@@ -1,4 +1,13 @@
 #!/bin/bash
 source /Users/harvey/Documents/dotfiles.private/config.sh
 
-aider --model gpt-4-1106-preview "$@"
+# Make sure to install the latest aider here with:
+# python -m pip install git+https://github.com/paul-gauthier/aider.git
+#  source /Users/harvey/Projects/open-source/aider/env/bin/activate
+#  aider  "$@"
+
+#source /Users/harvey/Projects/yevrah/my-aider/aider-src/env/bin/activate
+#python /Users/harvey/Projects/yevrah/my-aider/aider-src/aider/main.py
+
+source /Users/harvey/Projects/yevrah/my-aider/aider-env/env/bin/activate
+aider

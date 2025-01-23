@@ -18,8 +18,8 @@ EOF
     exit 1
 fi
 
-git pull
-# git add -A
-git add -A -p
+git add -A
+#git add -A -p
 git commit -m "$*"
+git pull
 git push

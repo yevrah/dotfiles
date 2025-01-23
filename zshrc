@@ -8,7 +8,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH=$HOME/Documents/dotfiles/bin:$PATH
+export PATH=$HOME/Documents/dotfiles/bin:$PATH::$(go env GOPATH)/bin
 export DOTFILES=$HOME/Documents/dotfiles
 export ZSH="$HOME/.oh-my-zsh"
 
