@@ -9,5 +9,10 @@ source /Users/harvey/Documents/dotfiles.private/config.sh
 #source /Users/harvey/Projects/yevrah/my-aider/aider-src/env/bin/activate
 #python /Users/harvey/Projects/yevrah/my-aider/aider-src/aider/main.py
 
-source /Users/harvey/Projects/yevrah/my-aider/aider-env/env/bin/activate
-aider
+# source /Users/harvey/Projects/yevrah/my-aider/aider-env/env/bin/activate
+# aider
+
+
+#source /Users/harvey/Projects/yevrah/my-aider/aider-original/env/bin/activate
+#aider  --model o1-preview "$@"
+aider "$@"

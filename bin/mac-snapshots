@@ -1,0 +1,29 @@
+#!make -f
+
+MAKEFILE_JUSTNAME := $(firstword $(MAKEFILE_LIST))
+MAKEFILE_COMPLETE := $(CURDIR)/$(MAKEFILE_JUSTNAME)
+
+help:
+	## https://eshop.macsales.com/blog/56681-working-with-macos-snapshots/?srsltid=AfmBOoqz48-ytDoXpYoa8Md3qx87iBxlVg7GNnMYRyg2RGrsxkx16W-W
+	@echo "Hello $(MAKEFILE_JUSTNAME)"
+	@echo "Hello $(MAKEFILE_COMPLETE)"
+	grep 
+
+snap:
+	tmutil localsnapshot
+
+list:
+
+	@tmutil listlocalsnapshots /
+	@echo "---"
+	@tmutil listlocalsnapshotdates /
+
+mount:
+	IFS=$$'\n'; 											\
+	SNAPS=($$(tmutil listlocalsnapshotdates /)); 		\
+	select SNAP in "$${SNAPS[@]}"; 						\
+	echo "$$SNAP"
+	
+	
+	##mkdir /private/tmp/snappy
+	##mount_apfs -s com.apple.TimeMachine.2019-12-07-171533.local / /private/tmp/snappy
